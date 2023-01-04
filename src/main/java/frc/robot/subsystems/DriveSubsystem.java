@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.commands.DriveCommand;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -50,4 +52,11 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  // Set the default command for the subsystem (null by default)
+  public void initDefaultCommand() {
+		setDefaultCommand(new DriveCommand(this, 
+    () -> { return Robot.m_stick.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);}, 
+    () -> { return Robot.m_stick.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);}));
+	}
 }
