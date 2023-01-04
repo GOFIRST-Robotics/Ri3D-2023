@@ -103,12 +103,4 @@ public class RobotContainer {
   public boolean getRightTrigger() {
     return m_stick.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
   }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return new InstantCommand(); // Return blank command: Instantly executes nothing and finishes
-  }
 }
