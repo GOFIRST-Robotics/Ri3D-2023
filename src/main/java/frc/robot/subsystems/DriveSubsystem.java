@@ -23,10 +23,20 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftRearMotor = new TalonSRX(Constants.LEFT_REAR_DRIVE_MOTOR_ID);
     m_rightRearMotor = new TalonSRX(Constants.RIGHT_REAR_DRIVE_MOTOR_ID);
 
+    m_leftFrontMotor.configFactoryDefault();
+    m_rightFrontMotor.configFactoryDefault();
+    m_leftRearMotor.configFactoryDefault();
+    m_rightRearMotor.configFactoryDefault();
+
     m_leftFrontMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightFrontMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
     m_leftRearMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
+
+    m_leftFrontMotor.setNeutralMode(Constants.DRIVE_NEUTRAL);
+    m_rightFrontMotor.setNeutralMode(Constants.DRIVE_NEUTRAL);
+    m_leftRearMotor.setNeutralMode(Constants.DRIVE_NEUTRAL);
+    m_rightRearMotor.setNeutralMode(Constants.DRIVE_NEUTRAL);
   }
 
   public void drive(double left, double right) {

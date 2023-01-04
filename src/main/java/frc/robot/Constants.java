@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -57,18 +58,22 @@ public final class Constants {
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = false; // // XBox controller flips vertical axis, changing is effort
+    public static final NeutralMode DRIVE_NEUTRAL = NeutralMode.Brake;
 
     // Intake Constants //
     public static final double INTAKE_SPEED = 0.8;
     public static final double INTAKE_EXTEND_SPEED = 0.3;
     public static final double INTAKE_RETRACT_SPEED = -0.3;
     public static final boolean INTAKE_INVERT = false;
+    public static final NeutralMode INTAKE_NEUTRAL = NeutralMode.Brake;
     public static final boolean INTAKE_EXTENDER_MASTER_INVERT = true;
     public static final InvertType INTAKE_EXTENDER_FOLLOWER_INVERT = InvertType.OpposeMaster;
 
     // Feeder Constants //
     public static final boolean FEEDER_INVERT_LEFT = true;
     public static final boolean FEEDER_INVERT_RIGHT = false;
+    public static final NeutralMode FEEDER_NEUTRAL_LEFT = NeutralMode.Brake;
+    public static final NeutralMode FEEDER_NEUTRAL_RIGHT = NeutralMode.Brake;
     public static final double FEEDER_FORWARD_SPEED = 0.8;
     public static final double FEEDER_REVERSE_SPEED = -0.8;
 
@@ -82,4 +87,6 @@ public final class Constants {
     public static final double CLIMBER_CLIMB_SPEED = -1.0;
     public static final boolean CLIMBER_1_INVERT = true;
     public static final boolean CLIMBER_2_INVERT = true;
+    public static final NeutralMode CLIMBER_1_NEUTRAL = NeutralMode.Brake;
+    public static final NeutralMode CLIMBER_2_NEUTRAL = NeutralMode.Brake;
 }

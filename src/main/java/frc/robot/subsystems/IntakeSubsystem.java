@@ -25,14 +25,17 @@ public class IntakeSubsystem extends SubsystemBase {
 
     m_extenderMasterMotor.configFactoryDefault();
     m_extenderFollowerMotor.configFactoryDefault();
+    m_motor.configFactoryDefault();
 
     m_extenderFollowerMotor.follow(m_extenderMasterMotor);
+
     m_extenderMasterMotor.setInverted(Constants.INTAKE_EXTENDER_MASTER_INVERT);
     m_extenderFollowerMotor.setInverted(Constants.INTAKE_EXTENDER_FOLLOWER_INVERT);
     m_motor.setInverted(Constants.INTAKE_INVERT);
 
     m_extenderMasterMotor.setNeutralMode(NeutralMode.Brake);
     m_extenderFollowerMotor.setNeutralMode(NeutralMode.Brake);
+    m_motor.setNeutralMode(Constants.INTAKE_NEUTRAL);
   }
 
   public void setMotor(double value) {

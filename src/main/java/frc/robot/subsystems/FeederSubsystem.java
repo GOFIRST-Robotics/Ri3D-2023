@@ -19,8 +19,14 @@ public class FeederSubsystem extends SubsystemBase {
     m_leftFeeder = new TalonSRX(Constants.FEEDER_LEFT_MOTOR_ID);
     m_rightFeeder = new TalonSRX(Constants.FEEDER_RIGHT_MOTOR_ID);
 
+    m_leftFeeder.configFactoryDefault();
+    m_rightFeeder.configFactoryDefault();
+
     m_leftFeeder.setInverted(Constants.FEEDER_INVERT_LEFT);
     m_rightFeeder.setInverted(Constants.FEEDER_INVERT_RIGHT);
+
+    m_leftFeeder.setNeutralMode(Constants.FEEDER_NEUTRAL_LEFT);
+    m_rightFeeder.setNeutralMode(Constants.FEEDER_NEUTRAL_RIGHT);
   }
 
   public void setMotors(double power) {

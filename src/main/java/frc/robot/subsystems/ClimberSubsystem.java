@@ -19,8 +19,14 @@ public class ClimberSubsystem extends SubsystemBase {
     m_motor1 = new TalonSRX(Constants.CLIMBER_1_MOTOR_ID);
     m_motor2 = new TalonSRX(Constants.CLIMBER_2_MOTOR_ID);
 
+    m_motor1.configFactoryDefault();
+    m_motor2.configFactoryDefault();
+
     m_motor1.setInverted(Constants.CLIMBER_1_INVERT);
     m_motor2.setInverted(Constants.CLIMBER_2_INVERT);
+
+    m_motor1.setNeutralMode(Constants.CLIMBER_1_NEUTRAL);
+    m_motor2.setNeutralMode(Constants.CLIMBER_2_NEUTRAL);
   }
 
   public void setMotors(double value) {
