@@ -27,9 +27,8 @@ import frc.robot.subsystems.ShooterSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and commands are defined here //
   
-
   private Joystick m_stick = new Joystick(Constants.STICK_ID);
 
   private DriveSubsystem m_driveSubsystem = new DriveSubsystem();
@@ -43,11 +42,9 @@ public class RobotContainer {
     () -> { return m_stick.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS); }
   );
   
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
+    configureButtonBindings(); // Configure the button bindings
 
     m_driveSubsystem.setDefaultCommand(m_driveCommand);
   }
@@ -109,11 +106,9 @@ public class RobotContainer {
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Return blank command: Instantly executes nothing and finishes
-    return new InstantCommand();
+    return new InstantCommand(); // Return blank command: Instantly executes nothing and finishes
   }
 }
