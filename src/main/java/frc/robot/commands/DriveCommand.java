@@ -12,7 +12,6 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
 
-  // The default tank drive mechanism
   public DriveCommand() {
     m_subsystem = Robot.m_driveSubsystem;
     addRequirements(m_subsystem);
@@ -25,8 +24,8 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Double left_power = Robot.m_stick.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-    Double right_power = Robot.m_stick.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+    Double left_power = Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+    Double right_power = Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
     m_subsystem.drive(left_power, right_power);
   }
 

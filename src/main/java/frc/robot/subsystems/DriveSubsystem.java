@@ -12,12 +12,13 @@ import frc.robot.Constants;
 import frc.robot.commands.DriveCommand;
 
 public class DriveSubsystem extends SubsystemBase {
-  /** Creates a new DriveSubsystem. */
+  
   private TalonSRX m_leftFrontMotor;
   private TalonSRX m_rightFrontMotor;
   private TalonSRX m_leftRearMotor;
   private TalonSRX m_rightRearMotor;
 
+  /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     m_leftFrontMotor = new TalonSRX(Constants.LEFT_FRONT_DRIVE_MOTOR_ID);
     m_rightFrontMotor = new TalonSRX(Constants.RIGHT_FRONT_DRIVE_MOTOR_ID);
@@ -52,8 +53,8 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  // Set the default command for the subsystem (null by default)
+  // Set the default command for the subsystem
   public void initDefaultCommand() {
-		setDefaultCommand(new DriveCommand());
+		setDefaultCommand(new DriveCommand()); // By default we want teleop driving
 	}
 }

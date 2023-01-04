@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase {
-  /** Creates a new ClimberSubsystem. */
+  
   private TalonSRX m_motor1;
   private TalonSRX m_motor2;
 
+  /** Creates a new ClimberSubsystem. */
   public ClimberSubsystem() {
     m_motor1 = new TalonSRX(Constants.CLIMBER_1_MOTOR_ID);
     m_motor2 = new TalonSRX(Constants.CLIMBER_2_MOTOR_ID);

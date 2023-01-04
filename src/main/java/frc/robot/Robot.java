@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   CommandBase m_autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
 
-  public static final Joystick m_stick = new Joystick(Constants.STICK_ID);
+  public static final Joystick controller = new Joystick(Constants.USB_PORT_ID);
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
@@ -131,30 +131,30 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_stick, Constants.Y_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleSolenoid));
-    new JoystickButton(m_stick, Constants.B_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleShooter));
-    new JoystickButton(m_stick, Constants.X_BUTTON).whileTrue(new StartEndCommand(
+    new JoystickButton(controller, Constants.Y_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleSolenoid));
+    new JoystickButton(controller, Constants.B_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleShooter));
+    new JoystickButton(controller, Constants.X_BUTTON).whileTrue(new StartEndCommand(
       () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
       () -> m_feederSubsystem.setMotors(0.0), 
       m_feederSubsystem
     ));
-    new JoystickButton(m_stick, Constants.A_BUTTON).whileTrue(new StartEndCommand(
+    new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
       () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
       () -> m_feederSubsystem.setMotors(0.0), 
       m_feederSubsystem
     ));
-    new JoystickButton(m_stick, Constants.RIGHT_BUMPER).whileTrue(new StartEndCommand(
+    new JoystickButton(controller, Constants.RIGHT_BUMPER).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
       () -> m_intakeSubsystem.setMotor(0.0),
       m_intakeSubsystem
     ));
-    new JoystickButton(m_stick, Constants.LEFT_BUMPER).whileTrue(new StartEndCommand(
+    new JoystickButton(controller, Constants.LEFT_BUMPER).whileTrue(new StartEndCommand(
       () -> m_climberSubsystem.setMotors(Constants.CLIMBER_RAISE_SPEED),
       () -> m_climberSubsystem.setMotors(0.0),
       m_climberSubsystem
     ));
-    new JoystickButton(m_stick, Constants.PREV_BUTTON).whileTrue(new InstantCommand(m_shooterSubsystem::stopShooter));
-    new JoystickButton(m_stick, Constants.START_BUTTON).whileTrue(new StartEndCommand(
+    new JoystickButton(controller, Constants.PREV_BUTTON).whileTrue(new InstantCommand(m_shooterSubsystem::stopShooter));
+    new JoystickButton(controller, Constants.START_BUTTON).whileTrue(new StartEndCommand(
       () -> m_climberSubsystem.setMotors(Constants.CLIMBER_CLIMB_SPEED),
       () -> m_climberSubsystem.setMotors(0.0),
       m_climberSubsystem
@@ -172,10 +172,10 @@ public class Robot extends TimedRobot {
   }
 
   public boolean getLeftTrigger() {
-    return m_stick.getRawAxis(Constants.LEFT_TRIGGER_AXIS) >= 0.95;
+    return controller.getRawAxis(Constants.LEFT_TRIGGER_AXIS) >= 0.95;
   }
 
   public boolean getRightTrigger() {
-    return m_stick.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
+    return controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
   }
 }

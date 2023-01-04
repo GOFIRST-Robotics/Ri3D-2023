@@ -14,12 +14,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  /** Creates a new ShooterSubsystem. */
+  
   private DoubleSolenoid m_solenoid;
   private TalonSRX m_motor;
 
   private boolean m_shooterOn = false;
 
+  /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
     m_solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.SHOOTER_SOLENOID_1, Constants.SHOOTER_SOLENOID_2);
     m_motor = new TalonSRX(Constants.SHOOTER_MOTOR_ID);

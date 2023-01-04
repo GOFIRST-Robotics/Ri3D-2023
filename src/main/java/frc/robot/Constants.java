@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public final class Constants {
     // XBox Controller Inputs //
-    public static final int STICK_ID = 0;
+    public static final int USB_PORT_ID = 0; // USB port that the controller is plugged in to
     public static final int LEFT_VERTICAL_JOYSTICK_AXIS = 1;
     public static final int LEFT_TRIGGER_AXIS = 2;
     public static final int RIGHT_TRIGGER_AXIS = 3;
@@ -34,24 +34,24 @@ public final class Constants {
     public static final int START_BUTTON = 8;
 
     // MOTOR CAN IDs //
-    public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0; // Set to coast
-    public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1; // Set to coast
-    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 2; // Set to coast
-    public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 3; // Set to coast
-    public static final int INTAKE_MOTOR_ID = 4; // 30 amp, set to brake
-    public static final int INTAKE_EXTENDER_MASTER_MOTOR_ID = 10; // Set to brake
-    public static final int INTAKE_EXTENDER_FOLLOWER_MOTOR_ID = 11; // Set to brake
-    public static final int FEEDER_LEFT_MOTOR_ID = 5; // 30 amp, set to brake
-    public static final int FEEDER_RIGHT_MOTOR_ID = 6; // 30 amp, set to brake
-    public static final int SHOOTER_MOTOR_ID = 20; // 30 amp, set to coast
-    public static final int CLIMBER_1_MOTOR_ID = 7; // Set to brake
-    public static final int CLIMBER_2_MOTOR_ID = 8; // Set to brake
+    public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0;
+    public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1;
+    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 2;
+    public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 3;
+    public static final int INTAKE_MOTOR_ID = 4;
+    public static final int INTAKE_EXTENDER_MASTER_MOTOR_ID = 10;
+    public static final int INTAKE_EXTENDER_FOLLOWER_MOTOR_ID = 11;
+    public static final int FEEDER_LEFT_MOTOR_ID = 5;
+    public static final int FEEDER_RIGHT_MOTOR_ID = 6;
+    public static final int SHOOTER_MOTOR_ID = 20;
+    public static final int CLIMBER_1_MOTOR_ID = 7;
+    public static final int CLIMBER_2_MOTOR_ID = 8;
 
-    // DIO Ports //
+    // DIO (Digital Input/Output) Channels //
     public static final int INTAKE_FORWARD_LIMIT_ID = 0;
     public static final int INTAKE_REVERSE_LIMIT_ID = 1;
 
-    // PCM (Pneumatics Control Module) IDs
+    // PCM (Pneumatics Control Module) Channels
     public static final int SHOOTER_SOLENOID_1 = 0;
     public static final int SHOOTER_SOLENOID_2 = 1;
 
