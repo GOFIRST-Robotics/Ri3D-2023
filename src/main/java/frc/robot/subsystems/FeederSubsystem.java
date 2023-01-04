@@ -4,26 +4,28 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class FeederSubsystem extends SubsystemBase {
-  private VictorSP m_leftFeeder;
-  private VictorSP m_rightFeeder;
+  private TalonSRX m_leftFeeder;
+  private TalonSRX m_rightFeeder;
 
   /** Creates a new FeederSubsystem. */
   public FeederSubsystem() {
-    m_leftFeeder = new VictorSP(Constants.FEEDER_LEFT_MOTOR_ID);
-    m_rightFeeder = new VictorSP(Constants.FEEDER_RIGHT_MOTOR_ID);
+    m_leftFeeder = new TalonSRX(Constants.FEEDER_LEFT_MOTOR_ID);
+    m_rightFeeder = new TalonSRX(Constants.FEEDER_RIGHT_MOTOR_ID);
 
     m_leftFeeder.setInverted(Constants.FEEDER_INVERT_LEFT);
     m_rightFeeder.setInverted(Constants.FEEDER_INVERT_RIGHT);
   }
 
   public void setMotors(double power) {
-    m_leftFeeder.set(power);
-    m_rightFeeder.set(power);
+    m_leftFeeder.set(ControlMode.PercentOutput, power);
+    m_rightFeeder.set(ControlMode.PercentOutput, power);
   }
 
   @Override

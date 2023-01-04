@@ -7,22 +7,21 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
   private TalonSRX m_extenderMasterMotor;
-  private VictorSPX m_extenderFollowerMotor;
-  private VictorSP m_motor; // DEAL WITH TURNING INTO A VICTOR
+  private TalonSRX m_extenderFollowerMotor;
+  private TalonSRX m_motor;
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
     m_extenderMasterMotor = new TalonSRX(Constants.INTAKE_EXTENDER_MASTER_MOTOR_ID);
-    m_extenderFollowerMotor = new VictorSPX(Constants.INTAKE_EXTENDER_FOLLOWER_MOTOR_ID);
-    m_motor = new VictorSP(Constants.INTAKE_MOTOR_ID);
+    m_extenderFollowerMotor = new TalonSRX(Constants.INTAKE_EXTENDER_FOLLOWER_MOTOR_ID);
+    m_motor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
 
     m_extenderMasterMotor.configFactoryDefault();
     m_extenderFollowerMotor.configFactoryDefault();
@@ -37,7 +36,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void setMotor(double value) {
-    m_motor.set(value);
+    m_motor.set(ControlMode.PercentOutput, value);
   }
 
   public void setExtender(double value) {
