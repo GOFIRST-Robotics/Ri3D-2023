@@ -4,24 +4,18 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
-  private DoubleSupplier m_leftSupplier;
-  private DoubleSupplier m_rightSupplier;
 
   // The default tank drive mechanism
-  public DriveCommand(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
-    addRequirements(subsystem);
-    m_subsystem = subsystem;
-    
-    m_leftSupplier = left;
-    m_rightSupplier = right;
+  public DriveCommand() {
+    m_subsystem = Robot.m_driveSubsystem;
+    addRequirements(m_subsystem);
   }
 
   // Called once when the command is initially scheduled.
@@ -31,7 +25,9 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.drive(m_leftSupplier.getAsDouble(), m_rightSupplier.getAsDouble());
+    Double left_power = Robot.m_stick.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+    Double right_power = Robot.m_stick.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+    m_subsystem.drive(left_power, right_power);
   }
 
   // Called once the command ends or is interrupted.
