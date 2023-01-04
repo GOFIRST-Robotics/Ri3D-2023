@@ -56,40 +56,40 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_stick, Constants.Y_BUTTON).whenPressed(new InstantCommand(m_shooterSubsystem::toggleSolenoid));
-    new JoystickButton(m_stick, Constants.B_BUTTON).whenPressed(new InstantCommand(m_shooterSubsystem::toggleShooter));
-    new JoystickButton(m_stick, Constants.X_BUTTON).whenHeld(new StartEndCommand(
+    new JoystickButton(m_stick, Constants.Y_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleSolenoid));
+    new JoystickButton(m_stick, Constants.B_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleShooter));
+    new JoystickButton(m_stick, Constants.X_BUTTON).whileTrue(new StartEndCommand(
       () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
       () -> m_feederSubsystem.setMotors(0.0), 
       m_feederSubsystem
     ));
-    new JoystickButton(m_stick, Constants.A_BUTTON).whenHeld(new StartEndCommand(
+    new JoystickButton(m_stick, Constants.A_BUTTON).whileTrue(new StartEndCommand(
       () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
       () -> m_feederSubsystem.setMotors(0.0), 
       m_feederSubsystem
     ));
-    new JoystickButton(m_stick, Constants.RIGHT_BUMPER).whenHeld(new StartEndCommand(
+    new JoystickButton(m_stick, Constants.RIGHT_BUMPER).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
       () -> m_intakeSubsystem.setMotor(0.0),
       m_intakeSubsystem
     ));
-    new JoystickButton(m_stick, Constants.LEFT_BUMPER).whenHeld(new StartEndCommand(
+    new JoystickButton(m_stick, Constants.LEFT_BUMPER).whileTrue(new StartEndCommand(
       () -> m_climberSubsystem.setMotors(Constants.CLIMBER_RAISE_SPEED),
       () -> m_climberSubsystem.setMotors(0.0),
       m_climberSubsystem
     ));
-    new JoystickButton(m_stick, Constants.PREV_BUTTON).whenHeld(new InstantCommand(m_shooterSubsystem::stopShooter));
-    new JoystickButton(m_stick, Constants.START_BUTTON).whenHeld(new StartEndCommand(
+    new JoystickButton(m_stick, Constants.PREV_BUTTON).whileTrue(new InstantCommand(m_shooterSubsystem::stopShooter));
+    new JoystickButton(m_stick, Constants.START_BUTTON).whileTrue(new StartEndCommand(
       () -> m_climberSubsystem.setMotors(Constants.CLIMBER_CLIMB_SPEED),
       () -> m_climberSubsystem.setMotors(0.0),
       m_climberSubsystem
     ));
-    new Button(this::getLeftTrigger).whenHeld(new StartEndCommand(
+    new Button(this::getLeftTrigger).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
       () -> m_intakeSubsystem.setExtender(0.0),
       m_intakeSubsystem
     ));
-    new Button(this::getRightTrigger).whenHeld(new StartEndCommand(
+    new Button(this::getRightTrigger).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setExtender(Constants.INTAKE_RETRACT_SPEED),
       () -> m_intakeSubsystem.setExtender(0.0),
       m_intakeSubsystem
