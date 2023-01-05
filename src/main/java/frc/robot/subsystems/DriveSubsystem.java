@@ -30,6 +30,9 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftRearMotor.configFactoryDefault();
     m_rightRearMotor.configFactoryDefault();
 
+    m_leftRearMotor.follow(m_leftFrontMotor); // Set one motor on each side to be a follower
+    m_rightRearMotor.follow(m_rightFrontMotor); // Set one motor on each side to be a follower
+
     m_leftFrontMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightFrontMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
     m_leftRearMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
@@ -42,10 +45,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void drive(double left, double right) {
-    m_leftFrontMotor.set(ControlMode.PercentOutput, left);
-    m_rightFrontMotor.set(ControlMode.PercentOutput, right);
-    m_leftRearMotor.set(ControlMode.PercentOutput, left);
-    m_rightRearMotor.set(ControlMode.PercentOutput, right);
+    m_leftFrontMotor.set(ControlMode.PercentOutput, left); // Rear motors will follow
+    m_rightFrontMotor.set(ControlMode.PercentOutput, right); // Rear motors will follow
   }
 
   @Override
