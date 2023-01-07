@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.autonomous.AutonomousMode_1;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 
+import java.lang.ModuleLayer.Controller;
+
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -20,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.DriveCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,7 +36,7 @@ public class Robot extends TimedRobot {
   CommandBase m_autonomousCommand;
 	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
 
-  public static final Joystick controller = new Joystick(Constants.USB_PORT_ID);
+  public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
@@ -52,6 +56,8 @@ public class Robot extends TimedRobot {
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Custom Auto 1", new AutonomousMode_1());
 		chooser.addOption("Custom Auto 2", new AutonomousMode_1());
+
+    m_driveSubsystem.setDefaultCommand(new DriveCommand());
 				
 		SmartDashboard.putData("Auto Mode", chooser);
   }
@@ -70,6 +76,11 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    // for(int i = 1;i<controller.getButtonCount(); i++) {
+    //   if(controller.getRawButton(i)){
+    //     System.err.println("Button " + i + " Pressed!");
+    //   }
+    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -104,7 +115,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_driveSubsystem.drive(0.5, 0.5);
+
+    //public void initDefaultCommand() {    //}
+    // m_driveSubsystem.drive(0.5, 0.5);
   }
 
   /** This function is called periodically during operator control. */
@@ -129,19 +142,36 @@ public class Robot extends TimedRobot {
    */
   private void configureButtonBindings() {
     new JoystickButton(controller, Constants.X_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
-      () -> m_feederSubsystem.setMotors(0.0), 
-      m_feederSubsystem
+      () -> m_driveSubsystem.drive(0.1, 0.1),
+      () -> m_driveSubsystem.drive(0.0, 0.0),
+      m_driveSubsystem
+      // () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
+      // () -> m_feederSubsystem.setMotors(0.0), 
+      // m_feederSubsystem
     ));
     new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
-      () -> m_feederSubsystem.setMotors(0.0), 
-      m_feederSubsystem
+      () -> m_driveSubsystem.drive(0.2, 0.2),
+      () -> m_driveSubsystem.drive(0.0, 0.0),
+      m_driveSubsystem
+      // () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
+      // () -> m_feederSubsystem.setMotors(0.0), 
+      // m_feederSubsystem
     ));
-    new JoystickButton(controller, Constants.RIGHT_BUMPER).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
-      () -> m_intakeSubsystem.setMotor(0.0),
-      m_intakeSubsystem
+    new JoystickButton(controller, Constants.B_BUTTON).whileTrue(new StartEndCommand(
+      () -> m_driveSubsystem.drive(0.3, 0.3),
+      () -> m_driveSubsystem.drive(0.0, 0.0),
+      m_driveSubsystem
+      // () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
+      // () -> m_intakeSubsystem.setMotor(0.0),
+      // m_intakeSubsystem
+    ));
+    new JoystickButton(controller, Constants.Y_BUTTON).whileTrue(new StartEndCommand(
+      () -> m_driveSubsystem.drive(0.4, 0.4),
+      () -> m_driveSubsystem.drive(0.0, 0.0),
+      m_driveSubsystem
+      // () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
+      // () -> m_intakeSubsystem.setMotor(0.0),
+      // m_intakeSubsystem
     ));
     new Trigger(this::getLeftTrigger).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),

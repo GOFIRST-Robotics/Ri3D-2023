@@ -19,17 +19,17 @@ public final class Constants {
     // XBox Controller Inputs //
     public static final int USB_PORT_ID = 0; // USB port that the controller is plugged in to
     public static final int LEFT_VERTICAL_JOYSTICK_AXIS = 1;
-    public static final int LEFT_TRIGGER_AXIS = 2;
-    public static final int RIGHT_TRIGGER_AXIS = 3;
-    public static final int RIGHT_VERTICAL_JOYSTICK_AXIS = 5;
-    public static final int A_BUTTON = 1;
-    public static final int B_BUTTON = 2;
-    public static final int X_BUTTON = 3;
+    public static final int LEFT_TRIGGER_AXIS = 7;
+    public static final int RIGHT_TRIGGER_AXIS = 8;
+    public static final int RIGHT_VERTICAL_JOYSTICK_AXIS = 3;
+    public static final int A_BUTTON = 2;
+    public static final int B_BUTTON = 3;
+    public static final int X_BUTTON = 1;
     public static final int Y_BUTTON = 4;
     public static final int LEFT_BUMPER = 5;
     public static final int RIGHT_BUMPER = 6;
-    public static final int PREV_BUTTON = 7;
-    public static final int START_BUTTON = 8;
+    public static final int PREV_BUTTON = 9;
+    public static final int START_BUTTON = 10;
 
     // MOTOR CAN IDs //
     public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0;
@@ -47,8 +47,8 @@ public final class Constants {
     public static final int INTAKE_REVERSE_LIMIT_ID = 1;
 
     // Drive Constants //
-    public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
-    public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_RIGHT = false; // // XBox controller flips vertical axis, changing is effort
     public static final NeutralMode DRIVE_NEUTRAL = NeutralMode.Brake;
 
     // Intake Constants //

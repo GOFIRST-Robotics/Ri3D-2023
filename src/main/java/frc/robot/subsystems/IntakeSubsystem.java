@@ -34,9 +34,4 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  // Set the default command for the subsystem (null by default)
-  public void initDefaultCommand() {
-		setDefaultCommand(null);
-	}
 }

@@ -42,7 +42,5 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   // Set the default command for the subsystem
-  public void initDefaultCommand() {
-		setDefaultCommand(new DriveCommand()); // By default we want teleop driving
-	}
+
 }
