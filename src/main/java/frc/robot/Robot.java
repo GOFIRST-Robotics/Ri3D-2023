@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -41,7 +40,6 @@ public class Robot extends TimedRobot {
   public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   public static final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
   public static final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  public static final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem(); 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -147,17 +145,6 @@ public class Robot extends TimedRobot {
       () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
       () -> m_intakeSubsystem.setMotor(0.0),
       m_intakeSubsystem
-    ));
-    new JoystickButton(controller, Constants.LEFT_BUMPER).whileTrue(new StartEndCommand(
-      () -> m_climberSubsystem.setMotors(Constants.CLIMBER_RAISE_SPEED),
-      () -> m_climberSubsystem.setMotors(0.0),
-      m_climberSubsystem
-    ));
-    new JoystickButton(controller, Constants.PREV_BUTTON).whileTrue(new InstantCommand(m_shooterSubsystem::stopShooter));
-    new JoystickButton(controller, Constants.START_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_climberSubsystem.setMotors(Constants.CLIMBER_CLIMB_SPEED),
-      () -> m_climberSubsystem.setMotors(0.0),
-      m_climberSubsystem
     ));
     new Trigger(this::getLeftTrigger).whileTrue(new StartEndCommand(
       () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
