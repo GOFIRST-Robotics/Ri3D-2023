@@ -9,25 +9,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 
-public class IntakeSubsystem extends SubsystemBase {
-  private VictorSP m_extenderMasterMotor;
+public class GrabberSubsystem extends SubsystemBase {
   private VictorSP m_motor;
 
-  /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {
-    m_extenderMasterMotor = new VictorSP(Constants.INTAKE_EXTENDER_MASTER_MOTOR_ID);
-    m_motor = new VictorSP(Constants.INTAKE_MOTOR_ID);
+  /** Creates a new Grabber Subsystem. */
+  public GrabberSubsystem() {
+    m_motor = new VictorSP(Constants.GRABBERMOTOR_ID);
 
-    m_extenderMasterMotor.setInverted(Constants.INTAKE_EXTENDER_MASTER_INVERT);
-    m_motor.setInverted(Constants.INTAKE_INVERT);
+    m_motor.setInverted(Constants.GRABBER_INVERT);
   }
 
   public void setMotor(double value) {
     m_motor.set(value);
-  }
-
-  public void setExtender(double value) {
-    m_extenderMasterMotor.set(value);
   }
 
   @Override

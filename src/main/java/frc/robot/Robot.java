@@ -19,10 +19,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FeederSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ExtenderSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.commands.DriveCommand;
 
 /**
@@ -39,8 +38,8 @@ public class Robot extends TimedRobot {
   public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  public static final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
+  public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
+  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
   
 
   /**
@@ -173,16 +172,16 @@ public class Robot extends TimedRobot {
       // () -> m_intakeSubsystem.setMotor(0.0),
       // m_intakeSubsystem
     ));
-    new Trigger(this::getLeftTrigger).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
-      () -> m_intakeSubsystem.setExtender(0.0),
-      m_intakeSubsystem
-    ));
-    new Trigger(this::getRightTrigger).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setExtender(Constants.INTAKE_RETRACT_SPEED),
-      () -> m_intakeSubsystem.setExtender(0.0),
-      m_intakeSubsystem
-    ));
+    // new JoystickButton(controller, Constants.LEFT_TRIGGER_AXIS).whileTrue(new StartEndCommand(
+    //   () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
+    //   () -> m_intakeSubsystem.setExtender(0.0),
+    //   m_intakeSubsystem
+    // ));
+    // new JoystickButton(controller, Constants.RIGHT_TRIGGER_AXIS).whileTrue(new StartEndCommand(
+    //   () -> m_intakeSubsystem.setExtender(Constants.INTAKE_RETRACT_SPEED),
+    //   () -> m_intakeSubsystem.setExtender(0.0),
+    //   m_intakeSubsystem
+    // ));
   }
 
   public boolean getLeftTrigger() {
