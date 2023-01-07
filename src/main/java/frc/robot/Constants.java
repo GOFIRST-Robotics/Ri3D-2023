@@ -34,8 +34,8 @@ public final class Constants {
     // MOTOR CAN IDs //
     public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0;
     public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1;
-    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 2;
-    public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 3;
+    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 3;
+    public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
     public static final int INTAKE_MOTOR_ID = 4;
     public static final int INTAKE_EXTENDER_MASTER_MOTOR_ID = 10;
     public static final int INTAKE_EXTENDER_FOLLOWER_MOTOR_ID = 11;
@@ -47,8 +47,8 @@ public final class Constants {
     public static final int INTAKE_REVERSE_LIMIT_ID = 1;
 
     // Drive Constants //
-    public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
-    public static final boolean DRIVE_INVERT_RIGHT = false; // // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
     public static final NeutralMode DRIVE_NEUTRAL = NeutralMode.Brake;
 
     // Intake Constants //

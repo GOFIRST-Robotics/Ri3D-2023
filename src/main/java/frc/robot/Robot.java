@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_driveSubsystem.drive(0.5, 0.5);
   }
 
   /** This function is called periodically during operator control. */
