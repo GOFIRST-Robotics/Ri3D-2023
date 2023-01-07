@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.InvertType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -36,35 +33,20 @@ public final class Constants {
     public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1;
     public static final int LEFT_REAR_DRIVE_MOTOR_ID = 3;
     public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
-    public static final int INTAKE_MOTOR_ID = 4;
-    public static final int INTAKE_EXTENDER_MASTER_MOTOR_ID = 10;
-    public static final int INTAKE_EXTENDER_FOLLOWER_MOTOR_ID = 11;
-    public static final int FEEDER_LEFT_MOTOR_ID = 5;
-    public static final int FEEDER_RIGHT_MOTOR_ID = 6;
+    public static final int GRABBERMOTOR_ID = 4;
+    public static final int EXTENDER_MOTOR_ID = 5;
     
     // DIO (Digital Input/Output) Channels //
-    public static final int INTAKE_FORWARD_LIMIT_ID = 0;
-    public static final int INTAKE_REVERSE_LIMIT_ID = 1;
 
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
-    public static final NeutralMode DRIVE_NEUTRAL = NeutralMode.Brake;
 
-    // Intake Constants //
-    public static final double INTAKE_SPEED = 0.8;
-    public static final double INTAKE_EXTEND_SPEED = 0.3;
-    public static final double INTAKE_RETRACT_SPEED = -0.3;
-    public static final boolean INTAKE_INVERT = false;
-    public static final NeutralMode INTAKE_NEUTRAL = NeutralMode.Brake;
-    public static final boolean INTAKE_EXTENDER_MASTER_INVERT = true;
-    public static final InvertType INTAKE_EXTENDER_FOLLOWER_INVERT = InvertType.OpposeMaster;
+    // Grabber Constants //
+    public static final double GRABBER_SPEED = 0.8;
+    public static final boolean GRABBER_INVERT = false;
 
-    // Feeder Constants //
-    public static final boolean FEEDER_INVERT_LEFT = true;
-    public static final boolean FEEDER_INVERT_RIGHT = false;
-    public static final NeutralMode FEEDER_NEUTRAL_LEFT = NeutralMode.Brake;
-    public static final NeutralMode FEEDER_NEUTRAL_RIGHT = NeutralMode.Brake;
-    public static final double FEEDER_FORWARD_SPEED = 0.8;
-    public static final double FEEDER_REVERSE_SPEED = -0.8;
+    // Extender Constants //
+    public static final boolean EXTENDER_INVERT = false;
+    public static final double EXTENDER_SPEED = 0.8;
 }

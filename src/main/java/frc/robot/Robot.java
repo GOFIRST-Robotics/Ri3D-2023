@@ -16,10 +16,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FeederSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ExtenderSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,8 +34,8 @@ public class Robot extends TimedRobot {
   public static final Joystick controller = new Joystick(Constants.USB_PORT_ID);
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  public static final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
+  public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
+  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
   
 
   /**
@@ -129,29 +128,19 @@ public class Robot extends TimedRobot {
    */
   private void configureButtonBindings() {
     new JoystickButton(controller, Constants.X_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
-      () -> m_feederSubsystem.setMotors(0.0), 
-      m_feederSubsystem
+      () -> m_extenderSubsystem.setMotor(Constants.EXTENDER_SPEED),
+      () -> m_extenderSubsystem.setMotor(0.0), 
+      m_extenderSubsystem
     ));
     new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
-      () -> m_feederSubsystem.setMotors(0.0), 
-      m_feederSubsystem
+      () -> m_extenderSubsystem.setMotor(Constants.EXTENDER_SPEED * -1),
+      () -> m_extenderSubsystem.setMotor(0.0), 
+      m_extenderSubsystem
     ));
     new JoystickButton(controller, Constants.RIGHT_BUMPER).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
-      () -> m_intakeSubsystem.setMotor(0.0),
-      m_intakeSubsystem
-    ));
-    new Trigger(this::getLeftTrigger).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
-      () -> m_intakeSubsystem.setExtender(0.0),
-      m_intakeSubsystem
-    ));
-    new Trigger(this::getRightTrigger).whileTrue(new StartEndCommand(
-      () -> m_intakeSubsystem.setExtender(Constants.INTAKE_RETRACT_SPEED),
-      () -> m_intakeSubsystem.setExtender(0.0),
-      m_intakeSubsystem
+      () -> m_grabberSubsystem.setMotor(Constants.GRABBER_SPEED),
+      () -> m_grabberSubsystem.setMotor(0.0),
+      m_grabberSubsystem
     ));
   }
 

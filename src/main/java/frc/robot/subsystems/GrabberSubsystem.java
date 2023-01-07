@@ -6,24 +6,21 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
 
-public class FeederSubsystem extends SubsystemBase {
-  private VictorSP m_leftFeeder;
-  private VictorSP m_rightFeeder;
+public class GrabberSubsystem extends SubsystemBase {
+  private VictorSP m_motor;
 
-  /** Creates a new FeederSubsystem. */
-  public FeederSubsystem() {
-    m_leftFeeder = new VictorSP(Constants.FEEDER_LEFT_MOTOR_ID);
-    m_rightFeeder = new VictorSP(Constants.FEEDER_RIGHT_MOTOR_ID);
+  /** Creates a new Grabber Subsystem. */
+  public GrabberSubsystem() {
+    m_motor = new VictorSP(Constants.GRABBERMOTOR_ID);
 
-    m_leftFeeder.setInverted(Constants.FEEDER_INVERT_LEFT);
-    m_rightFeeder.setInverted(Constants.FEEDER_INVERT_RIGHT);
+    m_motor.setInverted(Constants.GRABBER_INVERT);
   }
 
-  public void setMotors(double power) {
-    m_leftFeeder.set(power);
-    m_rightFeeder.set(power);
+  public void setMotor(double value) {
+    m_motor.set(value);
   }
 
   @Override
