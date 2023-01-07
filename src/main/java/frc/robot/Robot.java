@@ -14,14 +14,12 @@ import frc.robot.commands.autonomous.AutonomousMode_Default;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,7 +37,7 @@ public class Robot extends TimedRobot {
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   public static final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
-  public static final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -129,8 +127,6 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller, Constants.Y_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleSolenoid));
-    new JoystickButton(controller, Constants.B_BUTTON).onTrue(new InstantCommand(m_shooterSubsystem::toggleShooter));
     new JoystickButton(controller, Constants.X_BUTTON).whileTrue(new StartEndCommand(
       () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
       () -> m_feederSubsystem.setMotors(0.0), 
