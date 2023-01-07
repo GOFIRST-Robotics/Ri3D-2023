@@ -4,46 +4,30 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  private TalonSRX m_extenderMasterMotor;
-  private TalonSRX m_extenderFollowerMotor;
-  private TalonSRX m_motor;
+  private VictorSP m_extenderMasterMotor;
+  private VictorSP m_motor;
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
-    m_extenderMasterMotor = new TalonSRX(Constants.INTAKE_EXTENDER_MASTER_MOTOR_ID);
-    m_extenderFollowerMotor = new TalonSRX(Constants.INTAKE_EXTENDER_FOLLOWER_MOTOR_ID);
-    m_motor = new TalonSRX(Constants.INTAKE_MOTOR_ID);
-
-    m_extenderMasterMotor.configFactoryDefault();
-    m_extenderFollowerMotor.configFactoryDefault();
-    m_motor.configFactoryDefault();
-
-    m_extenderFollowerMotor.follow(m_extenderMasterMotor);
+    m_extenderMasterMotor = new VictorSP(Constants.INTAKE_EXTENDER_MASTER_MOTOR_ID);
+    m_motor = new VictorSP(Constants.INTAKE_MOTOR_ID);
 
     m_extenderMasterMotor.setInverted(Constants.INTAKE_EXTENDER_MASTER_INVERT);
-    m_extenderFollowerMotor.setInverted(Constants.INTAKE_EXTENDER_FOLLOWER_INVERT);
     m_motor.setInverted(Constants.INTAKE_INVERT);
-
-    m_extenderMasterMotor.setNeutralMode(NeutralMode.Brake);
-    m_extenderFollowerMotor.setNeutralMode(NeutralMode.Brake);
-    m_motor.setNeutralMode(Constants.INTAKE_NEUTRAL);
   }
 
   public void setMotor(double value) {
-    m_motor.set(ControlMode.PercentOutput, value);
+    m_motor.set(value);
   }
 
   public void setExtender(double value) {
-    m_extenderMasterMotor.set(ControlMode.PercentOutput, value);
+    m_extenderMasterMotor.set(value);
   }
 
   @Override
