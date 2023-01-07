@@ -43,17 +43,10 @@ public final class Constants {
     public static final int INTAKE_EXTENDER_FOLLOWER_MOTOR_ID = 11;
     public static final int FEEDER_LEFT_MOTOR_ID = 5;
     public static final int FEEDER_RIGHT_MOTOR_ID = 6;
-    public static final int SHOOTER_MOTOR_ID = 20;
-    public static final int CLIMBER_1_MOTOR_ID = 7;
-    public static final int CLIMBER_2_MOTOR_ID = 8;
-
+    
     // DIO (Digital Input/Output) Channels //
     public static final int INTAKE_FORWARD_LIMIT_ID = 0;
     public static final int INTAKE_REVERSE_LIMIT_ID = 1;
-
-    // PCM (Pneumatics Control Module) Channels
-    public static final int SHOOTER_SOLENOID_1 = 0;
-    public static final int SHOOTER_SOLENOID_2 = 1;
 
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
@@ -77,16 +70,6 @@ public final class Constants {
     public static final double FEEDER_FORWARD_SPEED = 0.8;
     public static final double FEEDER_REVERSE_SPEED = -0.8;
 
-    // Shooter Constants //
-    public static final boolean SHOOTER_INVERT = true;
-    public static final double SHOOTER_SPEED = 0.8;
-    public static final DoubleSolenoid.Value SHOOTER_DEFAULT_POSITION = DoubleSolenoid.Value.kReverse;
 
-    // Climber Constants //
-    public static final double CLIMBER_RAISE_SPEED = 0.5;
-    public static final double CLIMBER_CLIMB_SPEED = -1.0;
-    public static final boolean CLIMBER_1_INVERT = true;
-    public static final boolean CLIMBER_2_INVERT = true;
-    public static final NeutralMode CLIMBER_1_NEUTRAL = NeutralMode.Brake;
-    public static final NeutralMode CLIMBER_2_NEUTRAL = NeutralMode.Brake;
+    
 }
