@@ -7,8 +7,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -69,7 +67,4 @@ public final class Constants {
     public static final NeutralMode FEEDER_NEUTRAL_RIGHT = NeutralMode.Brake;
     public static final double FEEDER_FORWARD_SPEED = 0.8;
     public static final double FEEDER_REVERSE_SPEED = -0.8;
-
-
-    
 }
