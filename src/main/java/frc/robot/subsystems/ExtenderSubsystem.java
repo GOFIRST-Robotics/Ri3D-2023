@@ -40,6 +40,8 @@ public class ExtenderSubsystem extends SubsystemBase {
 		m_motor_1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, Constants.EXTENDER_ENCODER_FRAME_RATE, Constants.EXTENDER_TIMEOUT);
 		m_motor_1.setSensorPhase(Constants.EXTENDER_SENSOR_PHASE); // Ensures that the encoder is "in phase" with the Talon
 
+    m_motor_2.follow(m_motor_1); // motor 2 will follow motor 1
+
     lower_the_extender = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID);
     isRaised = true;
   }
@@ -47,8 +49,7 @@ public class ExtenderSubsystem extends SubsystemBase {
   // Motor Methods //
 
   public void setPower(double power) {
-    m_motor_1.set(ControlMode.PercentOutput, power);
-    m_motor_2.set(ControlMode.PercentOutput, power);
+    m_motor_1.set(ControlMode.PercentOutput, power); // motor 2 will follow motor 1
   }
 
   public void stop() {
