@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -11,6 +13,8 @@ import frc.robot.Constants;
 public class ExtenderSubsystem extends SubsystemBase {
   private VictorSP m_motor_1;
   private VictorSP m_motor_2;
+  private Solenoid lower_the_extender;
+  private boolean isRaised;
 
   /** Creates a new Extender ubsystem. */
   public ExtenderSubsystem() {
@@ -19,6 +23,9 @@ public class ExtenderSubsystem extends SubsystemBase {
 
     m_motor_1.setInverted(Constants.EXTENDER_INVERT);
     m_motor_2.setInverted(Constants.EXTENDER_INVERT);
+
+    lower_the_extender = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID);
+    isRaised = true;
   }
 
   public void setPower(double power) {
@@ -29,6 +36,24 @@ public class ExtenderSubsystem extends SubsystemBase {
   public void stop() {
     m_motor_1.set(0);
     m_motor_2.set(0);
+  }
+
+  public void lowerExtender() {
+    lower_the_extender.set(false);
+    isRaised = false;
+  }
+
+  public void raiseExtender() {
+    lower_the_extender.set(true);
+    isRaised = true;
+  }
+
+  public void toggleExtenderRaiser() {
+    if (isRaised) {
+      lowerExtender();
+    } else {
+      raiseExtender();
+    }
   }
 
   @Override

@@ -38,6 +38,7 @@ public final class Constants {
 
     // PCM (Pneumatics Control Module) Channels //
     public static final int GRABBER_SOLENOID_ID = 0; // TODO: Find the correct value for this
+    public static final int LOWER_THE_EXTENDER_ID = 1; // TODO: Find the correct value for this
     
     // DIO (Digital Input/Output) Channels //
 
