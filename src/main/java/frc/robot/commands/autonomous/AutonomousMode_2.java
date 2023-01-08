@@ -17,22 +17,14 @@ public class AutonomousMode_2 extends SequentialCommandGroup {
   public AutonomousMode_2() {
     addCommands(new DriveToAprilTagCommand());
 
-    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(1)));
+    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
 
     addCommands(new InstantCommand(() -> m_grabberSubsystem.extend()));
 
-    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
-    addCommands(new InstantCommand(() -> m_grabberSubsystem.retract()));
+    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
 
 
 
-   /* addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
-    addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
-    addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
-    addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
-    addCommands(new GyroTurnToAngle(90, true));*/
+   
   }
 }
