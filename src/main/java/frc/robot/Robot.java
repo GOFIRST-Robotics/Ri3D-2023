@@ -16,7 +16,6 @@ import frc.robot.commands.autonomous.AutonomousMode_Default;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -26,7 +25,6 @@ import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpoint;
-import frc.robot.commands.TurnToAprilTagCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
