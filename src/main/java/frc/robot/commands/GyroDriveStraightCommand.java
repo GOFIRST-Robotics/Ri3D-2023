@@ -34,10 +34,6 @@ public class GyroDriveStraightCommand extends CommandBase {
     double error = startAngle - m_drivetrainSubsystem.getAngle();
     double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1);
     double value2 = Math.min(driveRate - Constants.GYRO_KP * error, 1);
-    // System.out.println("Error " + error);
-    // System.out.println("Value: " + value1);
-    // System.out.println("Value: " + value2);
-    // System.out.println(m_drivetrainSubsystem.getAngle());
     m_drivetrainSubsystem.drive(value1, value2);
   }
 	
