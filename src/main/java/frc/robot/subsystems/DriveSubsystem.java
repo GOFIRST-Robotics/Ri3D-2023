@@ -39,6 +39,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightRearMotor.set(rightPct);
   }
 
+  public void stop() {
+    drive(0, 0);
+  }
+
   public void calibrateGyro() {
     navx.calibrate();
   }

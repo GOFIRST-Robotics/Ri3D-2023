@@ -9,17 +9,26 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ExtenderSubsystem extends SubsystemBase {
-  private VictorSP m_motor;
+  private VictorSP m_motor_1;
+  private VictorSP m_motor_2;
 
   /** Creates a new Extender ubsystem. */
   public ExtenderSubsystem() {
-    m_motor = new VictorSP(Constants.EXTENDER_MOTOR_ID);
+    m_motor_1 = new VictorSP(Constants.EXTENDER_MOTOR_1_ID);
+    m_motor_2 = new VictorSP(Constants.EXTENDER_MOTOR_2_ID);
 
-    m_motor.setInverted(Constants.EXTENDER_INVERT);
+    m_motor_1.setInverted(Constants.EXTENDER_INVERT);
+    m_motor_2.setInverted(Constants.EXTENDER_INVERT);
   }
 
-  public void setMotor(double power) {
-    m_motor.set(power);
+  public void setPower(double power) {
+    m_motor_1.set(power);
+    m_motor_2.set(power);
+  }
+
+  public void stop() {
+    m_motor_1.set(0);
+    m_motor_2.set(0);
   }
 
   @Override
