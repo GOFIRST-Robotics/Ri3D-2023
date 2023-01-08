@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -24,7 +25,10 @@ import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
-import frc.robot.commands.StopDrivetrainCommand;
+import frc.robot.commands.ExtenderIncrementSetpoint;
+import frc.robot.commands.ExtenderMoveToSetpoint;
+
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -44,7 +48,6 @@ public class Robot extends TimedRobot {
   public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
   //public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -81,14 +84,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // for(int i = 1;i<controller.getButtonCount(); i++) {
-    //   if(controller.getRawButton(i)){
-    //     System.err.println("Button " + i + " Pressed!");
-    //   }
-    // }
-      // System.out.println(
-      //   "Left: " + m_driveSubsystem.getLeftPct() + " Right: " + m_driveSubsystem.getLeftPct()
-      // );
+    SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.currentSetpoint);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -124,8 +120,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    //public void initDefaultCommand() {    //}
-    // m_driveSubsystem.drive(0.5, 0.5);
     m_driveSubsystem.zeroGyro();
   }
 
@@ -152,44 +146,18 @@ public class Robot extends TimedRobot {
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or onse of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
-    Trigger xButton = new JoystickButton(controller, Constants.X_BUTTON);
-    xButton.onTrue(new BalanceOnBeamCommand());
+    new Trigger(() -> controller.getRawButton(Constants.RIGHT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
 
-    // new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
-    //   () -> m_driveSubsystem.drive(0.2, 0.2),
-    //   () -> m_driveSubsystem.drive(0.0, 0.0),
-    //   m_driveSubsystem
-    //   // () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
-    //   // () -> m_feederSubsystem.setMotors(0.0), 
-    //   // m_feederSubsystem
-    // ));
-    new JoystickButton(controller, Constants.B_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_driveSubsystem.drive(0.3, 0.3),
-      () -> m_driveSubsystem.drive(0.0, 0.0),
-      m_driveSubsystem
-      // () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
-      // () -> m_intakeSubsystem.setMotor(0.0),
-      // m_intakeSubsystem
-    ));
-    Trigger yButton = new JoystickButton(controller, Constants.Y_BUTTON);
-    yButton.onTrue(new DriveToAprilTagCommand());// new PrintCommand("Button Triggered!")); 
-    //yButton.onFalse(new StopDrivetrainCommand());
-      // () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
-      // () -> m_intakeSubsystem.setMotor(0.0),
-      // m_intakeSubsystem
-    // new JoystickButton(controller, Constants.LEFT_TRIGGER_AXIS).whileTrue(new StartEndCommand(
-    //   () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
-    //   () -> m_intakeSubsystem.setExtender(0.0),
-    //   m_intakeSubsystem
-    // ));
-    // new JoystickButton(controller, Constants.RIGHT_TRIGGER_AXIS).whileTrue(new StartEndCommand(
-    //   () -> m_intakeSubsystem.setExtender(Constants.INTAKE_RETRACT_SPEED),
-    //   () -> m_intakeSubsystem.setExtender(0.0),
-    //   m_intakeSubsystem
-    // ));
+    new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new ExtenderMoveToSetpoint(0));
+    new POVButton(controller, 0).onTrue(new ExtenderMoveToSetpoint(1));
+    new POVButton(controller, 90).onTrue(new ExtenderIncrementSetpoint(1));
+    new POVButton(controller, 180).onTrue(new ExtenderMoveToSetpoint(4));
+    new POVButton(controller, 270).onTrue(new ExtenderIncrementSetpoint(-1));
+
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).onTrue(new DriveToAprilTagCommand());
   }
 
   public boolean getLeftTrigger() {
