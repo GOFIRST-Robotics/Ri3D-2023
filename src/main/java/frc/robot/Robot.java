@@ -59,6 +59,8 @@ public class Robot extends TimedRobot {
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
 				
 		SmartDashboard.putData("Auto Mode", chooser);
+
+    m_driveSubsystem.calibrateGyro();
   }
 
   /**
@@ -80,6 +82,7 @@ public class Robot extends TimedRobot {
     //     System.err.println("Button " + i + " Pressed!");
     //   }
     // }
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -117,11 +120,17 @@ public class Robot extends TimedRobot {
 
     //public void initDefaultCommand() {    //}
     // m_driveSubsystem.drive(0.5, 0.5);
+    m_driveSubsystem.zeroGyro();
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    System.out.println(m_driveSubsystem.getYaw());
+    System.out.print(m_driveSubsystem.getPitch());
+    System.out.print(m_driveSubsystem.getRoll());
+    System.out.print(m_driveSubsystem.getAngle());
+  }
 
   @Override
   public void testInit() {

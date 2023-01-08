@@ -4,12 +4,14 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ExtenderSubsystem extends SubsystemBase {
   private VictorSP m_motor;
+  private DigitalInput limitSwitch = new DigitalInput(0);
 
   /** Creates a new Extender ubsystem. */
   public ExtenderSubsystem() {
