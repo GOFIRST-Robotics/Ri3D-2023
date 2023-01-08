@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.GrabberSubsystem;
 
-public class ActuateClaw extends CommandBase {
+public class ActuateGrabber extends CommandBase {
   /** Creates a new ActuateClaw. */
   private GrabberSubsystem m_GrabberSubsystem = new GrabberSubsystem();
-  private double powerPct;
 
-  public ActuateClaw(double powerPct) {
+  public ActuateGrabber(double powerPct) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.powerPct = powerPct;
+    addRequirements(Robot.m_grabberSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -24,12 +24,12 @@ public class ActuateClaw extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_GrabberSubsystem.setMotor(powerPct);
+    m_GrabberSubsystem.extend();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_GrabberSubsystem.setMotor(0.0);
+    m_GrabberSubsystem.retract();
   }
 }

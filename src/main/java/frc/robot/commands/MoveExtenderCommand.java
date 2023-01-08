@@ -15,9 +15,8 @@ public class MoveExtenderCommand extends CommandBase {
 
   public MoveExtenderCommand(double powerPct) {
     // Use addRequirements() here to declare subsystem dependencies. 
-    m_ExtenderSubsystem = Robot.m_extenderSubsystem;
     this.powerPct = powerPct;
-    addRequirements(m_ExtenderSubsystem);
+    addRequirements(Robot.m_extenderSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -27,12 +26,12 @@ public class MoveExtenderCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ExtenderSubsystem.setMotor(powerPct);
+    m_ExtenderSubsystem.setPower(powerPct);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ExtenderSubsystem.setMotor(0.0);
+    m_ExtenderSubsystem.setPower(0.0);
   }
 }

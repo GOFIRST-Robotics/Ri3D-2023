@@ -4,25 +4,38 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 
 public class GrabberSubsystem extends SubsystemBase {
-  private VictorSP m_motor;
-  private DigitalInput limitSwitch = new DigitalInput(1);
+  private Solenoid grabberSolenoid;
+  private boolean isExtended;
 
   /** Creates a new Grabber Subsystem. */
   public GrabberSubsystem() {
-    m_motor = new VictorSP(Constants.GRABBERMOTOR_ID);
-
-    m_motor.setInverted(Constants.GRABBER_INVERT);
+    grabberSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.GRABBER_SOLENOID_ID);
+    isExtended = false;
   }
 
-  public void setMotor(double value) {
-    m_motor.set(value);
+  public void extend() {
+    grabberSolenoid.set(true);
+    isExtended = true;
+  }
+
+  public void retract() {
+    grabberSolenoid.set(false);
+    isExtended = false;
+  }
+
+  public void toggle() {
+    if (isExtended) {
+      retract();
+    } else {
+      extend();
+    }
   }
 
   @Override
