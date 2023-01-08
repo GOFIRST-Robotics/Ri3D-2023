@@ -48,7 +48,7 @@ public final class Constants {
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
     public static final double GYRO_KP = 0.01;
-    public static final double TRACKED_TAG_DRIVE_KP = 0.5;
+    public static final double TRACKED_TAG_DRIVE_KP = 0.3;
     public static final double BEAM_BALANACED_DRIVE_KP = 0.033;
     public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
@@ -67,9 +67,9 @@ public final class Constants {
     public static final double EXTENDER_SETPOINT_4= 400; // TODO: Find the correct value for this
 
     // Position Constants //
-    public static final double CAMERA_HEIGHT_METERS = 1; // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = 4; // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = 1 * Math.PI; // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = 1; // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = Math.PI / 12; // TODO: Change me
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
     public static final int EXTENDER_ENCODER_FRAME_RATE = 10;

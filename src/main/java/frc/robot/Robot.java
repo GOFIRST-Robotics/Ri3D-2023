@@ -16,12 +16,13 @@ import frc.robot.commands.autonomous.AutonomousMode_Default;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.DriveToArbitraryPoint;
 import frc.robot.commands.ExtenderMoveToSetpoint;
 
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -123,10 +124,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.print("Has target? ");
-    System.out.println(m_visionSubsystem.getHasTarget());
-    System.out.print("Best target's angle from the robot: ");
-    System.out.println(m_visionSubsystem.getBestTarget().getYaw());
+    // System.out.print("Has target? ");
+    // System.out.println(m_visionSubsystem.getHasTarget());
+    // System.out.print("Best target's angle from the robot: ");
+    // System.out.println(m_visionSubsystem.getBestTarget().getYaw());
   }
 
   @Override
@@ -154,7 +155,8 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
-    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).onTrue(new DriveToAprilTagCommand());
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).onTrue(new PrintCommand("Button Pressed!"));
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToArbitraryPoint());
   }
 
   public boolean getLeftTrigger() {
