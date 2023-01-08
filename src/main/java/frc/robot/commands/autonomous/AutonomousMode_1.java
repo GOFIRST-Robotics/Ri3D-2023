@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * This is a custom autonomous routine */
 public class AutonomousMode_1 extends SequentialCommandGroup {
 
+  // List commands here sequentially
   public AutonomousMode_1() {
     addCommands(new DriveForTimeCommand(0.2, 0.2, 5));
-    addCommands(new Wait(2)); // List commands here sequentially
+    addCommands(new Wait(2)); 
     addCommands(new DriveForTimeCommand(-0.2, -0.2, 5));
   }
 }

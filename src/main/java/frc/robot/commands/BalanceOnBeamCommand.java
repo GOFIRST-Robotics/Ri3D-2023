@@ -38,7 +38,6 @@ public class BalanceOnBeamCommand extends CommandBase {
     System.out.println(
       "Left: " + m_DriveSubsystem.getLeftPct() + " Right: " + m_DriveSubsystem.getLeftPct()
     );
-
   }
 
   // Called once the command ends or is interrupted.
