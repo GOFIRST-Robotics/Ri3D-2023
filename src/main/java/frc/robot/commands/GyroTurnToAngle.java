@@ -31,7 +31,7 @@ public class GyroTurnToAngle extends CommandBase {
   @Override
   public void execute() {
     error = targetAngle - m_DriveSubsystem.getAngle();
-    double value = Math.min(error*Constants.GYRO_KP, 1);
+    double value = -Math.min(error*Constants.GYRO_KP/5, 1);
     System.out.println("Error " + error);
     System.out.println("Value: " + value);
     m_DriveSubsystem.drive(-value, value);
@@ -46,6 +46,6 @@ public class GyroTurnToAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return error < 1;
+    return error < 3;
   }
 }

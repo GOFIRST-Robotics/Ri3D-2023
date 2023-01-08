@@ -11,8 +11,8 @@ public class AutonomousMode_1 extends SequentialCommandGroup {
 
   // List commands here sequentially
   public AutonomousMode_1() {
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 5));
+    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
     addCommands(new Wait(2)); 
-    addCommands(new DriveForTimeCommand(-0.2, -0.2, 5));
+    addCommands(new DriveForTimeCommand(-0.2, -0.2, 1));
   }
 }

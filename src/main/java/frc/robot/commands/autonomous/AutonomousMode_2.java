@@ -10,13 +10,13 @@ public class AutonomousMode_2 extends SequentialCommandGroup {
 
   // List commands here sequentially
   public AutonomousMode_2() {
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
+    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
     addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
+    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
     addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
+    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
     addCommands(new GyroTurnToAngle(90, true));
-    addCommands(new DriveForTimeCommand(0.2, 0.2, 2));
+    addCommands(new DriveForTimeCommand(0.2, 0.2, 1));
     addCommands(new GyroTurnToAngle(90, true));
   }
 }

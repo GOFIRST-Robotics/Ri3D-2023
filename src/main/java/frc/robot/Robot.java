@@ -104,6 +104,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    System.out.println("ATUO STARTED");
   }
 
   /** This function is called periodically during autonomous. */
