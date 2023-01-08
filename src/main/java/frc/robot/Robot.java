@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.autonomous.AutonomousMode_1;
+import frc.robot.commands.autonomous.AutonomousMode_2;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
@@ -55,7 +56,7 @@ public class Robot extends TimedRobot {
     // Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Custom Auto 1", new AutonomousMode_1());
-		chooser.addOption("Custom Auto 2", new AutonomousMode_1());
+		chooser.addOption("Custom Auto 2", new AutonomousMode_2());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
 				
