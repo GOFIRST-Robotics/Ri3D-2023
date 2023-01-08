@@ -9,23 +9,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.autonomous.AutonomousMode_1;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 //import frc.robot.subsystems.VisionSubsystem;
-import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
-import frc.robot.commands.ExtenderIncrementSetpoint;
 import frc.robot.commands.ExtenderMoveToSetpoint;
 
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -63,6 +58,7 @@ public class Robot extends TimedRobot {
 		chooser.addOption("Custom Auto 2", new AutonomousMode_1());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
+    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpoint());
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -151,11 +147,11 @@ public class Robot extends TimedRobot {
   private void configureButtonBindings() {
     new Trigger(() -> controller.getRawButton(Constants.RIGHT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
 
-    new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new ExtenderMoveToSetpoint(0));
-    new POVButton(controller, 0).onTrue(new ExtenderMoveToSetpoint(1));
-    new POVButton(controller, 90).onTrue(new ExtenderIncrementSetpoint(1));
-    new POVButton(controller, 180).onTrue(new ExtenderMoveToSetpoint(4));
-    new POVButton(controller, 270).onTrue(new ExtenderIncrementSetpoint(-1));
+    new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
+    new POVButton(controller, 180).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(1)));
+    new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
+    new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
+    new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).onTrue(new DriveToAprilTagCommand());
   }

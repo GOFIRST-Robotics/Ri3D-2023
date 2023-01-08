@@ -88,19 +88,29 @@ public class ExtenderSubsystem extends SubsystemBase {
 	}
 
 	/** Get the encoder position and velocity *********************************
-	 * Encoder position returns counts
-	 * Encoder speed returns counts per 100 ms, convert to RPM for output */
+	 * Encoder position returns counts */
 	public double getEncoderPosition() {
 		return (m_motor_1.getSelectedSensorPosition(Constants.EXTENDER_PIDIDX) - positionZero);
-	}
-	public double getEncoderSpeed() {
-		int cp100ms = (int)(m_motor_1.getSelectedSensorVelocity(Constants.EXTENDER_PIDIDX));
-		
-		return (double)cp100ms * 10.0 * 60.0 / Constants.EXTENDER_ENCODER_COUNTS_PER_REV;
 	}
 	public double getEncoderPositionZero() {
 		return positionZero;
 	}
+
+  public int changeSetpoint(int newSetPoint) {
+    if (newSetPoint <= 4 && newSetPoint >= 0) {
+      currentSetpoint = newSetPoint;
+    }
+    return currentSetpoint;
+  }
+
+  public int incrementSetPoint() {
+    currentSetpoint = Math.min(currentSetpoint + 1, 4);
+    return currentSetpoint;
+  }
+  public int decrementSetPoint() {
+    currentSetpoint = Math.max(currentSetpoint - 1, 0);
+    return currentSetpoint;
+  }
 
   @Override
   public void periodic() {
