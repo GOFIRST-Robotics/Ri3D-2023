@@ -46,6 +46,7 @@ public final class Constants {
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
     public static final double GYRO_KP = 0.01;
+    public static final double TRACKED_TAG_DRIVE_KP = 0.01;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;
@@ -54,4 +55,9 @@ public final class Constants {
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = false;
     public static final double EXTENDER_SPEED = 0.8;
+
+    // Position Constants //
+    public static final double CAMERA_HEIGHT_METERS = 1; // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = 4; // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = 1 * Math.PI; // TODO: Change me
 }

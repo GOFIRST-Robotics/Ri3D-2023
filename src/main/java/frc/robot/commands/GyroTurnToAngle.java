@@ -34,8 +34,7 @@ public class GyroTurnToAngle extends CommandBase {
   public void execute() {
     error = targetAngle - m_DriveSubsystem.getAngle();
     double value = Math.min(error*kp, 1);
-    System.out.println("Error " + error);
-    System.out.println("Value: " + value);
+
     m_DriveSubsystem.drive(-value, value);
   }
 

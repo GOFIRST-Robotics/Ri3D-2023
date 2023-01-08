@@ -35,6 +35,7 @@ public class VisionSubsystem extends SubsystemBase {
         return null; // Failed to find the target with the ID
             
     }
+    
     public PhotonTrackedTarget getBestTarget() {
         if (hasTarget) {
         return result.getBestTarget(); // Returns the best target
