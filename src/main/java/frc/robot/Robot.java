@@ -12,11 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.autonomous.AutonomousMode_1;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 
-import java.lang.ModuleLayer.Controller;
-
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveSubsystem;
@@ -24,6 +20,7 @@ import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GyroDriveStraight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -61,6 +58,8 @@ public class Robot extends TimedRobot {
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
 				
 		SmartDashboard.putData("Auto Mode", chooser);
+
+    m_driveSubsystem.calibrateGyro();
   }
 
   /**
@@ -82,6 +81,7 @@ public class Robot extends TimedRobot {
     //     System.err.println("Button " + i + " Pressed!");
     //   }
     // }
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -119,6 +119,8 @@ public class Robot extends TimedRobot {
 
     //public void initDefaultCommand() {    //}
     // m_driveSubsystem.drive(0.5, 0.5);
+    m_driveSubsystem.zeroGyro();
+    new GyroDriveStraight(5, 0.2).schedule();
   }
 
   /** This function is called periodically during operator control. */

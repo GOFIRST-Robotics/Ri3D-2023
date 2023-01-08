@@ -33,14 +33,19 @@ public final class Constants {
     public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1;
     public static final int LEFT_REAR_DRIVE_MOTOR_ID = 3;
     public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
-    public static final int GRABBERMOTOR_ID = 4;
-    public static final int EXTENDER_MOTOR_ID = 5;
+    public static final int EXTENDER_MOTOR_1_ID = 5; // TODO: Find the correct value for this
+    public static final int EXTENDER_MOTOR_2_ID = 6; // TODO: Find the correct value for this
+
+    // PCM (Pneumatics Control Module) Channels //
+    public static final int GRABBER_SOLENOID_ID = 0; // TODO: Find the correct value for this
+    public static final int LOWER_THE_EXTENDER_ID = 1; // TODO: Find the correct value for this
     
     // DIO (Digital Input/Output) Channels //
 
     // Drive Constants //
-    public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
-    public static final boolean DRIVE_INVERT_RIGHT = false; // // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
+    public static final double GYRO_KP = 0.01;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;

@@ -4,15 +4,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveCommand extends CommandBase {
+public class DefaultDriveCommand extends DriveCommand {
   private DriveSubsystem m_subsystem;
 
-  public DriveCommand() {
+  public DefaultDriveCommand() {
     m_subsystem = Robot.m_driveSubsystem;
     addRequirements(m_subsystem);
   }
@@ -24,8 +23,8 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-    Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+    Double left_power = Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+    Double right_power = Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
     m_subsystem.drive(left_power, right_power);
   }
 

@@ -4,10 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.DriveCommand;
 
 public class DriveSubsystem extends SubsystemBase {
   
@@ -15,6 +16,8 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_rightFrontMotor;
   private VictorSP m_leftRearMotor;
   private VictorSP m_rightRearMotor;
+  
+  private AHRS navx = new AHRS(SerialPort.Port.kUSB);
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -29,11 +32,41 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
   }
 
-  public void drive(double left, double right) {
-    m_leftFrontMotor.set(left);
-    m_leftRearMotor.set(left);
-    m_rightFrontMotor.set(right);
-    m_rightRearMotor.set(right);
+  public void drive(double leftPct, double rightPct) {
+    m_leftFrontMotor.set(leftPct);
+    m_leftRearMotor.set(leftPct);
+    m_rightFrontMotor.set(rightPct);
+    m_rightRearMotor.set(rightPct);
+  }
+
+  public void stop() {
+    drive(0, 0);
+  }
+
+  public void calibrateGyro() {
+    navx.calibrate();
+  }
+
+  public void zeroGyro() {
+    System.out.println(navx.isConnected());
+    System.out.println(navx.isMagnetometerCalibrated());
+    navx.zeroYaw();
+  }
+  
+  public double getYaw() {
+    return navx.getYaw();
+  }
+
+  public double getPitch() {
+    return navx.getPitch();
+  }
+
+  public double getRoll() {
+    return navx.getRoll();
+  }
+
+  public double getAngle() {
+    return navx.getAngle();
   }
 
   @Override
