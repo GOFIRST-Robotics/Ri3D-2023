@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
 
 /**
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
   public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
+  public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
 
   /**
@@ -121,7 +123,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    System.out.print("Has target? ");
+    System.out.println(m_visionSubsystem.getHasTarget());
+    System.out.print("Best target's angle from the robot: ");
+    System.out.println(m_visionSubsystem.getBestTarget().getYaw());
+  }
 
   @Override
   public void testInit() {
