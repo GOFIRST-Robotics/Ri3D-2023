@@ -43,6 +43,7 @@ public final class Constants {
     public static final int LOWER_THE_EXTENDER_ID = 1; // TODO: Find the correct value for this
     
     // DIO (Digital Input/Output) Channels //
+    public static final int LED_PWM_ID = 4;
 
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort

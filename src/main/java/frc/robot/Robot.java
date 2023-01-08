@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.LEDSubsystem.LEDMode;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToArbitraryPoint;
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
   public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
   public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  public static final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -66,6 +69,7 @@ public class Robot extends TimedRobot {
 
     m_driveSubsystem.calibrateGyro();
     m_extenderSubsystem.resetEncoder();
+    m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
   }
 
   /**

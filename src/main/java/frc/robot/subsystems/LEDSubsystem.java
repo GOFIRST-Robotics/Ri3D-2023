@@ -8,10 +8,6 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-enum LEDMode {
-  GREEN
-}
-
 public class LEDSubsystem extends SubsystemBase {
 
   private Spark ledPWMController;
@@ -22,6 +18,17 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public void setLEDMode(LEDMode ledMode) {
-    
+    ledPWMController.set(ledMode.pwmSignal);
+  }
+
+  public enum LEDMode {
+    GREEN(0.77),
+    WHITE(0.93);
+  
+    public double pwmSignal;
+  
+    LEDMode(double pwmSignal) {
+        this.pwmSignal = pwmSignal;
+    }
   }
 }
