@@ -5,10 +5,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 
 public class VisionSubsystem extends SubsystemBase {
     PhotonCamera camera = new PhotonCamera("photonvision"); //FIXME: Change name of camera in the future
