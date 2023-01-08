@@ -39,8 +39,9 @@ public final class Constants {
     // DIO (Digital Input/Output) Channels //
 
     // Drive Constants //
-    public static final boolean DRIVE_INVERT_LEFT = true; // XBox controller flips vertical axis, changing is effort
-    public static final boolean DRIVE_INVERT_RIGHT = false; // // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
+    public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
+    public static final double GYRO_KP = 0.01;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;

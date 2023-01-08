@@ -19,6 +19,8 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GyroDriveStraight;
+import frc.robot.commands.GyroTurnToAngle;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -117,15 +119,16 @@ public class Robot extends TimedRobot {
     //public void initDefaultCommand() {    //}
     // m_driveSubsystem.drive(0.5, 0.5);
     m_driveSubsystem.zeroGyro();
+    new GyroDriveStraight(5, 0.2).schedule();
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.println(m_driveSubsystem.getYaw());
-    System.out.print(m_driveSubsystem.getPitch());
-    System.out.print(m_driveSubsystem.getRoll());
-    System.out.print(m_driveSubsystem.getAngle());
+    // System.out.println(m_driveSubsystem.getYaw());
+    // System.out.print(m_driveSubsystem.getPitch());
+    // System.out.print(m_driveSubsystem.getRoll());
+    // System.out.print(m_driveSubsystem.getAngle());
   }
 
   @Override
