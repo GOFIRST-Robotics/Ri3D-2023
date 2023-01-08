@@ -37,7 +37,7 @@ public class ExtenderMoveToSetpoint extends CommandBase {
     }
 
     error = goalPos - m_ExtenderSubsystem.getEncoderPosition();
-    if (error > 50) {
+    if (error > Constants.EXTENDER_TOLERANCE) {
       m_ExtenderSubsystem.setPower(Constants.EXTENDER_KP * error);
     }
   }

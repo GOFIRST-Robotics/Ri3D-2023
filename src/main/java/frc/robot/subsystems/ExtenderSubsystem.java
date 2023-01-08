@@ -96,20 +96,17 @@ public class ExtenderSubsystem extends SubsystemBase {
 		return positionZero;
 	}
 
-  public int changeSetpoint(int newSetPoint) {
+  public void changeSetpoint(int newSetPoint) {
     if (newSetPoint <= 4 && newSetPoint >= 0) {
       currentSetpoint = newSetPoint;
     }
-    return currentSetpoint;
   }
 
-  public int incrementSetPoint() {
+  public void incrementSetPoint() {
     currentSetpoint = Math.min(currentSetpoint + 1, 4);
-    return currentSetpoint;
   }
-  public int decrementSetPoint() {
+  public void decrementSetPoint() {
     currentSetpoint = Math.max(currentSetpoint - 1, 0);
-    return currentSetpoint;
   }
 
   @Override
