@@ -1,7 +1,6 @@
 package frc.robot.commands.autonomous;
 
 import frc.robot.commands.GyroDriveStraight;
-import frc.robot.commands.autonomous.helperCommands.Wait;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 

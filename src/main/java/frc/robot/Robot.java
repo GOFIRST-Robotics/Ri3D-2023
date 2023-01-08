@@ -20,7 +20,6 @@ import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.GyroDriveStraight;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -60,6 +59,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", chooser);
 
     m_driveSubsystem.calibrateGyro();
+    m_extenderSubsystem.resetEncoder();
   }
 
   /**

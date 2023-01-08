@@ -48,6 +48,6 @@ public class GyroTurnToAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return error < 1;
+    return Math.abs(error) < 1;
   }
 }

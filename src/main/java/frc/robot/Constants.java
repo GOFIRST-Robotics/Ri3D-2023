@@ -54,4 +54,10 @@ public final class Constants {
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = false;
     public static final double EXTENDER_SPEED = 0.8;
+    public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
+	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
+    public static final int EXTENDER_ENCODER_FRAME_RATE = 10;
+	public static final int EXTENDER_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
+	public static final boolean EXTENDER_SENSOR_PHASE = false;
+    public static final double EXTENDER_KP = 0.01; // TODO: Tune this value!
 }
