@@ -16,6 +16,9 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_rightFrontMotor;
   private VictorSP m_leftRearMotor;
   private VictorSP m_rightRearMotor;
+
+  private double leftPct;
+  private double rightPct;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB);
 
@@ -33,6 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void drive(double leftPct, double rightPct) {
+    this.leftPct = leftPct;
+    this.rightPct = rightPct; 
     m_leftFrontMotor.set(leftPct);
     m_leftRearMotor.set(leftPct);
     m_rightFrontMotor.set(rightPct);
@@ -67,6 +72,14 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getAngle() {
     return navx.getAngle();
+  }
+
+  public double getLeftPct() {
+    return leftPct;
+  }
+
+  public double getRightPct() {
+    return rightPct;
   }
 
   @Override

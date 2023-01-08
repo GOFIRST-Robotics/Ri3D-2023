@@ -9,17 +9,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.commands.autonomous.AutonomousMode_1;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+//import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.StopDrivetrainCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,7 +42,7 @@ public class Robot extends TimedRobot {
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
   public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
-  public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  //public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
 
   /**
@@ -81,7 +86,9 @@ public class Robot extends TimedRobot {
     //     System.err.println("Button " + i + " Pressed!");
     //   }
     // }
-
+      // System.out.println(
+      //   "Left: " + m_driveSubsystem.getLeftPct() + " Right: " + m_driveSubsystem.getLeftPct()
+      // );
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -125,10 +132,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.print("Has target? ");
-    System.out.println(m_visionSubsystem.getHasTarget());
-    System.out.print("Best target's angle from the robot: ");
-    System.out.println(m_visionSubsystem.getBestTarget().getYaw());
+    // System.out.print("Has target? ");
+    // System.out.println(m_visionSubsystem.getHasTarget());
+    // System.out.print("Best target's angle from the robot: ");
+    // System.out.println(m_visionSubsystem.getBestTarget().getYaw());
   }
 
   @Override
@@ -148,22 +155,17 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(controller, Constants.X_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_driveSubsystem.drive(0.1, 0.1),
-      () -> m_driveSubsystem.drive(0.0, 0.0),
-      m_driveSubsystem
-      // () -> m_feederSubsystem.setMotors(Constants.FEEDER_FORWARD_SPEED),
-      // () -> m_feederSubsystem.setMotors(0.0), 
-      // m_feederSubsystem
-    ));
-    new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_driveSubsystem.drive(0.2, 0.2),
-      () -> m_driveSubsystem.drive(0.0, 0.0),
-      m_driveSubsystem
-      // () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
-      // () -> m_feederSubsystem.setMotors(0.0), 
-      // m_feederSubsystem
-    ));
+    Trigger xButton = new JoystickButton(controller, Constants.X_BUTTON);
+    xButton.onTrue(new BalanceOnBeamCommand());
+
+    // new JoystickButton(controller, Constants.A_BUTTON).whileTrue(new StartEndCommand(
+    //   () -> m_driveSubsystem.drive(0.2, 0.2),
+    //   () -> m_driveSubsystem.drive(0.0, 0.0),
+    //   m_driveSubsystem
+    //   // () -> m_feederSubsystem.setMotors(Constants.FEEDER_REVERSE_SPEED),
+    //   // () -> m_feederSubsystem.setMotors(0.0), 
+    //   // m_feederSubsystem
+    // ));
     new JoystickButton(controller, Constants.B_BUTTON).whileTrue(new StartEndCommand(
       () -> m_driveSubsystem.drive(0.3, 0.3),
       () -> m_driveSubsystem.drive(0.0, 0.0),
@@ -172,14 +174,12 @@ public class Robot extends TimedRobot {
       // () -> m_intakeSubsystem.setMotor(0.0),
       // m_intakeSubsystem
     ));
-    new JoystickButton(controller, Constants.Y_BUTTON).whileTrue(new StartEndCommand(
-      () -> m_driveSubsystem.drive(0.4, 0.4),
-      () -> m_driveSubsystem.drive(0.0, 0.0),
-      m_driveSubsystem
+    Trigger yButton = new JoystickButton(controller, Constants.Y_BUTTON);
+    yButton.onTrue(new DriveToAprilTagCommand());// new PrintCommand("Button Triggered!")); 
+    //yButton.onFalse(new StopDrivetrainCommand());
       // () -> m_intakeSubsystem.setMotor(Constants.INTAKE_SPEED),
       // () -> m_intakeSubsystem.setMotor(0.0),
       // m_intakeSubsystem
-    ));
     // new JoystickButton(controller, Constants.LEFT_TRIGGER_AXIS).whileTrue(new StartEndCommand(
     //   () -> m_intakeSubsystem.setExtender(Constants.INTAKE_EXTEND_SPEED),
     //   () -> m_intakeSubsystem.setExtender(0.0),

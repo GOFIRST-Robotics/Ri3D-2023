@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.GrabberSubsystem;
 
-public class ActuateGrabber extends CommandBase {
+public class ActuateGrabberCommand extends CommandBase {
   /** Creates a new ActuateClaw. */
   private GrabberSubsystem m_GrabberSubsystem = new GrabberSubsystem();
 
-  public ActuateGrabber(double powerPct) {
+  public ActuateGrabberCommand(double powerPct) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Robot.m_grabberSubsystem);
   }

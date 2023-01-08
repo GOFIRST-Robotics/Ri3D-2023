@@ -9,13 +9,13 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ExtenderSubsystem;
 
-public class ExtenderMoveToPosition extends CommandBase {
+public class ExtenderMoveToPositionCommand extends CommandBase {
   /** Creates a new Extender Command. */
   private ExtenderSubsystem m_ExtenderSubsystem;
   private double goalPos;
   private double error;
 
-  public ExtenderMoveToPosition(double goalPos) {
+  public ExtenderMoveToPositionCommand(double goalPos) {
     // Use addRequirements() here to declare subsystem dependencies. 
     m_ExtenderSubsystem = Robot.m_extenderSubsystem;
     addRequirements(m_ExtenderSubsystem);
