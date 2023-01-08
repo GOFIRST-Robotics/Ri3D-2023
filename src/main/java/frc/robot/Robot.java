@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
-//import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpoint;
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
   public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
-  //public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -123,10 +123,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    // System.out.print("Has target? ");
-    // System.out.println(m_visionSubsystem.getHasTarget());
-    // System.out.print("Best target's angle from the robot: ");
-    // System.out.println(m_visionSubsystem.getBestTarget().getYaw());
+    System.out.print("Has target? ");
+    System.out.println(m_visionSubsystem.getHasTarget());
+    System.out.print("Best target's angle from the robot: ");
+    System.out.println(m_visionSubsystem.getBestTarget().getYaw());
   }
 
   @Override
