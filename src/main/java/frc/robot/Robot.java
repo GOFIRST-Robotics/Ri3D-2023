@@ -24,7 +24,7 @@ import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToArbitraryPoint;
 import frc.robot.commands.ExtenderMoveToSetpoint;
-
+import frc.robot.commands.TurnToAprilTagCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).onTrue(new PrintCommand("Button Pressed!"));
-    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToArbitraryPoint());
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new TurnToAprilTagCommand());
   }
 
   public boolean getLeftTrigger() {
