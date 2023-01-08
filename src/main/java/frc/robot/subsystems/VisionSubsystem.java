@@ -8,13 +8,12 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class VisionSubsystem extends SubsystemBase {
-    PhotonCamera camera = new PhotonCamera("USB_Camera-B4.09.24.1"); //FIXME: Change name of camera in the future
+    PhotonCamera camera = new PhotonCamera("USB_Camera-B4.09.24.1");
     boolean hasTarget; // Stores whether or not a target is detected
     PhotonPipelineResult result;
 
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
         PhotonPipelineResult result = camera.getLatestResult(); // Query the latest result from PhotonVision
         hasTarget = result.hasTargets(); // If the camera has detected an apriltag target, the hasTarget boolean will be true
         if (hasTarget) {
