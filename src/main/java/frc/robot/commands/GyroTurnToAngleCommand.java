@@ -4,23 +4,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class GyroTurnToAngle extends CommandBase {
+public class GyroTurnToAngleCommand extends CommandBase {
 
   DriveSubsystem m_DriveSubsystem;
   double targetAngle;
+  double kp;
   double error;
 
   /** Creates a new GyroTurnToAngle. */
-  public GyroTurnToAngle(double targetAngle, boolean relativeToCurrent) {
+  public GyroTurnToAngleCommand(double targetAngle, boolean relativeToCurrent) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem;
     this.targetAngle = targetAngle + (relativeToCurrent ? m_DriveSubsystem.getAngle() : 0);
+    kp = Constants.GYRO_KP;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -32,9 +33,8 @@ public class GyroTurnToAngle extends CommandBase {
   @Override
   public void execute() {
     error = targetAngle - m_DriveSubsystem.getAngle();
-    double value = Math.min(error*Constants.GYRO_KP, 1);
-    System.out.println("Error " + error);
-    System.out.println("Value: " + value);
+    double value = Math.min(error*kp, 1);
+
     m_DriveSubsystem.drive(-value, value);
   }
 
@@ -47,6 +47,6 @@ public class GyroTurnToAngle extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return error < 1;
+    return Math.abs(error) < 1;
   }
 }

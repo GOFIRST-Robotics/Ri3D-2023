@@ -7,7 +7,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 /** Wait *******************************************************
  * Waits for a specified number of seconds. Useful for autonomous command groups! */
-public class DriveForTime extends CommandBase {
+public class DriveForTimeCommand extends CommandBase {
 
     private DriveSubsystem m_drivetrainSubsystem;
 
@@ -15,7 +15,7 @@ public class DriveForTime extends CommandBase {
 	Timer timer = new Timer();
     double leftPct, rightPct;
 
-	public DriveForTime(double leftPct, double rightPct, double time) {
+	public DriveForTimeCommand(double leftPct, double rightPct, double time) {
 		duration = time;
         m_drivetrainSubsystem = Robot.m_driveSubsystem;
         addRequirements(m_drivetrainSubsystem);

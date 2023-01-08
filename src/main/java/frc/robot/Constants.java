@@ -48,7 +48,10 @@ public final class Constants {
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
     public static final double GYRO_KP = 0.01;
-    public static final double TRACKED_TAG_DRIVE_KP = 0.01;
+    public static final double TRACKED_TAG_DRIVE_KP = 0.5;
+    public static final double BEAM_BALANACED_DRIVE_KP = 0.033;
+    public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
+    public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;
