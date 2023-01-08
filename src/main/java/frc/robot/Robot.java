@@ -69,7 +69,6 @@ public class Robot extends TimedRobot {
 
     m_driveSubsystem.calibrateGyro();
     m_extenderSubsystem.resetEncoder();
-    m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
   }
 
   /**
@@ -123,6 +122,7 @@ public class Robot extends TimedRobot {
     }
 
     m_driveSubsystem.zeroGyro();
+    m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
   }
 
   /** This function is called periodically during operator control. */

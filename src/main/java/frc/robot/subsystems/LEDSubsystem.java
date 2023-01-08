@@ -21,6 +21,10 @@ public class LEDSubsystem extends SubsystemBase {
     ledPWMController.set(ledMode.pwmSignal);
   }
 
+  public void setLEDPWM(double PWM) {
+    ledPWMController.set(PWM);
+  }
+
   public enum LEDMode {
     GREEN(0.77),
     WHITE(0.93);
@@ -28,7 +32,7 @@ public class LEDSubsystem extends SubsystemBase {
     public double pwmSignal;
   
     LEDMode(double pwmSignal) {
-        this.pwmSignal = pwmSignal;
+      this.pwmSignal = pwmSignal;
     }
   }
 }
