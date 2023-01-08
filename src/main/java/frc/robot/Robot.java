@@ -120,7 +120,6 @@ public class Robot extends TimedRobot {
     //public void initDefaultCommand() {    //}
     // m_driveSubsystem.drive(0.5, 0.5);
     m_driveSubsystem.zeroGyro();
-    new GyroDriveStraight(5, 0.2).schedule();
   }
 
   /** This function is called periodically during operator control. */
