@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.autonomous.AutonomousMode_1;
-import frc.robot.commands.autonomous.AutonomousMode_2;
+import frc.robot.commands.autonomous.PlaceObjectAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     // Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Custom Auto 1", new AutonomousMode_1());
-		chooser.addOption("Custom Auto 2", new AutonomousMode_2());
+		chooser.addOption("Custom Auto 2", new PlaceObjectAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpoint());

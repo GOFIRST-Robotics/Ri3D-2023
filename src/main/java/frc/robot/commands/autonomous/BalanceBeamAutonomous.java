@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /** Autonomous Mode (1) ******************************************************
  * This is a custom autonomous routine */
-public class AutonomousMode_1 extends SequentialCommandGroup {
+public class BalanceBeamAutonomous extends SequentialCommandGroup {
 
   // List commands here sequentially
-  public AutonomousMode_1() {
+  public BalanceBeamAutonomous () {
     addCommands(new DriveForTimeCommand(.2, .2, 1));
     addCommands(new BalanceOnBeamCommand());
   }
