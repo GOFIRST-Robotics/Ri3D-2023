@@ -56,6 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
     System.out.println(navx.isConnected());
     System.out.println(navx.isMagnetometerCalibrated());
     navx.zeroYaw();
+    navx.reset();
   }
   
   public double getYaw() {

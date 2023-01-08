@@ -30,10 +30,13 @@ public class BalanceOnBeamCommand extends CommandBase {
   public void execute() {
     Double currentAngle = m_DriveSubsystem.getPitch(); /*-1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45*/;
     Double error = Constants.BEAM_BALANCED_ANGLE_DEGREES - currentAngle;
-    Double drivePower = Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
-    System.out.println("Current Angle: " + error);
+    Double drivePower = -Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
+    System.out.println("Current Angle: " + currentAngle);
     System.out.println("Error " + error);
     System.out.println("Value: " + drivePower);
+    if (drivePower < 0) {
+      drivePower *= 1.35;
+    }
     m_DriveSubsystem.drive(drivePower, drivePower);
     System.out.println(
       "Left: " + m_DriveSubsystem.getLeftPct() + " Right: " + m_DriveSubsystem.getLeftPct()
@@ -49,6 +52,7 @@ public class BalanceOnBeamCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(error) < 1;
+    return false;
+    //return Math.abs(error) < 1;
   }
 }

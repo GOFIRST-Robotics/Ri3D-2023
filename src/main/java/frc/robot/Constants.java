@@ -51,7 +51,7 @@ public final class Constants {
     public static final double GYRO_KP = 0.01;
     public static final double TRACKED_TAG_DRIVE_KP = 0.3;
     public static final double POWER_CAP = 0.75;
-    public static final double BEAM_BALANACED_DRIVE_KP = 0.033;
+    public static final double BEAM_BALANACED_DRIVE_KP = 0.025;
     public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     
