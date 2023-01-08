@@ -21,6 +21,7 @@ public class ExtenderSubsystem extends SubsystemBase {
   private Solenoid lower_the_extender;
   private boolean isRaised;
   private double positionZero;
+  public int currentSetpoint;
 
   /** Creates a new Extender ubsystem. */
   public ExtenderSubsystem() {
@@ -44,6 +45,8 @@ public class ExtenderSubsystem extends SubsystemBase {
 
     lower_the_extender = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID);
     isRaised = true;
+
+    currentSetpoint = 0;
   }
 
   // Motor Methods //

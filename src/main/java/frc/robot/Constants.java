@@ -57,6 +57,11 @@ public final class Constants {
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = false;
     public static final double EXTENDER_SPEED = 0.8;
+    public static final double EXTENDER_SETPOINT_INTAKE = 0; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_1 = 100; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_2= 200; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_3 = 300; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_4= 400; // TODO: Find the correct value for this
 
     // Position Constants //
     public static final double CAMERA_HEIGHT_METERS = 1; // TODO: Change me
