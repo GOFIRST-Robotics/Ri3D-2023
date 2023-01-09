@@ -27,6 +27,7 @@ import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpoint;
+import frc.robot.commands.GyroTurnToAngleCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
@@ -163,6 +164,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90, true));
   }
 
   public boolean getLeftTrigger() {
