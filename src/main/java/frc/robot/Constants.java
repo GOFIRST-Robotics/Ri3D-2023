@@ -87,9 +87,9 @@ public final class Constants {
     public static final double EXTENDER_TOLERANCE = 50.0; // TODO: Find the correct value for this
 
     // Position Constants //
-    public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = 2; // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = Math.PI / 6; // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(12); // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(18.5); // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(18); // TODO: Change me
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
     public static final int EXTENDER_ENCODER_FRAME_RATE = 10;

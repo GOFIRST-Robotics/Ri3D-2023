@@ -84,13 +84,13 @@ public class DriveToAprilTagCommand extends CommandBase {
           translationalError = desiredDistanceToTarget - trackedTarget.getArea();
           translationValue = translationalError * Constants.TRACKED_TAG_AREA_DRIVE_KP;
         } else {
-          translationalError = PhotonUtils.calculateDistanceToTargetMeters(
+          translationalError = -desiredDistanceToTarget + PhotonUtils.calculateDistanceToTargetMeters(
             Constants.CAMERA_HEIGHT_METERS, 
             Constants.TARGET_HEIGHT_METERS, 
             Constants.CAMERA_PITCH_RADIANS, 
             trackedTarget.getPitch()
           );
-          translationValue = translationalError * Constants.TRACKED_TAG_DISTANCE_DRIVE_KP;
+          translationValue = translationalError * Constants.TRACKED_TAG_DISTANCE_DRIVE_KP*3;
         }
         // If the robot is too close to the target, drive backwards
         double rotationValue = -rotationalError * Constants.TRACKED_TAG_ROATION_KP;
@@ -114,7 +114,7 @@ public class DriveToAprilTagCommand extends CommandBase {
 
         // Print out all the variables for debugging
         System.out.println("Target Area: " + desiredDistanceToTarget);
-        System.out.println("Current Area: " + trackedTarget.getArea());
+        System.out.println("Current Area: " + translationValue);
         System.out.println("Distance: " + desiredDistanceToTarget);
         System.out.println("Rotational Error: " + rotationalError);
         System.out.println("Translational Error: " + translationalError);

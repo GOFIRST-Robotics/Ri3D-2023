@@ -9,6 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
+import org.photonvision.PhotonUtils;
+
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -27,6 +31,7 @@ import frc.robot.subsystems.LEDSubsystem.LEDMode;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveInFrontOfTag;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpointCommand;
 import frc.robot.commands.GyroTurnToAngleCommand;
@@ -155,6 +160,14 @@ public class Robot extends TimedRobot {
     // System.out.println(m_visionSubsystem.getHasTarget());
     // System.out.print("Best target's angle from the robot: ");
     // System.out.println(m_visionSubsystem.getBestTarget().getYaw());
+    // if (m_visionSubsystem.getHasTarget()) {
+    //   System.out.println(PhotonUtils.calculateDistanceToTargetMeters(
+    //     Constants.CAMERA_HEIGHT_METERS, 
+    //     Constants.TARGET_HEIGHT_METERS, 
+    //     Constants.CAMERA_PITCH_RADIANS, 
+    //     Units.degreesToRadians(m_visionSubsystem.getBestTarget().getPitch())
+    //   ));
+    // }
   }
 
   @Override
@@ -192,7 +205,7 @@ public class Robot extends TimedRobot {
     // Drivetrain Controls //
     // new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
-    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveInFrontOfTag(0.5));
   }
 
   public boolean getLeftTrigger() {
