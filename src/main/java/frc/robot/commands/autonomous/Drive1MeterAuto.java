@@ -1,8 +1,6 @@
 package frc.robot.commands.autonomous;
 
-import frc.robot.commands.TimedGyroDriveStraightCommand;
 import frc.robot.commands.DriveForDistanceCommand;
-import frc.robot.commands.GyroTurnToAngleCommand;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
