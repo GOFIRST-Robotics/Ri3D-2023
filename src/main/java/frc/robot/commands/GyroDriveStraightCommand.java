@@ -12,7 +12,7 @@ public class GyroDriveStraightCommand extends CommandBase {
 
   private DriveSubsystem m_drivetrainSubsystem;
 
-	double duration;
+	double duration; // how long we want to move forward
 	Timer timer = new Timer();
     double startAngle;
     double driveRate;
@@ -31,12 +31,13 @@ public class GyroDriveStraightCommand extends CommandBase {
 	}
 
     public void execute() {
-      double error = startAngle - m_drivetrainSubsystem.getAngle();
-      double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1);
+      double error = startAngle - m_drivetrainSubsystem.getAngle(); // Correction needed for robot angle (our starting angle, since we would like to drive straight)
+      double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1); // plus or minus Constants.GYRO_KP * error, meant for error correction
       double value2 = Math.min(driveRate - Constants.GYRO_KP * error, 1);
-      m_drivetrainSubsystem.drive(value1, value2);
+      m_drivetrainSubsystem.drive(value1, value2); // write percent values to motors
 	}
 	
+	// returns true when the command ends
 	public boolean isFinished() {
 		return timer.get() >= duration;
 	}

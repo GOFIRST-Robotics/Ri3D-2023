@@ -35,7 +35,7 @@ public class GyroTurnToAngleCommand extends CommandBase {
     error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
     double value = Math.min(error*kp, 1); // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
 
-    m_DriveSubsystem.drive(-value, value); // write calculated values to m_DriveSubsystem
+    m_DriveSubsystem.drive(-value, value); // write calculated values to m_DriveSubsystem, negative and positive value in order for turning to occur
   }
 
   // Called once the command ends or is interrupted.

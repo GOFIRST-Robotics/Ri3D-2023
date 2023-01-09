@@ -38,7 +38,7 @@ public class TurnToAprilTagCommand extends CommandBase {
       error = m_VisionSubsystem.getBestTarget().getYaw(); // calculate error based off Yaw value of our current best target
       double value = -Math.min(error*kp, 1); // calculate motor percentage value
 
-      m_DriveSubsystem.drive(-value, value); // write values to motors
+      m_DriveSubsystem.drive(-value, value); // write values to motors, negative and positive value in order for turning to occur
     } else {
       m_DriveSubsystem.stop(); // otherwise, don't do anything
     }
