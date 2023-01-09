@@ -50,28 +50,23 @@ public class ExtenderSubsystem extends SubsystemBase {
   }
 
   // Motor Methods //
-
   public void setPower(double power) {
     m_motor_1.set(ControlMode.PercentOutput, power); // motor 2 will follow motor 1
   }
-
   public void stop() {
     m_motor_1.set(ControlMode.PercentOutput, 0);
     m_motor_2.set(ControlMode.PercentOutput, 0);
   }
 
-  // Raise/Lower Piston Methods //
-
+  // Methods for controlling the state of the solenoid //
   public void lowerExtender() {
     lower_the_extender.set(false);
     isRaised = false;
   }
-
   public void raiseExtender() {
     lower_the_extender.set(true);
     isRaised = true;
   }
-
   public void toggleExtenderRaiser() {
     if (isRaised) {
       lowerExtender();
@@ -81,31 +76,25 @@ public class ExtenderSubsystem extends SubsystemBase {
   }
 
   // Encoder Methods //
-
-  /** Reset the encoder zero position ***************************************/
-	public void resetEncoder() {
+	public void resetEncoder() { // Reset the 'zero' position to be the current encoder position
 		positionZero = m_motor_1.getSelectedSensorPosition(Constants.EXTENDER_PIDIDX);
 	}
-
-	/** Get the encoder position and velocity *********************************
-	 * Encoder position returns counts */
-	public double getEncoderPosition() {
+	public double getEncoderPosition() { // Returns the current encoder position in raw encoder counts
 		return (m_motor_1.getSelectedSensorPosition(Constants.EXTENDER_PIDIDX) - positionZero);
 	}
-	public double getEncoderPositionZero() {
+	public double getEncoderPositionZero() { // Returns the current 'zero' position in raw encoder counts
 		return positionZero;
 	}
 
+  // Methods for changing the setpoint/goal of this subsystem's default command //
   public int getCurrentSetPoint() {
     return currentSetpoint;
   }
-
   public void changeSetpoint(int newSetPoint) {
     if (newSetPoint <= 4 && newSetPoint >= 0) {
       currentSetpoint = newSetPoint;
     }
   }
-
   public void incrementSetPoint() {
     currentSetpoint = Math.min(currentSetpoint + 1, 4);
   }

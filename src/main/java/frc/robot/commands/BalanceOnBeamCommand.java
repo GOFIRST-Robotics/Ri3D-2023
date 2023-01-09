@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
+// This command takes the joystick inputs and demands that the drivetrain follow them
 public class BalanceOnBeamCommand extends CommandBase {
 
   DriveSubsystem m_DriveSubsystem;
@@ -37,9 +38,7 @@ public class BalanceOnBeamCommand extends CommandBase {
       drivePower *= Constants.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
     }
     m_DriveSubsystem.drive(drivePower, drivePower);
-    System.out.println(
-      "Left: " + m_DriveSubsystem.getLeftPct() + " Right: " + m_DriveSubsystem.getLeftPct()
-    );
+    System.out.println("Left: " +drivePower + " Right: " + drivePower);
 
     // Debug
     System.out.println("Current Angle: " + currentAngle);

@@ -13,6 +13,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
+// This command rotates the robot to the best (nearest) field april tag
 public class DriveToAprilTagCommand extends CommandBase {
 
   private DriveSubsystem m_drivetrainSubsystem;
@@ -91,6 +92,7 @@ public class DriveToAprilTagCommand extends CommandBase {
           );
           translationValue = translationalError * Constants.TRACKED_TAG_DISTANCE_DRIVE_KP;
         }
+        // If the robot is too close to the target, drive backwards
         double rotationValue = -rotationalError * Constants.TRACKED_TAG_ROATION_KP;
         double leftPower =  translationValue - rotationValue; // NEGATIVE
         double rightPower = translationValue + rotationValue; // POSITVE
@@ -110,7 +112,7 @@ public class DriveToAprilTagCommand extends CommandBase {
         }
         m_drivetrainSubsystem.drive(leftDriveRate, rightDriveRate); // Finnally drive with the values we have
 
-        // Debug
+        // Print out all the variables for debugging
         System.out.println("Target Area: " + desiredDistanceToTarget);
         System.out.println("Current Area: " + trackedTarget.getArea());
         System.out.println("Distance: " + desiredDistanceToTarget);

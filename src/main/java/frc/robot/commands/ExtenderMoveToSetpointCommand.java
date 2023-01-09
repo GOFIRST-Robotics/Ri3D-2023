@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ExtenderSubsystem;
 
+// ExtenderMoveToSetpointCommand is a command that moves the extender to a setpoint
 public class ExtenderMoveToSetpointCommand extends CommandBase {
 
   /** Command to control the robot extender for the arm */

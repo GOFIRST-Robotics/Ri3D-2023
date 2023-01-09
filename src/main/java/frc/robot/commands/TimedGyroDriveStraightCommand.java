@@ -24,12 +24,14 @@ public class TimedGyroDriveStraightCommand extends CommandBase {
       addRequirements(m_drivetrainSubsystem);
 	}
 
+	//Starts the timer and gets the starting angle
 	public void initialize() {
 	  timer.reset();
   	  timer.start();
       startAngle = m_drivetrainSubsystem.getAngle();
 	}
 
+	// Called every time the scheduler runs while the command is scheduled.
     public void execute() {
       double error = startAngle - m_drivetrainSubsystem.getAngle(); // Correction needed for robot angle (our starting angle, since we would like to drive straight)
       double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1); // plus or minus Constants.GYRO_KP * error, meant for error correction
@@ -42,6 +44,7 @@ public class TimedGyroDriveStraightCommand extends CommandBase {
 		return timer.get() >= duration;
 	}
 
+	// Called once the command ends or is interrupted.	
 	public void end(boolean interrupted) {
 		timer.reset();
         System.out.println("ENDED");

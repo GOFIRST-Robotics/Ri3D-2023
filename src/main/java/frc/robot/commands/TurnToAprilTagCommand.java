@@ -10,6 +10,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
+// This command is used to turn the robot to face an AprilTag, using the VisionSubsystem to detect the AprilTag
 public class TurnToAprilTagCommand extends CommandBase {
 
   DriveSubsystem m_DriveSubsystem; // drive system
