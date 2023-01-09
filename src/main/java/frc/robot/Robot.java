@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
-  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
+  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem(); // Used to actuate gripper
   public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
   public static final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
   
@@ -59,9 +59,9 @@ public class Robot extends TimedRobot {
 
     // Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Custom Auto 1", new BalanceBeamAutonomous());
-		chooser.addOption("Custom Auto 2", new PlaceObjectAutonomous());
-    chooser.addOption("Custom Auto 2", new SquareAutonomous());
+		chooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
+		chooser.addOption("Place Object Auto", new PlaceObjectAutonomous());
+    chooser.addOption("Square Auto", new SquareAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpoint());
@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
-    System.out.println("ATUO STARTED");
+    System.out.println("AUTO STARTED");
   }
 
   /** This function is called periodically during autonomous. */
