@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
+// This command takes the joystick inputs and demands that the drivetrain follow them
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
 

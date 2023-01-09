@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.GrabberSubsystem;
 
+// This command toggles the grabber
 public class ToggleGrabber extends CommandBase {
 
   GrabberSubsystem m_GrabberSubsystem;

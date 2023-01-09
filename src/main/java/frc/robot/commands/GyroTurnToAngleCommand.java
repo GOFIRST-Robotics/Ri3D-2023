@@ -9,6 +9,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
+//  uses PID to align to angle using gyro
 public class GyroTurnToAngleCommand extends CommandBase {
 
   DriveSubsystem m_DriveSubsystem; // drive system
