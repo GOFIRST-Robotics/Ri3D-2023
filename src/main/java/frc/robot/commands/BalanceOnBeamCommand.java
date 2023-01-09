@@ -37,21 +37,27 @@ public class BalanceOnBeamCommand extends CommandBase {
   public void execute() {
     // Uncomment below to simulate gyro axis with controller joystick
     // Double currentAngle = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
-    currentAngle = m_DriveSubsystem.getPitch();
+    this.currentAngle = m_DriveSubsystem.getPitch();
 
     error = Constants.BEAM_BALANCED_ANGLE_DEGREES - currentAngle;
     double changeInAngle = currentAngle - previousAngle;
     previousAngle = currentAngle;
 
+    double drivePower = -Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
+
+    if (drivePower < 0) {
+      drivePower *= Constants.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
+    }
+
     // Limit the max power
-    if (Math.abs(drivePower) > 0.5) {
-      drivePower = Math.copySign(0.5, drivePower);
+    if (Math.abs(drivePower) > 0.4) {
+      drivePower = Math.copySign(0.4, drivePower);
     }
 
     // If we sense a large change in error, apply a small negative power to counteract the board tipping
-    if (changeInAngle > 5) {
-      drivePower = Math.copySign(0.2, -drivePower); // Reverse the motors from what we previously told them to do
-    }
+    // if (changeInAngle < -10) {
+    //   drivePower = Math.copySign(0.2, -drivePower); // Reverse the motors from what we previously told them to do
+    // }
 
     m_DriveSubsystem.drive(drivePower, drivePower);
     

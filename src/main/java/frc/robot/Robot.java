@@ -24,6 +24,7 @@ import frc.robot.subsystems.GrabberSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LEDSubsystem.LEDMode;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpointCommand;
@@ -98,7 +99,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.currentSetpoint);
     //if (m_visionSubsystem.getHasTarget()) {System.out.println("TARGET SKEW: " + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());}
-     System.out.println(m_driveSubsystem.getEncoderRate());
+     //System.out.println(m_driveSubsystem.getEncoderRate());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -182,7 +183,8 @@ public class Robot extends TimedRobot {
     new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
 
     // Drivetrain Controls //
-    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
+    // new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
   }
 

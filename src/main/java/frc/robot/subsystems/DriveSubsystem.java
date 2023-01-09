@@ -23,12 +23,15 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_rightRearMotor;
 
   private Encoder leftDriveEncoder;
-  //private Encoder rightDriveEncoder;
+  private Encoder rightDriveEncoder;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB);
   SendableChooser<Double> driveScaleChooser = new SendableChooser<Double>();
 
   public double CURRENT_DRIVE_SCALE;
+
+  private double leftPositionZero;
+  private double rightPositionZero;
 
   /** Subsystem for controlling the Drivetrain and accessing the NavX Gyroscope */
   public DriveSubsystem() {
@@ -45,6 +48,13 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
 
     leftDriveEncoder = new Encoder(0, 1);
+    rightDriveEncoder = new Encoder(2, 3);
+
+    leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.LEFT_ENCODER_COUNTS_PER_REV);
+    leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.RIGHT_ENCODER_COUNTS_PER_REV);
+
+    zeroEncoders(); // Zero the encoders
+
     // Drive Scale Options //
     driveScaleChooser.setDefaultOption("100%", 1.0);
     driveScaleChooser.addOption("75%", 0.75);
@@ -86,8 +96,36 @@ public class DriveSubsystem extends SubsystemBase {
     return navx.getAngle();
   }
 
-  public double getEncoderRate() {
+  // Speed will be measured in meters/second
+  public double getLeftSpeed() {
     return leftDriveEncoder.getRate();
+  }
+  public double getRightSpeed() {
+    return rightDriveEncoder.getRate();
+  }
+  // Distance will be measured in meters
+  public double getLeftDistance() {
+    return leftDriveEncoder.getDistance();
+  }
+  public double getRightDistance() {
+    return rightDriveEncoder.getDistance();
+  }
+  public void zeroEncoders() { // Reset the 'zero' positions to be the current encoder positions
+		leftPositionZero = leftDriveEncoder.get();
+    rightPositionZero = rightDriveEncoder.get();
+	}
+	public double getLeftEncoderPositionZero() { // Returns the current 'zero' position in raw encoder counts
+		return leftPositionZero;
+	}
+  public double getRightEncoderPositionZero() { // Returns the current 'zero' position in raw encoder counts
+		return rightPositionZero;
+	}
+  // These return values are measured in raw encoder counts
+  public double getLeftRaw() {
+    return leftDriveEncoder.get();
+  }
+  public double getRightRaw() {
+    return rightDriveEncoder.get();
   }
 
   @Override

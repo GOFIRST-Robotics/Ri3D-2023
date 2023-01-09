@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,6 +15,12 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    // Physical Robot Constants
+    public static final double WHEEL_DIAMETER = Units.inchesToMeters(4); // Convert from inches to meters
+    public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER; // Measured in meters
+	public static final double TRACK_WIDTH = Units.inchesToMeters(25); // Distance between centers of right and left wheels on robot (in meters)
+    public static final double WHEEL_BASE = Units.inchesToMeters(25.5); // Distance between centers of front and back wheels on robot (in meters) 
+
     // Controller Input Axes //
     public static final int USB_PORT_ID = 0; // USB port that the controller is plugged in to
     public static final int LEFT_VERTICAL_JOYSTICK_AXIS = 1;
@@ -56,11 +64,13 @@ public final class Constants {
     public static final double TRACKED_TAG_DISTANCE_DRIVE_KP = 0.3;
     public static final double TRACKED_TAG_AREA_DRIVE_KP = 0.2;
     public static final double APRILTAG_POWER_CAP = 0.75;
-    public static final double BEAM_BALANACED_DRIVE_KP = 0.033;
+    public static final double BEAM_BALANACED_DRIVE_KP = 0.015;
     public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35;
     public static final double DRIVE_TURNING_THRESHOLD_DEGREES = 3;
+    public static final int LEFT_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
+    public static final int RIGHT_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;
