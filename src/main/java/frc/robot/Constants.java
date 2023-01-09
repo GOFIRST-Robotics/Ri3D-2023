@@ -16,9 +16,11 @@ public final class Constants {
     // Controller Input Axes //
     public static final int USB_PORT_ID = 0; // USB port that the controller is plugged in to
     public static final int LEFT_VERTICAL_JOYSTICK_AXIS = 1;
+    public static final int LEFT_HORIZONTAL_JOYSTICK_AXIS = 0;
     public static final int LEFT_TRIGGER_AXIS = 7;
     public static final int RIGHT_TRIGGER_AXIS = 8;
     public static final int RIGHT_VERTICAL_JOYSTICK_AXIS = 3;
+    public static final int RIGHT_HORIZONTAL_JOYSTICK_AXIS = 2;
     public static final int A_BUTTON = 2;
     public static final int B_BUTTON = 3;
     public static final int X_BUTTON = 1;

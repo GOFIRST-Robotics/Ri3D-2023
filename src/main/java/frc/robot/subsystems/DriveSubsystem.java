@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,6 +19,9 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_rightFrontMotor;
   private VictorSP m_leftRearMotor;
   private VictorSP m_rightRearMotor;
+
+  private Encoder leftDriveEncoder;
+  //private Encoder rightDriveEncoder;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB);
 
@@ -33,6 +38,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightFrontMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
     m_leftRearMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
+
+    leftDriveEncoder = new Encoder(0, 1);
   }
 
   /* Set power to the drivetrain motors */
@@ -65,6 +72,10 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public double getAngle() {
     return navx.getAngle();
+  }
+
+  public double getEncoderRate() {
+    return leftDriveEncoder.getRate();
   }
 
   @Override

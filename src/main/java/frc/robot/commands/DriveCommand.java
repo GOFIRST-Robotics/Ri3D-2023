@@ -40,9 +40,9 @@ public class DriveCommand extends CommandBase {
       Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
       m_subsystem.drive(left_power, right_power);
     } else {
-      Double turning_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-      Double drive_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
-      m_subsystem.drive(drive_power + turning_power, drive_power - turning_power);
+      Double turning_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_HORIZONTAL_JOYSTICK_AXIS);
+      Double drive_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+      m_subsystem.drive(drive_power - turning_power, drive_power + turning_power);
     }
   }
 

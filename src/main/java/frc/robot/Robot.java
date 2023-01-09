@@ -87,6 +87,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.currentSetpoint);
+    //if (m_visionSubsystem.getHasTarget()) {System.out.println("TARGET SKEW: " + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());}
+     System.out.println(m_driveSubsystem.getEncoderRate());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
