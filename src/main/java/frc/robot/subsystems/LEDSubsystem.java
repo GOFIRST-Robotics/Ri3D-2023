@@ -12,7 +12,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   private Spark ledPWMController;
 
-  /** Subsystem for controlling the LEDs (REV Blinkin) */
+  /** Subsystem for controlling RGB LED strips using a REV Blinkin */
   public LEDSubsystem() {
     ledPWMController = new Spark(Constants.LED_PWM_ID);
   }
@@ -20,7 +20,6 @@ public class LEDSubsystem extends SubsystemBase {
   public void setLEDMode(LEDMode ledMode) {
     ledPWMController.set(ledMode.pwmSignal);
   }
-
   public void setLEDPWM(double PWM) {
     ledPWMController.set(PWM);
   }
