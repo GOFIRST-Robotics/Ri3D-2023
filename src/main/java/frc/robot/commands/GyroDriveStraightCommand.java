@@ -14,28 +14,28 @@ public class GyroDriveStraightCommand extends CommandBase {
 
 	double duration;
 	Timer timer = new Timer();
-  double startAngle;
-  double driveRate;
+    double startAngle;
+    double driveRate;
 
 	public GyroDriveStraightCommand(double time, double driveRate) {
-		duration = time;
-    this.driveRate = driveRate;
-    m_drivetrainSubsystem = Robot.m_driveSubsystem;
-    addRequirements(m_drivetrainSubsystem);
+	  duration = time;
+      this.driveRate = driveRate;
+      m_drivetrainSubsystem = Robot.m_driveSubsystem;
+      addRequirements(m_drivetrainSubsystem);
 	}
 
 	public void initialize() {
-		timer.reset();
-		timer.start();
-    startAngle = m_drivetrainSubsystem.getAngle();
+	  timer.reset();
+  	  timer.start();
+      startAngle = m_drivetrainSubsystem.getAngle();
 	}
 
-  public void execute() {
-    double error = startAngle - m_drivetrainSubsystem.getAngle();
-    double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1);
-    double value2 = Math.min(driveRate - Constants.GYRO_KP * error, 1);
-    m_drivetrainSubsystem.drive(value1, value2);
-  }
+    public void execute() {
+      double error = startAngle - m_drivetrainSubsystem.getAngle();
+      double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1);
+      double value2 = Math.min(driveRate - Constants.GYRO_KP * error, 1);
+      m_drivetrainSubsystem.drive(value1, value2);
+	}
 	
 	public boolean isFinished() {
 		return timer.get() >= duration;
@@ -43,6 +43,6 @@ public class GyroDriveStraightCommand extends CommandBase {
 
 	public void end(boolean interrupted) {
 		timer.reset();
-    System.out.println("ENDED");
+        System.out.println("ENDED");
 	}
 }

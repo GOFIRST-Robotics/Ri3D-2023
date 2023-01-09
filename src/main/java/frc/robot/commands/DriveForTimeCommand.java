@@ -16,27 +16,27 @@ public class DriveForTimeCommand extends CommandBase {
     double leftPct, rightPct;
 
 	public DriveForTimeCommand(double leftPct, double rightPct, double time) {
-		duration = time;
-		this.leftPct = leftPct;
-		this.rightPct = rightPct;
-        m_drivetrainSubsystem = Robot.m_driveSubsystem;
-        addRequirements(m_drivetrainSubsystem);
+	  duration = time;
+	  this.leftPct = leftPct;
+      this.rightPct = rightPct;
+      m_drivetrainSubsystem = Robot.m_driveSubsystem;
+      addRequirements(m_drivetrainSubsystem);
 	}
 
 	public void initialize() {
-		System.out.println("FIRST COMMAND STARTED");
-		timer.reset();
-		timer.start();
-        m_drivetrainSubsystem.drive(leftPct, rightPct);
+	  System.out.println("FIRST COMMAND STARTED");
+	  timer.reset();
+	  timer.start();
+      m_drivetrainSubsystem.drive(leftPct, rightPct);
 	}
 	
 	public boolean isFinished() {
-		return timer.get() >= duration;
+	  return timer.get() >= duration;
 	}
 
 	public void end(boolean interrupted) {
-		System.out.println("FIRST COMMAND ENDED STARTED");
-		timer.reset();
-		m_drivetrainSubsystem.stop();
+	  System.out.println("FIRST COMMAND ENDED STARTED");
+	  timer.reset();
+	  m_drivetrainSubsystem.stop();
 	}
 }

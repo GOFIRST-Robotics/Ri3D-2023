@@ -11,17 +11,17 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class GyroTurnToAngleCommand extends CommandBase {
 
-  DriveSubsystem m_DriveSubsystem;
-  double targetAngle;
-  double kp;
-  double error;
+  DriveSubsystem m_DriveSubsystem; // drive system
+  double targetAngle; // the target angle we wish to achieve
+  double kp; // scaling factor based off Constants.GYRO_KP
+  double error; // How "incorrect" the current angle of the robot is as its moving
 
   /** Creates a new GyroTurnToAngle. */
   public GyroTurnToAngleCommand(double targetAngle, boolean relativeToCurrent) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem;
-    this.targetAngle = targetAngle + (relativeToCurrent ? m_DriveSubsystem.getAngle() : 0);
-    kp = Constants.GYRO_KP; 
+    this.targetAngle = targetAngle + (relativeToCurrent ? m_DriveSubsystem.getAngle() : 0); // conditonal operator, either gives relative angle or zero
+    kp = Constants.GYRO_KP; // scaling factor for angle adjustment in execute() (line 34)
     addRequirements(m_DriveSubsystem);
   }
 

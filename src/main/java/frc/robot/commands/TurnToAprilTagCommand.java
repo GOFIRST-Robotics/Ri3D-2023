@@ -12,11 +12,11 @@ import frc.robot.subsystems.VisionSubsystem;
 
 public class TurnToAprilTagCommand extends CommandBase {
 
-  DriveSubsystem m_DriveSubsystem;
-  VisionSubsystem m_VisionSubsystem;
-  double targetAngle;
-  double kp;
-  double error;
+  DriveSubsystem m_DriveSubsystem; // drive system
+  VisionSubsystem m_VisionSubsystem; // vision system
+  double targetAngle; // Future variable, probably used in the case where the camera is not placed horizionally in front of the robot
+  double kp; // scaling ratio for robot movement
+  double error; // amount of error our robot detects that it tries to correct for, relative to the position of the AprilTag
 
   /** Creates a new GyroTurnToAngle. */
   public TurnToAprilTagCommand() {
