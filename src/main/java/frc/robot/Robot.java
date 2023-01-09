@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.autonomous.BalanceBeamAutonomous;
-import frc.robot.commands.autonomous.PlaceObjectAutonomous;
-import frc.robot.commands.autonomous.AutonomousMode_Default;
-import frc.robot.commands.autonomous.SquareAutonomous;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+
+import frc.robot.commands.autonomous.BalanceBeamAutonomous;
+import frc.robot.commands.autonomous.PlaceCubeAutonomous;
+import frc.robot.commands.autonomous.AutonomousMode_Default;
+import frc.robot.commands.autonomous.SquareAutonomous;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -27,7 +28,6 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveToAprilTagCommand;
 import frc.robot.commands.ExtenderMoveToSetpointCommand;
 import frc.robot.commands.GyroTurnToAngleCommand;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -42,11 +42,11 @@ public class Robot extends TimedRobot {
 
   public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
 
-  public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem();
-  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem(); // Used to actuate gripper
-  public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
-  public static final LEDSubsystem m_LEDSubsystem = new LEDSubsystem();
+  public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); // Drivetrain subsystem
+  public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem(); // Grabs both cubes and cones
+  public static final ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem(); // Used to reach out and score with the grabber
+  public static final VisionSubsystem m_visionSubsystem = new VisionSubsystem(); // Subsystem for interacting with Photonvision
+  public static final LEDSubsystem m_LEDSubsystem = new LEDSubsystem(); // Subsytem for controlling the REV Blinkin LED module
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     // Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		chooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
-		chooser.addOption("Place Object Auto", new PlaceObjectAutonomous());
+		chooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
     chooser.addOption("Square Auto", new SquareAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
@@ -157,14 +157,17 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
+    // Grabber Controls //
     new Trigger(() -> controller.getRawButton(Constants.RIGHT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
 
+    // Extender Controls //
     new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
     new POVButton(controller, 180).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(1)));
     new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
+    // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
   }
