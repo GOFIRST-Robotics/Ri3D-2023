@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot;
 
@@ -40,11 +39,11 @@ import frc.robot.commands.GyroTurnToAngleCommand;
 public class Robot extends TimedRobot {
 
   CommandBase m_autonomousCommand;
-	SendableChooser<CommandBase> autonChooser = new SendableChooser<CommandBase>();
+	SendableChooser<CommandBase> autonChooser = new SendableChooser<CommandBase>(); // Create a chooser to select an autonomous command
 
-  SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>();
+  SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>(); // Create a chooser to toggle whether the extender default command should run
 
-  public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
+  public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID); // Instantiate our controller at the specified USB port
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); // Drivetrain subsystem
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem(); // Grabs both cubes and cones
@@ -61,26 +60,26 @@ public class Robot extends TimedRobot {
 
     configureButtonBindings(); // Configure the button bindings
 
-    // Autonomous Routines //
+    // Add our Autonomous Routines to the chooser //
 		autonChooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
 		autonChooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
 		autonChooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
     autonChooser.addOption("Square Auto", new SquareAutonomous());
     autonChooser.addOption("Drive 1 Meter", new Drive1MeterAuto());
-				
 		SmartDashboard.putData("Auto Mode", autonChooser);
 
-    // Toggle the Extender default command on/off //
+    // Add chooser options for toggling the Extender default command on/off //
     toggleExtenderPID.setDefaultOption("ON", true);
     toggleExtenderPID.addOption("OFF", true);
 
     SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    if (toggleExtenderPID.getSelected()) {
+    if (toggleExtenderPID.getSelected()) { // Only set the extender default command if we want it
       m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
     }
 
+    // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
   }
@@ -115,14 +114,17 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    System.out.println("AUTONOMOUS MODE STARTED");
+
     m_autonomousCommand = autonChooser.getSelected();
-    m_driveSubsystem.resetEncoders();
-
+    
+    // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
+    m_driveSubsystem.resetEncoders();
     m_extenderSubsystem.resetEncoder();
-    System.out.println("AUTO STARTED");
+    
 
-    // schedule the autonomous command (example)
+    // schedule the selected autonomous command
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -137,11 +139,12 @@ public class Robot extends TimedRobot {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
-    // this line or comment it out.
+    // this if statement or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
 
+    // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
     m_driveSubsystem.resetEncoders();
@@ -165,16 +168,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-
-    System.out.println(m_driveSubsystem.getRightSpeed());
-  }
+  public void testPeriodic() {}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or onse of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.Trigger}.
+   * instantiating a {@link GenericHID} or onse of its subclasses ({@link edu.wpi.first.wpilibj.Joystick} 
+   * or {@link XboxController}), and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
     new Trigger(() -> controller.getRawButton(Constants.LEFT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
@@ -190,7 +189,7 @@ public class Robot extends TimedRobot {
     new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
 
     // Drivetrain Controls //
-    // new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
+    new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
   }
