@@ -48,7 +48,9 @@ public final class Constants {
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
-    public static final double GYRO_KP = 0.01;
+    public static final double GYRO_KP = 0.007;
+    public static final double GYRO_KI = 0.0;
+    public static final double GYRO_KD = 0.0;
     public static final double TRACKED_TAG_DRIVE_KP = 0.3;
     public static final double POWER_CAP = 0.75;
     public static final double BEAM_BALANACED_DRIVE_KP = 0.033;

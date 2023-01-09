@@ -102,14 +102,14 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autonomousCommand = chooser.getSelected();
 
+    m_driveSubsystem.zeroGyro();
+    m_extenderSubsystem.resetEncoder();
+    System.out.println("AUTO STARTED");
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-
-    m_driveSubsystem.zeroGyro();
-    m_extenderSubsystem.resetEncoder();
-    System.out.println("AUTO STARTED");
   }
 
   /** This function is called periodically during autonomous. */
