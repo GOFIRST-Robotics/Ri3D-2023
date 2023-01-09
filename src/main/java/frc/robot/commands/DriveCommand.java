@@ -12,11 +12,13 @@ import frc.robot.subsystems.DriveSubsystem;
 // This command takes the joystick inputs and demands that the drivetrain follow them
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
+  private boolean tankDrive;
 
   /** Default drive command that takes the joystick inputs and demands that the drivetrain follow them */
-  public DriveCommand() {
+  public DriveCommand(boolean tankDrive) {
     m_subsystem = Robot.m_driveSubsystem;
     addRequirements(m_subsystem);
+    this.tankDrive = tankDrive;
   }
 
   // Called once when the command is initially scheduled.
@@ -26,9 +28,15 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-    Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
-    m_subsystem.drive(left_power, right_power);
+    if (tankDrive) {
+      Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+      Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+      m_subsystem.drive(left_power, right_power);
+    } else {
+      Double turning_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
+      Double drive_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+      m_subsystem.drive(drive_power + turning_power, drive_power - turning_power);
+    }
   }
 
   // Called once the command ends or is interrupted.

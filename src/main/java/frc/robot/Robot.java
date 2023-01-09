@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
 		chooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
     chooser.addOption("Square Auto", new SquareAutonomous());
 
-    m_driveSubsystem.setDefaultCommand(new DriveCommand());
+    m_driveSubsystem.setDefaultCommand(new DriveCommand(true));
     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand()); // TODO: Do we want this to be the default command or no?
 				
 		SmartDashboard.putData("Auto Mode", chooser);
