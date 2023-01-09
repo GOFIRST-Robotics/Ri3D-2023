@@ -3,8 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -17,9 +15,6 @@ public class GyroTurnToAngleCommand extends CommandBase {
   double degreesToTurn; // the target angle we wish to achieve
   double error; // How "incorrect" the current angle of the robot is as its moving
   double targetAngle;
-  double errorSum;
-  double previousError;
-  Timer timeout;
 
   /** Creates a new GyroTurnToAngle. */
   public GyroTurnToAngleCommand(double degreesToTurn) {
@@ -27,9 +22,6 @@ public class GyroTurnToAngleCommand extends CommandBase {
     m_DriveSubsystem = Robot.m_driveSubsystem;
     addRequirements(m_DriveSubsystem);
     this.degreesToTurn = degreesToTurn;
-    errorSum = 0;
-    previousError = 0;
-    timeout = new Timer();
   }
 
   // Called when the command is initially scheduled.
@@ -37,18 +29,13 @@ public class GyroTurnToAngleCommand extends CommandBase {
   public void initialize() {
     this.targetAngle = degreesToTurn + m_DriveSubsystem.getAngle();
     System.out.println("CURRENT ANGLE" + m_DriveSubsystem.getAngle());
-    errorSum = 0;
-    previousError = 0;
-    timeout.reset();
-    timeout.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
-    errorSum += error;
-    double value = error*Constants.GYRO_KP + errorSum * Constants.GYRO_KI + Constants.GYRO_KD*(error - previousError); // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
+    double value = error*Constants.GYRO_KP; // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
     if (Math.abs(value) > 0.75) {
       value = Math.copySign(0.75, value);
     }
