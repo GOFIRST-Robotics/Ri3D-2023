@@ -21,9 +21,9 @@ public class TurnToAprilTagCommand extends CommandBase {
   /** Creates a new GyroTurnToAngle. */
   public TurnToAprilTagCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_DriveSubsystem = Robot.m_driveSubsystem;
+    m_DriveSubsystem = Robot.m_driveSubsystem; // define drive and vision system
     m_VisionSubsystem = Robot.m_visionSubsystem;
-    kp = Constants.GYRO_KP*2.5;
+    kp = Constants.GYRO_KP*2.5; // Calculate kp scaling ratio based off scaled GYRO_KP value (used in execute())
     addRequirements(m_DriveSubsystem);
   }
 
@@ -34,13 +34,13 @@ public class TurnToAprilTagCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_VisionSubsystem.getHasTarget()) {
-      error = m_VisionSubsystem.getBestTarget().getYaw();
-      double value = -Math.min(error*kp, 1);
+    if (m_VisionSubsystem.getHasTarget()) { // if we find a target,
+      error = m_VisionSubsystem.getBestTarget().getYaw(); // calculate error based off Yaw value of our current best target
+      double value = -Math.min(error*kp, 1); // calculate motor percentage value
 
-      m_DriveSubsystem.drive(-value, value);
+      m_DriveSubsystem.drive(-value, value); // write values to motors
     } else {
-      m_DriveSubsystem.stop();
+      m_DriveSubsystem.stop(); // otherwise, don't do anything
     }
   }
 
