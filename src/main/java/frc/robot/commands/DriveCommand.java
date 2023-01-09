@@ -36,12 +36,12 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     if (driveChooser.getSelected()) {
-      Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-      Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+      Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
+      Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
       m_subsystem.drive(left_power, right_power);
     } else {
-      Double turning_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
-      Double drive_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
+      Double turning_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
+      Double drive_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
       m_subsystem.drive(drive_power + turning_power, drive_power - turning_power);
     }
   }

@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,6 +21,9 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_rightRearMotor;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB);
+  SendableChooser<Double> driveScaleChooser = new SendableChooser<Double>();
+
+  public double CURRENT_DRIVE_SCALE;
 
   /** Subsystem for controlling the Drivetrain and accessing the NavX Gyroscope */
   public DriveSubsystem() {
@@ -33,6 +38,14 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightFrontMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
     m_leftRearMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
+
+    // Drive Scale Options //
+    driveScaleChooser.setDefaultOption("100%", 1.0);
+    driveScaleChooser.addOption("75%", 0.75);
+    driveScaleChooser.addOption("50%", 0.5);
+    driveScaleChooser.addOption("25%", 0.25);
+
+    SmartDashboard.putData("Drivetrain Speed", driveScaleChooser);
   }
 
   /* Set power to the drivetrain motors */
@@ -69,6 +82,6 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected();
   }
 }
