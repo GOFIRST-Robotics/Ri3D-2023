@@ -57,6 +57,7 @@ public final class Constants {
     public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
     public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35;
+    public static final double DRIVE_TURNING_THRESHOLD_DEGREES = 3;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;
@@ -73,9 +74,9 @@ public final class Constants {
     public static final double EXTENDER_TOLERANCE = 50.0; // TODO: Find the correct value for this
 
     // Position Constants //
-    public static final double CAMERA_HEIGHT_METERS = 1; // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = 4; // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = 1 * Math.PI; // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = 2; // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = Math.PI / 6; // TODO: Change me
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
     public static final int EXTENDER_ENCODER_FRAME_RATE = 10;

@@ -18,7 +18,7 @@ public class TurnToAprilTagCommand extends CommandBase {
   double kp; // scaling ratio for robot movement
   double error; // amount of error our robot detects that it tries to correct for, relative to the position of the AprilTag
 
-  /** Creates a new GyroTurnToAngle. */
+  /** Turns the robot using the gyro only for following an April Tag (tracked target from VisionSubsystem) */
   public TurnToAprilTagCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem; // define drive and vision system

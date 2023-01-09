@@ -15,13 +15,18 @@ public class GyroTurnToAngleCommand extends CommandBase {
   double degreesToTurn; // the target angle we wish to achieve
   double error; // How "incorrect" the current angle of the robot is as its moving
   double targetAngle;
+  boolean loopGyro;
 
-  /** Creates a new GyroTurnToAngle. */
+  /** Turns to an angle relative to the current angle using the gyro */
   public GyroTurnToAngleCommand(double degreesToTurn) {
-    // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem;
     addRequirements(m_DriveSubsystem);
     this.degreesToTurn = degreesToTurn;
+  }
+
+  public GyroTurnToAngleCommand(double degreesToTurn, boolean nonRelativeToCurrentRotation) {
+    this(degreesToTurn);
+    loopGyro = nonRelativeToCurrentRotation;
   }
 
   // Called when the command is initially scheduled.
@@ -34,12 +39,16 @@ public class GyroTurnToAngleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
-    double value = error*Constants.GYRO_KP; // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
+    if (loopGyro) {
+      error = targetAngle - m_DriveSubsystem.getAngle() % 360;
+    } else {
+      error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
+    }
+    double value = error * Constants.GYRO_KP; // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
     if (Math.abs(value) > 0.75) {
       value = Math.copySign(0.75, value);
     }
-    if (Math.abs(value) < 0.15) {
+    if (Math.abs(value) < 0.15) { // Min drive value
       value = Math.copySign(0.15, value);
     }
     System.out.println("error" + error);
@@ -60,6 +69,6 @@ public class GyroTurnToAngleCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(error) < 1;
+    return Math.abs(error) < Constants.DRIVE_TURNING_THRESHOLD_DEGREES;
   }
 }
