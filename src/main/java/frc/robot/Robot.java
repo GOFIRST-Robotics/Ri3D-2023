@@ -25,7 +25,8 @@ import frc.robot.subsystems.LEDSubsystem.LEDMode;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.ExtenderMoveToSetpoint;
+import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.ExtenderMoveToSetpointCommand;
 import frc.robot.commands.GyroTurnToAngleCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
@@ -64,7 +65,7 @@ public class Robot extends TimedRobot {
     chooser.addOption("Square Auto", new SquareAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpoint());
+    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -165,7 +166,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
-    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
+    new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
   }
 

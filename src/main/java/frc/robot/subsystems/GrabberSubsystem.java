@@ -14,7 +14,7 @@ public class GrabberSubsystem extends SubsystemBase {
   private Solenoid grabberSolenoid;
   private boolean isExtended;
 
-  /** Creates a new Grabber Subsystem. */
+  /** Subsystem for controlling the Grabber */
   public GrabberSubsystem() {
     grabberSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.GRABBER_SOLENOID_ID);
     isExtended = false;

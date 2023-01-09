@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
 
+  /** Default drive command that takes the joystick inputs and demands that the drivetrain follow them */
   public DriveCommand() {
     m_subsystem = Robot.m_driveSubsystem;
     addRequirements(m_subsystem);

@@ -8,7 +8,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 /** Wait *******************************************************
  * Waits for a specified number of seconds. Useful for autonomous command groups! */
-public class GyroDriveStraightCommand extends CommandBase {
+public class TimedGyroDriveStraightCommand extends CommandBase {
 
   private DriveSubsystem m_drivetrainSubsystem;
 
@@ -17,7 +17,7 @@ public class GyroDriveStraightCommand extends CommandBase {
     double startAngle;
     double driveRate;
 
-	public GyroDriveStraightCommand(double time, double driveRate) {
+	public TimedGyroDriveStraightCommand(double time, double driveRate) {
 	  duration = time;
       this.driveRate = driveRate;
       m_drivetrainSubsystem = Robot.m_driveSubsystem;

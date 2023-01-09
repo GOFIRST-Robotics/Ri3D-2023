@@ -23,7 +23,7 @@ public class TurnToAprilTagCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem; // define drive and vision system
     m_VisionSubsystem = Robot.m_visionSubsystem;
-    kp = Constants.GYRO_KP*2.5; // Calculate kp scaling ratio based off scaled GYRO_KP value (used in execute())
+    kp = Constants.TRACKED_TAG_ROATION_KP; // Calculate kp scaling ratio based off scaled GYRO_KP value (used in execute())
     addRequirements(m_DriveSubsystem);
   }
 

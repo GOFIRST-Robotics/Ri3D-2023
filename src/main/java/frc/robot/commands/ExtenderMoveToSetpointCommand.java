@@ -9,14 +9,14 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ExtenderSubsystem;
 
-public class ExtenderMoveToSetpoint extends CommandBase {
-  /** Creates a new Extender Command. */
+public class ExtenderMoveToSetpointCommand extends CommandBase {
+
+  /** Command to control the robot extender for the arm */
   private ExtenderSubsystem m_ExtenderSubsystem;
   private double goalPos;
   private double error;
 
-  public ExtenderMoveToSetpoint() {
-    // Use addRequirements() here to declare subsystem dependencies. 
+  public ExtenderMoveToSetpointCommand() {
     m_ExtenderSubsystem = Robot.m_extenderSubsystem;
     addRequirements(m_ExtenderSubsystem);
   }
@@ -28,7 +28,7 @@ public class ExtenderMoveToSetpoint extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch (m_ExtenderSubsystem.currentSetpoint) {
+    switch (m_ExtenderSubsystem.getCurrentSetPoint()) {
       case 0: goalPos = Constants.EXTENDER_SETPOINT_INTAKE;
       case 1: goalPos = Constants.EXTENDER_SETPOINT_1;
       case 2: goalPos = Constants.EXTENDER_SETPOINT_2;

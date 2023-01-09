@@ -49,11 +49,14 @@ public final class Constants {
     public static final boolean DRIVE_INVERT_LEFT = false; // XBox controller flips vertical axis, changing is effort
     public static final boolean DRIVE_INVERT_RIGHT = true; // // XBox controller flips vertical axis, changing is effort
     public static final double GYRO_KP = 0.007;
-    public static final double TRACKED_TAG_DRIVE_KP = 0.3;
+    public static final double TRACKED_TAG_ROATION_KP = 0.0175;
+    public static final double TRACKED_TAG_DISTANCE_DRIVE_KP = 0.3;
+    public static final double TRACKED_TAG_AREA_DRIVE_KP = 0.2;
     public static final double POWER_CAP = 0.75;
     public static final double BEAM_BALANACED_DRIVE_KP = 0.033;
     public static final double BEAM_BALANCED_ANGLE_DEGREES = 0;
     public static final double BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES = 1;
+    public static final double BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER = 1.35;
     
     // Grabber Constants //
     public static final double GRABBER_SPEED = 0.8;
@@ -79,4 +82,7 @@ public final class Constants {
 	public static final int EXTENDER_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
 	public static final boolean EXTENDER_SENSOR_PHASE = false;
     public static final double EXTENDER_KP = 0.01; // TODO: Tune this value!
+
+    // Vision Constants //
+    public static final String USB_CAMERA_ID = "USB_Camera-B4.09.24.1";
 }

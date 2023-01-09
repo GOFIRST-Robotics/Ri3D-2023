@@ -22,7 +22,7 @@ public class DriveSubsystem extends SubsystemBase {
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB);
 
-  /** Creates a new DriveSubsystem. */
+  /** Subsystem for controlling the Drivetrain and accessing the Navx */
   public DriveSubsystem() {
     m_leftFrontMotor = new VictorSP(Constants.LEFT_FRONT_DRIVE_MOTOR_ID);
     m_rightFrontMotor = new VictorSP(Constants.RIGHT_FRONT_DRIVE_MOTOR_ID);

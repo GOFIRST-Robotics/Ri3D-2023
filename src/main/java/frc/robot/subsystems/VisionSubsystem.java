@@ -6,9 +6,10 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class VisionSubsystem extends SubsystemBase {
-    PhotonCamera camera = new PhotonCamera("USB_Camera-B4.09.24.1");
+    PhotonCamera camera = new PhotonCamera(Constants.USB_CAMERA_ID);
     boolean hasTarget; // Stores whether or not a target is detected
     PhotonPipelineResult result;
 

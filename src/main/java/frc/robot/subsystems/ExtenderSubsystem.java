@@ -23,7 +23,7 @@ public class ExtenderSubsystem extends SubsystemBase {
   private double positionZero;
   public int currentSetpoint;
 
-  /** Creates a new Extender ubsystem. */
+  /** Subsystem for controlling the extender */
   public ExtenderSubsystem() {
     m_motor_1 = new TalonSRX(Constants.EXTENDER_MOTOR_1_ID); // This will be the one with the encoder connected
     m_motor_2 = new TalonSRX(Constants.EXTENDER_MOTOR_2_ID);
@@ -95,6 +95,10 @@ public class ExtenderSubsystem extends SubsystemBase {
 	public double getEncoderPositionZero() {
 		return positionZero;
 	}
+
+  public int getCurrentSetPoint() {
+    return currentSetpoint;
+  }
 
   public void changeSetpoint(int newSetPoint) {
     if (newSetPoint <= 4 && newSetPoint >= 0) {

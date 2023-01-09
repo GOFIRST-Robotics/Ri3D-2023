@@ -12,7 +12,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   private Spark ledPWMController;
 
-  /** Creates a new LEDSubsystem. */
+  /** Subsystem for controlling the LEDs (REV Blinkin) */
   public LEDSubsystem() {
     ledPWMController = new Spark(Constants.LED_PWM_ID);
   }
