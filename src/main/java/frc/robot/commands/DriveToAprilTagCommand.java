@@ -98,11 +98,11 @@ public class DriveToAprilTagCommand extends CommandBase {
         double rightPower = translationValue + rotationValue; // POSITVE
         double leftDriveRate;
         double rightDriveRate;
-        if (leftPower > Constants.POWER_CAP || rightPower > Constants.POWER_CAP) {
+        if (leftPower > Constants.APRILTAG_POWER_CAP || rightPower > Constants.APRILTAG_POWER_CAP) {
           double max = Math.max(Math.abs(leftPower), Math.abs(rightPower));
           leftDriveRate = Math.copySign(leftPower/max, leftPower);
           rightDriveRate = Math.copySign(rightPower/max, rightPower);
-        } else if (leftPower < -Constants.POWER_CAP || rightPower < -Constants.POWER_CAP) {
+        } else if (leftPower < -Constants.APRILTAG_POWER_CAP || rightPower < -Constants.APRILTAG_POWER_CAP) {
             double min = Math.max(Math.abs(leftPower), Math.abs(rightPower));
             leftDriveRate = Math.copySign(leftPower/min, leftPower);
             rightDriveRate = Math.copySign(rightPower/min, rightPower);

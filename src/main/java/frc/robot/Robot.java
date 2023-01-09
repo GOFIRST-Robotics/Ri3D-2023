@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
   CommandBase m_autonomousCommand;
 	SendableChooser<CommandBase> autonChooser = new SendableChooser<CommandBase>();
 
+  SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>();
+
   public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); // Drivetrain subsystem
@@ -62,11 +64,19 @@ public class Robot extends TimedRobot {
 		autonChooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
 		autonChooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
     autonChooser.addOption("Square Auto", new SquareAutonomous());
-
-    m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand()); // TODO: Do we want this to be the default command or no?
 				
 		SmartDashboard.putData("Auto Mode", autonChooser);
+
+    // Toggle the Extender default command on/off //
+    toggleExtenderPID.setDefaultOption("ON", true);
+    toggleExtenderPID.addOption("OFF", true);
+
+    SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
+
+    m_driveSubsystem.setDefaultCommand(new DriveCommand());
+    if (toggleExtenderPID.getSelected()) {
+      m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
+    }
 
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
