@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -12,13 +14,18 @@ import frc.robot.subsystems.DriveSubsystem;
 // This command takes the joystick inputs and demands that the drivetrain follow them
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
-  private boolean tankDrive;
+  SendableChooser<Boolean> driveChooser = new SendableChooser<Boolean>();
 
   /** Default drive command that takes the joystick inputs and demands that the drivetrain follow them */
-  public DriveCommand(boolean tankDrive) {
+  public DriveCommand() {
     m_subsystem = Robot.m_driveSubsystem;
     addRequirements(m_subsystem);
-    this.tankDrive = tankDrive;
+
+    // Drive Modes //
+    driveChooser.setDefaultOption("Tank Drive", true);
+    driveChooser.addOption("Arcade Drive", false);
+
+    SmartDashboard.putData("Drive Mode", driveChooser);
   }
 
   // Called once when the command is initially scheduled.
@@ -28,7 +35,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (tankDrive) {
+    if (driveChooser.getSelected()) {
       Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
       Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS);
       m_subsystem.drive(left_power, right_power);

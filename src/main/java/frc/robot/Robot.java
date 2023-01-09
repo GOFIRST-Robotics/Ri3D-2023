@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import frc.robot.commands.autonomous.BalanceBeamAutonomous;
@@ -39,7 +38,7 @@ import frc.robot.commands.GyroTurnToAngleCommand;
 public class Robot extends TimedRobot {
 
   CommandBase m_autonomousCommand;
-	SendableChooser<CommandBase> chooser = new SendableChooser<CommandBase>();
+	SendableChooser<CommandBase> autonChooser = new SendableChooser<CommandBase>();
 
   public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID);
 
@@ -59,15 +58,15 @@ public class Robot extends TimedRobot {
     configureButtonBindings(); // Configure the button bindings
 
     // Autonomous Routines //
-		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
-		chooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
-    chooser.addOption("Square Auto", new SquareAutonomous());
+		autonChooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
+		autonChooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
+		autonChooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
+    autonChooser.addOption("Square Auto", new SquareAutonomous());
 
-    m_driveSubsystem.setDefaultCommand(new DriveCommand(true));
+    m_driveSubsystem.setDefaultCommand(new DriveCommand());
     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand()); // TODO: Do we want this to be the default command or no?
 				
-		SmartDashboard.putData("Auto Mode", chooser);
+		SmartDashboard.putData("Auto Mode", autonChooser);
 
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
@@ -101,7 +100,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = chooser.getSelected();
+    m_autonomousCommand = autonChooser.getSelected();
 
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
@@ -158,7 +157,7 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
-    new Trigger(() -> controller.getRawButton(Constants.LEFT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()).andThen(new PrintCommand("Left Trigger Pressed!")));
+    new Trigger(() -> controller.getRawButton(Constants.LEFT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
 
     // Extender Controls //
     new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
