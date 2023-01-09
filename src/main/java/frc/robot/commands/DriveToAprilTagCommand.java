@@ -65,7 +65,7 @@ public class DriveToAprilTagCommand extends CommandBase {
         rightDriveRate = value2;
       }
       m_drivetrainSubsystem.drive(leftDriveRate, rightDriveRate);
-      System.out.println("Distance: " + distanceToTarget);
+      System.out.println("Distance: " + distanceToTarget); // debug data
       System.out.println("Rotational Error: " + rotationalError);
       System.out.println("Translational Error: " + translationalError);
       System.out.println("Rotational Value: " + rotationValue);
