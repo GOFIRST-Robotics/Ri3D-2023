@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GrabberSubsystem extends SubsystemBase {
-  private boolean isExtended; // The existence of this variables helps our toggle() method function
+  private boolean isExtended; // The existence of this variables helps our toggle() method work
   private DoubleSolenoid grabberSolenoid;
 
   /** Subsystem for controlling the Grabber (Picks up both cubes and cones) */
