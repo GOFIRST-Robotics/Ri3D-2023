@@ -53,9 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void zeroGyro() {
-    System.out.println(navx.isConnected());
-    System.out.println(navx.isMagnetometerCalibrated());
-    navx.zeroYaw();
+    System.out.println("NavX Connected: " + navx.isConnected());
     navx.reset();
   }
   

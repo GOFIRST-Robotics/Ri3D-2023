@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
-    m_driveSubsystem.calibrateGyro();
+    m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
   }
 
@@ -107,6 +107,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
 
+    m_driveSubsystem.zeroGyro();
+    m_extenderSubsystem.resetEncoder();
     System.out.println("AUTO STARTED");
   }
 
@@ -125,6 +127,7 @@ public class Robot extends TimedRobot {
     }
 
     m_driveSubsystem.zeroGyro();
+    m_extenderSubsystem.resetEncoder();
     m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
   }
 
@@ -163,7 +166,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
-    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90, true));
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
   }
 
   public boolean getLeftTrigger() {
