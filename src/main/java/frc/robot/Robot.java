@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.autonomous.AutonomousMode_1;
+import frc.robot.commands.autonomous.BalanceBeamAutonomous;
 import frc.robot.commands.autonomous.PlaceObjectAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
+import frc.robot.commands.autonomous.SquareAutonomous;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -58,8 +59,9 @@ public class Robot extends TimedRobot {
 
     // Autonomous Routines //
 		chooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
-		chooser.addOption("Custom Auto 1", new AutonomousMode_1());
+		chooser.addOption("Custom Auto 1", new BalanceBeamAutonomous());
 		chooser.addOption("Custom Auto 2", new PlaceObjectAutonomous());
+    chooser.addOption("Custom Auto 2", new SquareAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpoint());

@@ -15,16 +15,12 @@ public class PlaceObjectAutonomous extends SequentialCommandGroup {
   private GrabberSubsystem m_grabberSubsystem = Robot.m_grabberSubsystem;
   // List commands here sequentially
   public PlaceObjectAutonomous() {
-    addCommands(new DriveToAprilTagCommand());
+    addCommands(new DriveToAprilTagCommand()); //find and drive to aprilTags
 
-    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
+    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4))); //fully extend arm
 
-    addCommands(new InstantCommand(() -> m_grabberSubsystem.extend()));
+    addCommands(new InstantCommand(() -> m_grabberSubsystem.extend())); //drop object by extending grabber holding it, keep grabber open to make tele-op easier
 
-    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
-
-
-
-   
+    addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0))); // fully retract arm
   }
 }
