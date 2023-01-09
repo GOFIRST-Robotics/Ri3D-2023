@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     chooser.addOption("Square Auto", new SquareAutonomous());
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
+    m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand()); // TODO: Do we want this to be the default command or no?
 				
 		SmartDashboard.putData("Auto Mode", chooser);
 
@@ -166,6 +166,9 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
+    // Manual Control of the Extender //
+    new Trigger(() -> getRightTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(0.25)));
+    new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
 
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
