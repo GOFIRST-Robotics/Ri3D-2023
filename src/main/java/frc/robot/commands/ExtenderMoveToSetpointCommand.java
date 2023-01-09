@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot.commands;
 
@@ -9,7 +8,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ExtenderSubsystem;
 
-// ExtenderMoveToSetpointCommand is a command that moves the extender to a setpoint
+// ExtenderMoveToSetpointCommand is a command that moves the extender to a setpoint 
+// This is the default command of the Extender subsystem
 public class ExtenderMoveToSetpointCommand extends CommandBase {
 
   /** Command to control the robot extender for the arm */

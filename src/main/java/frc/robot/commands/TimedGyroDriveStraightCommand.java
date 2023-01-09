@@ -1,3 +1,6 @@
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
+
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -6,8 +9,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 
-/** Wait *******************************************************
- * Waits for a specified number of seconds. Useful for autonomous command groups! */
+/** TimedGyroDriveStraightCommand **************************************************
+ * Drives straoight using gyroscope feedback for a specified number of seconds. */
 public class TimedGyroDriveStraightCommand extends CommandBase {
 
   private DriveSubsystem m_drivetrainSubsystem;
@@ -47,6 +50,5 @@ public class TimedGyroDriveStraightCommand extends CommandBase {
 	// Called once the command ends or is interrupted.	
 	public void end(boolean interrupted) {
 		timer.reset();
-        System.out.println("ENDED");
 	}
 }

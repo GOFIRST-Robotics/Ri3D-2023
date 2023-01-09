@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot.commands;
 
@@ -65,7 +64,6 @@ public class BalanceOnBeamCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    //return Math.abs(error) < 1;
+    return Math.abs(error) < Constants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES;
   }
 }

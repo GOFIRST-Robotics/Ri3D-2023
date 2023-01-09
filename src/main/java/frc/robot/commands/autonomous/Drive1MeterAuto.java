@@ -1,3 +1,6 @@
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
+
 package frc.robot.commands.autonomous;
 
 import frc.robot.commands.DriveForDistanceCommand;
@@ -5,7 +8,7 @@ import frc.robot.commands.DriveForDistanceCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /** Autonomous Mode (Default) ******************************************************
- * This is our most basic autonomous routine. It drives forward for 2 seconds, turns around 180 degrees, and then drives back. */
+ * This basic autonomous routine drives forward 1 meter using encoder feedback */
 public class Drive1MeterAuto extends SequentialCommandGroup {
 
   // List commands here sequentially

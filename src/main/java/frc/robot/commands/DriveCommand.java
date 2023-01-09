@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot.commands;
 
@@ -14,7 +13,7 @@ import frc.robot.subsystems.DriveSubsystem;
 // This command takes the joystick inputs and demands that the drivetrain follow them
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_subsystem;
-  SendableChooser<Boolean> driveChooser = new SendableChooser<Boolean>();
+  SendableChooser<Boolean> driveChooser = new SendableChooser<Boolean>(); // Create a chooser to select between tank drive and arcade drive
 
   /** Default drive command that takes the joystick inputs and demands that the drivetrain follow them */
   public DriveCommand() {
@@ -35,11 +34,11 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (driveChooser.getSelected()) {
+    if (driveChooser.getSelected()) { // Tank Drive
       Double left_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
       Double right_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_VERTICAL_JOYSTICK_AXIS) * m_subsystem.CURRENT_DRIVE_SCALE; // -1 inverts the controller axis
       m_subsystem.drive(left_power, right_power);
-    } else {
+    } else { // Arcade Drive
       Double turning_power = -1 * Robot.controller.getRawAxis(Constants.RIGHT_HORIZONTAL_JOYSTICK_AXIS);
       Double drive_power = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS);
       m_subsystem.drive(drive_power - turning_power, drive_power + turning_power);
@@ -48,11 +47,13 @@ public class DriveCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_subsystem.stop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // Command will never finish
+    return false; // Command will never finish (we don't want it to)
   }
 }
