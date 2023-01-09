@@ -21,7 +21,7 @@ public class GyroTurnToAngleCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem;
     this.targetAngle = targetAngle + (relativeToCurrent ? m_DriveSubsystem.getAngle() : 0);
-    kp = Constants.GYRO_KP;
+    kp = Constants.GYRO_KP; 
     addRequirements(m_DriveSubsystem);
   }
 
@@ -32,10 +32,10 @@ public class GyroTurnToAngleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    error = targetAngle - m_DriveSubsystem.getAngle();
-    double value = Math.min(error*kp, 1);
+    error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
+    double value = Math.min(error*kp, 1); // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
 
-    m_DriveSubsystem.drive(-value, value);
+    m_DriveSubsystem.drive(-value, value); // write calculated values to m_DriveSubsystem
   }
 
   // Called once the command ends or is interrupted.
