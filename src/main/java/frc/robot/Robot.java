@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import frc.robot.commands.autonomous.BalanceBeamAutonomous;
+import frc.robot.commands.autonomous.Drive1MeterAuto;
 import frc.robot.commands.autonomous.PlaceCubeAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 import frc.robot.commands.autonomous.SquareAutonomous;
@@ -65,6 +66,7 @@ public class Robot extends TimedRobot {
 		autonChooser.addOption("Balance Beam Auto", new BalanceBeamAutonomous());
 		autonChooser.addOption("Place Object Auto", new PlaceCubeAutonomous());
     autonChooser.addOption("Square Auto", new SquareAutonomous());
+    autonChooser.addOption("Drive 1 Meter", new Drive1MeterAuto());
 				
 		SmartDashboard.putData("Auto Mode", autonChooser);
 
@@ -114,6 +116,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = autonChooser.getSelected();
+    m_driveSubsystem.resetEncoders();
 
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
@@ -141,6 +144,7 @@ public class Robot extends TimedRobot {
 
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
+    m_driveSubsystem.resetEncoders();
     m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
   }
 
@@ -161,7 +165,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+
+    System.out.println(m_driveSubsystem.getRightSpeed());
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
