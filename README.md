@@ -1,7 +1,7 @@
 # Ri3D-2023
  Official code from the UMN Robotics Team for the 2023 FRC season!
  
-[![Env](Gifs/RI3D.gif](https://collaborate.shapr3d.com/v/TyNZZo2E9wQ8442WcQJLR)\
+[![Env](Gifs/RI3D.gif)](https://youtu.be/eQZTAWonZkg)
 
 1) Install the 2023 release of WPILib here: https://github.com/wpilibsuite/allwpilib/releases
 2) Install the 2023 NI FRC Game Tools here: https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#473762
