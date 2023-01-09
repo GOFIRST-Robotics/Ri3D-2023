@@ -39,8 +39,8 @@ public final class Constants {
     public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
     
     // PCM (Pneumatics Control Module) Channels //
-    public static final int GRABBER_SOLENOID_1_ID = 0; // TODO: Find the correct value for this
-    public static final int GRABBER_SOLENOID_2_ID = 1; // TODO: Find the correct value for this
+    public static final int GRABBER_SOLENOID_1_ID = 0;
+    public static final int GRABBER_SOLENOID_2_ID = 1;
     public static final int LOWER_THE_EXTENDER_ID = 2; // TODO: Find the correct value for this
     
     // DIO (Digital Input/Output) Channels //
@@ -67,7 +67,7 @@ public final class Constants {
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = false;
     public static final double EXTENDER_SPEED = 0.8;
-    public static final double EXTENDER_SETPOINT_INTAKE = 0; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_INTAKE = 0;
     public static final double EXTENDER_SETPOINT_1 = 1000; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_2= 2000; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_3 = 3000; // TODO: Find the correct value for this

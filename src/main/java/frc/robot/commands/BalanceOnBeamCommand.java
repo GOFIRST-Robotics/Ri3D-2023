@@ -37,9 +37,7 @@ public class BalanceOnBeamCommand extends CommandBase {
       drivePower *= Constants.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
     }
     m_DriveSubsystem.drive(drivePower, drivePower);
-    System.out.println(
-      "Left: " + m_DriveSubsystem.getLeftPct() + " Right: " + m_DriveSubsystem.getLeftPct()
-    );
+    System.out.println("Left: " +drivePower + " Right: " + drivePower);
 
     // Debug
     System.out.println("Current Angle: " + currentAngle);
