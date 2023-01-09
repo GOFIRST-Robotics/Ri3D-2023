@@ -17,6 +17,7 @@ import frc.robot.commands.autonomous.SquareAutonomous;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -158,7 +159,7 @@ public class Robot extends TimedRobot {
    * edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
-    new Trigger(() -> controller.getRawButton(Constants.RIGHT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
+    new Trigger(() -> controller.getRawButton(Constants.LEFT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()).andThen(new PrintCommand("Left Trigger Pressed!")));
 
     new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(0)));
     new POVButton(controller, 180).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(1)));
