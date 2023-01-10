@@ -32,10 +32,10 @@ public final class Constants {
     public static final int Y_BUTTON = 4;
     public static final int LEFT_BUMPER = 5;
     public static final int RIGHT_BUMPER = 6;
-    public static final int LEFT_TRIGGER_AXIS = 7; // TODO: Is this axis correct?
-    public static final int RIGHT_TRIGGER_AXIS = 8; // TODO: Is this axis correct?
-    public static final int PREV_BUTTON = 9; // TODO: Is this axis correct?
-    public static final int START_BUTTON = 10; // TODO: Is this axis correct?
+    public static final int LEFT_TRIGGER_AXIS = 7;
+    public static final int RIGHT_TRIGGER_AXIS = 8;
+    public static final int PREV_BUTTON = 9;
+    public static final int START_BUTTON = 10;
 
     // Motor CAN IDs //
     public static final int EXTENDER_MOTOR_1_ID = 20;
@@ -73,23 +73,24 @@ public final class Constants {
 
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = true;
-    public static final double EXTENDER_SPEED = 0.6;
+    public static final double EXTENDER_POWER = 0.6;
     public static final double EXTENDER_SETPOINT_INTAKE = 0;
     public static final double EXTENDER_SETPOINT_1 = 50; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_2= 100; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_3 = 150; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_4 = 200; // TODO: Find the correct value for this
     public static final double EXTENDER_TOLERANCE = 20.0; // TODO: Find the correct value for this
+
+    // Position Constants //
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
-    public static final int EXTENDER_ENCODER_FRAME_RATE = 10;
 	public static final int EXTENDER_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
 	public static final boolean EXTENDER_SENSOR_PHASE = true;
     public static final double EXTENDER_KP = 0.03; // TODO: Tune this value!
 
     // Vision Constants //
-    public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = 2; // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = Math.PI / 6; // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(12); // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(18.5); // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(18); // TODO: Change me
     public static final String USB_CAMERA_NAME = "USB_Camera-B4.09.24.1";
 }
