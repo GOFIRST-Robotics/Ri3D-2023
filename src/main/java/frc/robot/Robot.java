@@ -9,13 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import org.photonvision.PhotonUtils;
-
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import frc.robot.commands.autonomous.BalanceBeamAutonomous;
@@ -33,8 +29,7 @@ import frc.robot.commands.BalanceOnBeamCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.DriveInFrontOfTag;
 import frc.robot.commands.DriveToAprilTagCommand;
-import frc.robot.commands.ExtenderMoveToSetpointCommand;
-import frc.robot.commands.GyroTurnToAngleCommand;
+import frc.robot.commands.ExtenderControlCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -47,7 +42,7 @@ public class Robot extends TimedRobot {
   CommandBase m_autonomousCommand;
 	SendableChooser<CommandBase> autonChooser = new SendableChooser<CommandBase>(); // Create a chooser to select an autonomous command
 
-  SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>(); // Create a chooser to toggle whether the extender default command should run
+  public static SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>(); // Create a chooser to toggle whether the extender default command should run
 
   public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID); // Instantiate our controller at the specified USB port
 
@@ -76,14 +71,12 @@ public class Robot extends TimedRobot {
 
     // Add chooser options for toggling the Extender default command on/off //
     toggleExtenderPID.setDefaultOption("ON", true);
-    toggleExtenderPID.addOption("OFF", true);
+    toggleExtenderPID.addOption("OFF", false);
 
     SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    if (toggleExtenderPID.getSelected()) { // Only set the extender default command if we want it
-     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
-    }
+    m_extenderSubsystem.setDefaultCommand(new ExtenderControlCommand());
 
     // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
@@ -204,9 +197,6 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
-    // Manual Control of the Extender //
-    new Trigger(() -> controller.getRawButton(Constants.RIGHT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(Constants.EXTENDER_SPEED), () -> m_extenderSubsystem.stop()));
-    new Trigger(() -> controller.getRawButton(Constants.LEFT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(-Constants.EXTENDER_SPEED), () -> m_extenderSubsystem.stop()));
 
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new DriveToAprilTagCommand(2.5, true));
