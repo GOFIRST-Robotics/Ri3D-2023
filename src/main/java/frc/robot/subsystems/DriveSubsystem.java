@@ -7,6 +7,11 @@ import frc.robot.Constants;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
@@ -25,6 +30,10 @@ public class DriveSubsystem extends SubsystemBase {
   // Drivetrain Encoders
   private Encoder leftDriveEncoder;
   private Encoder rightDriveEncoder;
+
+  private DifferentialDriveOdometry odometry;
+  private DifferentialDriveKinematics kinematics;
+  private DifferentialDriveWheelSpeeds wheelSpeeds;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB); // Instantiate a NavX Gyroscope
 
@@ -53,6 +62,19 @@ public class DriveSubsystem extends SubsystemBase {
     leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.RIGHT_ENCODER_COUNTS_PER_REV);
 
     resetEncoders(); // Zero the encoders
+
+    odometry = new DifferentialDriveOdometry(
+      navx.getRotation2d(), 
+      leftDriveEncoder.getDistance(), 
+      rightDriveEncoder.getDistance()
+    );
+    kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(
+      leftDriveEncoder.getRate(),
+      rightDriveEncoder.getRate(),
+      Math.toRadians(navx.getRate())
+    );
+    wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
     // Drive Scale Options //
     driveScaleChooser.setDefaultOption("100%", 1.0);
@@ -99,9 +121,27 @@ public class DriveSubsystem extends SubsystemBase {
   public double getLeftSpeed() {
     return leftDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
+
   public double getRightSpeed() {
     return rightDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
+
+  public double getLeftKinematicsSpeed() {
+    return wheelSpeeds.leftMetersPerSecond;
+  }
+
+  public double getRightKinematicsSpeed() {
+    return wheelSpeeds.rightMetersPerSecond;
+  }
+
+  public DifferentialDriveKinematics getKinematics() {
+    return kinematics;
+  }
+
+  public double getAverageEncoderSpeed() {
+    return (getLeftSpeed() + getRightDistance()) / 2;
+  }
+
   // Distance will be measured in meters
   public double getLeftDistance() {
     return leftDriveEncoder.getDistance() / 1000; // Multiply by 1000 to convert from millimeters to meters
@@ -109,6 +149,20 @@ public class DriveSubsystem extends SubsystemBase {
   public double getRightDistance() {
     return rightDriveEncoder.getDistance() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
+
+  public double getAverageEncoderDistance() {
+    return (getLeftDistance() + getRightDistance()) / 2;
+  }
+
+  public void resetOdometry() {
+    odometry.resetPosition(
+      navx.getRotation2d(), 
+      leftDriveEncoder.getDistance(), 
+      rightDriveEncoder.getDistance(),
+      new Pose2d()
+    );
+  }
+
   public void resetEncoders() { // Zero the drivetrain encoders
 		leftDriveEncoder.reset();
     rightDriveEncoder.reset();
@@ -123,6 +177,12 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    odometry.update(
+      navx.getRotation2d(), 
+      leftDriveEncoder.getDistance(), 
+      rightDriveEncoder.getDistance()
+    );
+
     CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected(); // Continously update the desired drive scale
     SmartDashboard.putNumber("Left Drive Encoder", leftDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
     SmartDashboard.putNumber("Right Drive Encoder", rightDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard

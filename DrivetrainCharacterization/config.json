@@ -1,0 +1,42 @@
+{
+  "counts per rotation": 1440.0,
+  "encoder type": "roboRIO quadrature",
+  "encoding": false,
+  "gearing denominator": 1.0,
+  "gearing numerator": 1.0,
+  "gyro": "NavX",
+  "gyro ctor": "SerialPort (USB)",
+  "is drivetrain": true,
+  "motor controllers": [
+    "PWM",
+    "PWM"
+  ],
+  "number of samples per average": 1,
+  "primary encoder inverted": true,
+  "primary encoder ports": [
+    2,
+    3
+  ],
+  "primary motor ports": [
+    0,
+    3
+  ],
+  "primary motors inverted": [
+    false,
+    false
+  ],
+  "secondary encoder inverted": true,
+  "secondary encoder ports": [
+    0,
+    1
+  ],
+  "secondary motor ports": [
+    1,
+    2
+  ],
+  "secondary motors inverted": [
+    true,
+    true
+  ],
+  "velocity measurement period": 100
+}
