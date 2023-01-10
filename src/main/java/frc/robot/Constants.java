@@ -47,9 +47,9 @@ public final class Constants {
     public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
     
     // PCM (Pneumatics Control Module) Channels //
-    public static final int GRABBER_SOLENOID_ID_1 = 0;
-    public static final int GRABBER_SOLENOID_ID_2 = 1;
-    public static final int LOWER_THE_EXTENDER_ID_1 = 0;
+    public static final int GRABBER_SOLENOID_ID_1 = 2;
+    public static final int GRABBER_SOLENOID_ID_2 = 0;
+    public static final int LOWER_THE_EXTENDER_ID_1 = 3;
     public static final int LOWER_THE_EXTENDER_ID_2 = 1;
     
     // DIO (Digital Input/Output) Channels //
