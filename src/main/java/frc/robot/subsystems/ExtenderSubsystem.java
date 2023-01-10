@@ -45,7 +45,7 @@ public class ExtenderSubsystem extends SubsystemBase {
 
     // Instantiate the solenoid
     lower_the_extender = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID_1, Constants.LOWER_THE_EXTENDER_ID_2);
-    isRaised = true; // The extender will start raised
+    isRaised = false; // The extender will start raised
 
     currentSetpoint = 0;
   }

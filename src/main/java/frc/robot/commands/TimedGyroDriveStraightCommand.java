@@ -37,8 +37,8 @@ public class TimedGyroDriveStraightCommand extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
     public void execute() {
       double error = startAngle - m_drivetrainSubsystem.getAngle(); // Correction needed for robot angle (our starting angle, since we would like to drive straight)
-      double value1 = Math.min(driveRate + Constants.GYRO_KP * error, 1); // plus or minus Constants.GYRO_KP * error, meant for error correction
-      double value2 = Math.min(driveRate - Constants.GYRO_KP * error, 1);
+      double value1 = Math.min(driveRate + Constants.GYRO_TURN_KP * error, 1); // plus or minus Constants.GYRO_KP * error, meant for error correction
+      double value2 = Math.min(driveRate - Constants.GYRO_TURN_KP * error, 1);
       m_drivetrainSubsystem.drive(value1, value2); // write percent values to motors
 	}
 	

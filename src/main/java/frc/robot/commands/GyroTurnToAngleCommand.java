@@ -44,7 +44,7 @@ public class GyroTurnToAngleCommand extends CommandBase {
     } else {
       error = targetAngle - m_DriveSubsystem.getAngle(); // Our target angle, being the angle we want the robot in, vs m_DriveSubsystem.getAngle(), which "gets" our current angle from the robot
     }
-    double value = error * Constants.GYRO_KP; // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
+    double value = error * Constants.GYRO_TURN_KP; // Multiply by scaling factor kp to determine motor percent power between 1 and 100 percent
     if (Math.abs(value) > 0.75) {
       value = Math.copySign(0.75, value);
     }

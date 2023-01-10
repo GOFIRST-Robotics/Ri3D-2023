@@ -17,10 +17,10 @@ public final class Constants {
     // Physical Robot Constants //
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(6); // Convert from inches to meters
     public static final double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER; // Measured in meters
-	public static final double TRACK_WIDTH = Units.inchesToMeters(25); // Distance between centers of right and left wheels on robot (in meters)
+	public static final double TRACK_WIDTH = Units.inchesToMeters(21.75); // Distance between centers of right and left wheels on robot (in meters)
 
     // Controller Input Axes //
-    public static final int USB_PORT_ID = 0; // USB port that the controller is plugged in to
+    public static final int CONTROLLER_USB_PORT_ID = 0; // USB port that the controller is plugged in to
     public static final int RIGHT_VERTICAL_JOYSTICK_AXIS = 3;
     public static final int RIGHT_HORIZONTAL_JOYSTICK_AXIS = 2;
     public static final int LEFT_VERTICAL_JOYSTICK_AXIS = 1;
@@ -42,13 +42,13 @@ public final class Constants {
 
     // Motor PWM Ports //
     public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0;
-    public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 1;
-    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 3;
+    public static final int RIGHT_FRONT_DRIVE_MOTOR_ID = 3;
+    public static final int LEFT_REAR_DRIVE_MOTOR_ID = 1;
     public static final int RIGHT_REAR_DRIVE_MOTOR_ID = 2;
     
     // PCM (Pneumatics Control Module) Channels //
-    public static final int GRABBER_SOLENOID_ID_1 = 2;
-    public static final int GRABBER_SOLENOID_ID_2 = 0;
+    public static final int GRABBER_SOLENOID_ID_1 = 4;
+    public static final int GRABBER_SOLENOID_ID_2 = 5;
     public static final int LOWER_THE_EXTENDER_ID_1 = 3;
     public static final int LOWER_THE_EXTENDER_ID_2 = 1;
     
@@ -58,7 +58,7 @@ public final class Constants {
     // Drive Constants //
     public static final boolean DRIVE_INVERT_LEFT = false; // Note: Our controller flips the vertical joystick axes
     public static final boolean DRIVE_INVERT_RIGHT = true; // Note: Our controller flips the vertical joystick axes
-    public static final double GYRO_KP = 0.007;
+    public static final double GYRO_TURN_KP = 0.007;
     public static final double TRACKED_TAG_ROATION_KP = 0.0175;
     public static final double TRACKED_TAG_DISTANCE_DRIVE_KP = 0.3;
     public static final double TRACKED_TAG_AREA_DRIVE_KP = 0.2;
@@ -89,8 +89,8 @@ public final class Constants {
     public static final double EXTENDER_KP = 0.03; // TODO: Tune this value!
 
     // Vision Constants //
-    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(12); // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(18.5); // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(18); // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(7);
+    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(18.5);
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(18);
     public static final String USB_CAMERA_NAME = "USB_Camera-B4.09.24.1";
 }

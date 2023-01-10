@@ -23,6 +23,7 @@ public class DriveToAprilTagCommand extends CommandBase {
   double desiredDistanceToTarget;
   //double targetArea;
   boolean usingArea;
+  double translationalError;
 
   /** Rotates the robot and drives to the best (nearest) field april tag*/
   public DriveToAprilTagCommand(double distanceToTarget) {
@@ -77,7 +78,6 @@ public class DriveToAprilTagCommand extends CommandBase {
         // A bunch of math to tell the drivetrain how to drive to the target 
         // while turning at the same time, till it is a certian distance away.
         double rotationalError = trackedTarget.getYaw();      
-        double translationalError;
         double translationValue;
         if (usingArea) {
           translationalError = desiredDistanceToTarget - trackedTarget.getArea();
@@ -136,7 +136,7 @@ public class DriveToAprilTagCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false; // Uncomment this if you want the command to never end
+    return translationalError <= 0.2; // Uncomment this if you want the command to never end
     //return distanceToTarget <= 0.5; // Uncomment this if you want to end the command when in range of the apriltag
   }
 }

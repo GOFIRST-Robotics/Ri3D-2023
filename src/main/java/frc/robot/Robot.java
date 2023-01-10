@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import frc.robot.commands.autonomous.BalanceBeamAutonomous;
@@ -46,7 +47,7 @@ public class Robot extends TimedRobot {
 
   public static SendableChooser<Boolean> toggleExtenderPID = new SendableChooser<Boolean>(); // Create a chooser to toggle whether the extender default command should run
 
-  public static final GenericHID controller = new GenericHID(Constants.USB_PORT_ID); // Instantiate our controller at the specified USB port
+  public static final GenericHID controller = new GenericHID(Constants.CONTROLLER_USB_PORT_ID); // Instantiate our controller at the specified USB port
 
   public static final DriveSubsystem m_driveSubsystem = new DriveSubsystem(); // Drivetrain subsystem
   public static final GrabberSubsystem m_grabberSubsystem = new GrabberSubsystem(); // Grabs both cubes and cones
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    m_extenderSubsystem.setDefaultCommand(new ExtenderControlCommand());
+    //m_extenderSubsystem.setDefaultCommand(new ExtenderControlCommand());
 
     // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
@@ -182,6 +183,9 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
+
+    new Trigger(() -> controller.getRawButton(Constants.RIGHT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(Constants.EXTENDER_POWER), () -> m_extenderSubsystem.stop()));
+    new Trigger(() -> controller.getRawButton(Constants.LEFT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(-Constants.EXTENDER_POWER), () -> m_extenderSubsystem.stop()));
 
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new InstantCommand(() -> m_driveSubsystem.toggleDirection()));
