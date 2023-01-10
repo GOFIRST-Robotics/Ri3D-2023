@@ -32,10 +32,10 @@ public final class Constants {
     public static final int Y_BUTTON = 4;
     public static final int LEFT_BUMPER = 5;
     public static final int RIGHT_BUMPER = 6;
-    public static final int LEFT_TRIGGER_AXIS = 7; // TODO: Is this axis correct?
-    public static final int RIGHT_TRIGGER_AXIS = 8; // TODO: Is this axis correct?
-    public static final int PREV_BUTTON = 9; // TODO: Is this axis correct?
-    public static final int START_BUTTON = 10; // TODO: Is this axis correct?
+    public static final int LEFT_TRIGGER_AXIS = 7;
+    public static final int RIGHT_TRIGGER_AXIS = 8;
+    public static final int PREV_BUTTON = 9;
+    public static final int START_BUTTON = 10;
 
     // Motor CAN IDs //
     public static final int EXTENDER_MOTOR_1_ID = 20;

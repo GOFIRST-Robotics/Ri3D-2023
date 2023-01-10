@@ -4,7 +4,6 @@
 
 package frc.robot.commands.autonomous;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveForDistanceCommand;
 import frc.robot.commands.DriveInFrontOfTag;
@@ -14,7 +13,7 @@ import frc.robot.commands.GyroTurnToAngleCommand;
 import frc.robot.commands.ReleaseCommand;
 
 public class AdvancedAuto extends SequentialCommandGroup {
-  /** Creates a new AdvancedAuto. */
+  /** This is an exaple of what an advanced autonomous routine could look like! */
   public AdvancedAuto() {
     addCommands(new DriveInFrontOfTag(0.5)); // Drive to tag
     addCommands(new ExtenderControlCommand()); // Bring arm up
