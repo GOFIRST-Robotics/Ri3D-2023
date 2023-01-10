@@ -80,6 +80,8 @@ public final class Constants {
     public static final double EXTENDER_SETPOINT_3 = 150; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_4 = 200; // TODO: Find the correct value for this
     public static final double EXTENDER_TOLERANCE = 20.0; // TODO: Find the correct value for this
+
+    // Position Constants //
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
     public static final int EXTENDER_ENCODER_FRAME_RATE = 10;
@@ -88,8 +90,8 @@ public final class Constants {
     public static final double EXTENDER_KP = 0.03; // TODO: Tune this value!
 
     // Vision Constants //
-    public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me
-    public static final double TARGET_HEIGHT_METERS = 2; // TODO: Change me
-    public static final double CAMERA_PITCH_RADIANS = Math.PI / 6; // TODO: Change me
+    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(12); // TODO: Change me
+    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(18.5); // TODO: Change me
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(18); // TODO: Change me
     public static final String USB_CAMERA_NAME = "USB_Camera-B4.09.24.1";
 }
