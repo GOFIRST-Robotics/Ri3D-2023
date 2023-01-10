@@ -10,15 +10,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExtenderSubsystem extends SubsystemBase {
   private TalonSRX m_motor_1; // This will be the Talon SRX with the encoder connected
   private TalonSRX m_motor_2;
-  private Solenoid lower_the_extender; // Our extender has a pneumatic piston for raising/lowering the whole subsystem
+  private DoubleSolenoid lower_the_extender; // Our extender has a pneumatic piston for raising/lowering the whole subsystem
   private boolean isRaised; // Keeps track of whether the extender is currently raised (piston extended)
   private double positionZero;
   public int currentSetpoint;
@@ -43,7 +44,7 @@ public class ExtenderSubsystem extends SubsystemBase {
     m_motor_2.follow(m_motor_1); // motor 2 will follow motor 1
 
     // Instantiate the solenoid
-    lower_the_extender = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID);
+    lower_the_extender = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.LOWER_THE_EXTENDER_ID_1, Constants.LOWER_THE_EXTENDER_ID_2);
     isRaised = true; // The extender will start raised
 
     currentSetpoint = 0;
@@ -60,11 +61,11 @@ public class ExtenderSubsystem extends SubsystemBase {
 
   // Methods for controlling the state of the solenoid //
   public void lowerExtender() {
-    lower_the_extender.set(false);
+    lower_the_extender.set(Value.kForward);
     isRaised = false;
   }
   public void raiseExtender() {
-    lower_the_extender.set(true);
+    lower_the_extender.set(Value.kReverse);
     isRaised = true;
   }
   public void toggleExtenderRaiser() {

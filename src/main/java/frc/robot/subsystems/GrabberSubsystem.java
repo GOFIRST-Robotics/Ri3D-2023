@@ -16,7 +16,7 @@ public class GrabberSubsystem extends SubsystemBase {
 
   /** Subsystem for controlling the Grabber (Picks up both cubes and cones) which works via a pneumatic piston */
   public GrabberSubsystem() {
-    grabberSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.GRABBER_SOLENOID_1_ID, Constants.GRABBER_SOLENOID_2_ID);
+    grabberSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.GRABBER_SOLENOID_ID_1, Constants.GRABBER_SOLENOID_ID_2);
     isExtended = true; // The grabber piston will be initially extended (the grabber will be holding a preloaded cube/cone)
   }
 
