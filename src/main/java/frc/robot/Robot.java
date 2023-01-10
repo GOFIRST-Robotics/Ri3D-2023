@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.getEncoderPosition());
+    SmartDashboard.putNumber("Gyro", m_driveSubsystem.getPitch() - 7);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -190,6 +191,6 @@ public class Robot extends TimedRobot {
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new InstantCommand(() -> m_driveSubsystem.toggleDirection()));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
-    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveInFrontOfTag(0.3));
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveToAprilTagCommand(2, true));
   }
 }

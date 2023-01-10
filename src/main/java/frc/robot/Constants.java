@@ -73,7 +73,7 @@ public final class Constants {
 
     // Extender Constants //
     public static final boolean EXTENDER_INVERT = true;
-    public static final double EXTENDER_POWER = 0.8;
+    public static double EXTENDER_POWER = .8;
     public static final double EXTENDER_SETPOINT_INTAKE = 0;
     public static final double EXTENDER_SETPOINT_1 = 50; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_2= 100; // TODO: Find the correct value for this

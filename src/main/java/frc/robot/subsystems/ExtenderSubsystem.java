@@ -107,5 +107,6 @@ public class ExtenderSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Extender Setpoint", currentSetpoint);
+    SmartDashboard.putNumber("Extender Power: ", Constants.EXTENDER_POWER);
   }
 }

@@ -33,7 +33,7 @@ public class BalanceOnBeamCommand extends CommandBase {
   public void execute() {
     // Uncomment below to simulate gyro axis with controller joystick
     // Double currentAngle = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
-    this.currentAngle = m_DriveSubsystem.getPitch();
+    this.currentAngle = m_DriveSubsystem.getPitch() - 7;
     error = Constants.BEAM_BALANCED_ANGLE_DEGREES - currentAngle;
 
     drivePower = -Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
