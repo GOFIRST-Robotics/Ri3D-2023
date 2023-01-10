@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import frc.robot.commands.autonomous.BalanceBeamAutonomous;
@@ -76,7 +77,7 @@ public class Robot extends TimedRobot {
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
     if (toggleExtenderPID.getSelected()) { // Only set the extender default command if we want it
-      m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
+     m_extenderSubsystem.setDefaultCommand(new ExtenderMoveToSetpointCommand());
     }
 
     // Zero the gyro and reset encoders
@@ -98,7 +99,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.currentSetpoint);
+    SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.getEncoderPosition());
     //if (m_visionSubsystem.getHasTarget()) {System.out.println("TARGET SKEW: " + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());}
      //System.out.println(m_driveSubsystem.getEncoderRate());
   }
@@ -185,20 +186,12 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
     // Manual Control of the Extender //
-    new Trigger(() -> getRightTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(0.25)));
-    new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
+    new Trigger(() -> controller.getRawButton(Constants.RIGHT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(Constants.EXTENDER_SPEED), () -> m_extenderSubsystem.stop()));
+    new Trigger(() -> controller.getRawButton(Constants.LEFT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(-Constants.EXTENDER_SPEED), () -> m_extenderSubsystem.stop()));
 
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).onTrue(new GyroTurnToAngleCommand(90));
-  }
-
-  public boolean getLeftTrigger() {
-    return controller.getRawAxis(Constants.LEFT_TRIGGER_AXIS) >= 0.95;
-  }
-
-  public boolean getRightTrigger() {
-    return controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
   }
 }

@@ -38,8 +38,8 @@ public final class Constants {
     public static final int START_BUTTON = 10; // TODO: Is this axis correct?
 
     // Motor CAN IDs //
-    public static final int EXTENDER_MOTOR_1_ID = 5; // TODO: Find the correct value for this
-    public static final int EXTENDER_MOTOR_2_ID = 6; // TODO: Find the correct value for this
+    public static final int EXTENDER_MOTOR_1_ID = 20;
+    public static final int EXTENDER_MOTOR_2_ID = 10;
 
     // Motor PWM Ports //
     public static final int LEFT_FRONT_DRIVE_MOTOR_ID = 0;
@@ -72,20 +72,20 @@ public final class Constants {
     public static final int RIGHT_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
 
     // Extender Constants //
-    public static final boolean EXTENDER_INVERT = false;
-    public static final double EXTENDER_SPEED = 0.5;
+    public static final boolean EXTENDER_INVERT = true;
+    public static final double EXTENDER_SPEED = 0.6;
     public static final double EXTENDER_SETPOINT_INTAKE = 0;
-    public static final double EXTENDER_SETPOINT_1 = 1000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_2= 2000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_3 = 3000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_4= 4000; // TODO: Find the correct value for this
-    public static final double EXTENDER_TOLERANCE = 50.0; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_1 = 50; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_2= 100; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_3 = 150; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_4 = 200; // TODO: Find the correct value for this
+    public static final double EXTENDER_TOLERANCE = 20.0; // TODO: Find the correct value for this
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
     public static final int EXTENDER_ENCODER_FRAME_RATE = 10;
 	public static final int EXTENDER_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
-	public static final boolean EXTENDER_SENSOR_PHASE = false;
-    public static final double EXTENDER_KP = 0.01; // TODO: Tune this value!
+	public static final boolean EXTENDER_SENSOR_PHASE = true;
+    public static final double EXTENDER_KP = 0.03; // TODO: Tune this value!
 
     // Vision Constants //
     public static final double CAMERA_HEIGHT_METERS = 0.2; // TODO: Change me

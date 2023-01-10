@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExtenderSubsystem extends SubsystemBase {
@@ -38,7 +39,6 @@ public class ExtenderSubsystem extends SubsystemBase {
 
     // Config our quadrature encoder
     m_motor_1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.EXTENDER_PIDIDX, Constants.EXTENDER_TIMEOUT);
-		m_motor_1.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, Constants.EXTENDER_ENCODER_FRAME_RATE, Constants.EXTENDER_TIMEOUT);
 		m_motor_1.setSensorPhase(Constants.EXTENDER_SENSOR_PHASE); // Ensures that the encoder is "in phase" with the Talon
 
     m_motor_2.follow(m_motor_1); // motor 2 will follow motor 1
@@ -106,5 +106,6 @@ public class ExtenderSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Extender Setpoint", currentSetpoint);
   }
 }
