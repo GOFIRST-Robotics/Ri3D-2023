@@ -75,11 +75,11 @@ public final class Constants {
     public static final boolean EXTENDER_INVERT = true;
     public static final double EXTENDER_SPEED = 0.6;
     public static final double EXTENDER_SETPOINT_INTAKE = 0;
-    public static final double EXTENDER_SETPOINT_1 = 1000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_2= 2000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_3 = 3000; // TODO: Find the correct value for this
-    public static final double EXTENDER_SETPOINT_4= 4000; // TODO: Find the correct value for this
-    public static final double EXTENDER_TOLERANCE = 50.0; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_1 = 50; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_2= 100; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_3 = 150; // TODO: Find the correct value for this
+    public static final double EXTENDER_SETPOINT_4 = 200; // TODO: Find the correct value for this
+    public static final double EXTENDER_TOLERANCE = 20.0; // TODO: Find the correct value for this
 
     // Position Constants //
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
