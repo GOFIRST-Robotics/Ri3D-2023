@@ -1,6 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot.commands;
 
@@ -8,12 +7,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.GrabberSubsystem;
 
-// This command toggles the grabber
+// This command opens the grabber by extending the piston
 public class ReleaseCommand extends CommandBase {
 
   GrabberSubsystem m_GrabberSubsystem;
 
-  /** Creates a new GrabCommand. */
+  /** Creates a new ReleaseCommand. */
   public ReleaseCommand() {
     m_GrabberSubsystem = Robot.m_grabberSubsystem;
   addRequirements(m_GrabberSubsystem);  
@@ -27,9 +26,7 @@ public class ReleaseCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

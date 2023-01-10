@@ -1,3 +1,6 @@
+// Author: Anthony Brogni (brogn002@umn.edu)
+// Last Updated : 2022
+
 package frc.robot.commands.autonomous.helperCommands;
 
 import edu.wpi.first.wpilibj.Timer;

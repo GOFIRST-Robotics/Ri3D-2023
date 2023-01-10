@@ -1,8 +1,9 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
 
 package frc.robot.subsystems;
+
+import frc.robot.Constants;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -12,7 +13,6 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   
@@ -22,12 +22,14 @@ public class DriveSubsystem extends SubsystemBase {
   private VictorSP m_leftRearMotor;
   private VictorSP m_rightRearMotor;
 
+  // Drivetrain Encoders
   private Encoder leftDriveEncoder;
   private Encoder rightDriveEncoder;
   
-  private AHRS navx = new AHRS(SerialPort.Port.kUSB);
-  SendableChooser<Double> driveScaleChooser = new SendableChooser<Double>();
+  private AHRS navx = new AHRS(SerialPort.Port.kUSB); // Instantiate a NavX Gyroscope
 
+  // Create a chooser for selecting the desired drive scale
+  SendableChooser<Double> driveScaleChooser = new SendableChooser<Double>();
   public double CURRENT_DRIVE_SCALE;
 
   /** Subsystem for controlling the Drivetrain and accessing the NavX Gyroscope */
@@ -44,9 +46,9 @@ public class DriveSubsystem extends SubsystemBase {
     m_leftRearMotor.setInverted(Constants.DRIVE_INVERT_LEFT);
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
 
+    // Instantiate the drivetrain encoders and set the distancePerPulse
     leftDriveEncoder = new Encoder(2, 3);
     rightDriveEncoder = new Encoder(0, 1, true);
-
     leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.LEFT_ENCODER_COUNTS_PER_REV);
     leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.RIGHT_ENCODER_COUNTS_PER_REV);
 
@@ -95,19 +97,19 @@ public class DriveSubsystem extends SubsystemBase {
 
   // Speed will be measured in meters/second
   public double getLeftSpeed() {
-    return leftDriveEncoder.getRate() / 1000;
+    return leftDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
   public double getRightSpeed() {
-    return rightDriveEncoder.getRate() / 1000;
+    return rightDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
   // Distance will be measured in meters
   public double getLeftDistance() {
-    return leftDriveEncoder.getDistance() / 1000;
+    return leftDriveEncoder.getDistance() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
   public double getRightDistance() {
-    return rightDriveEncoder.getDistance() / 1000;
+    return rightDriveEncoder.getDistance() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
-  public void resetEncoders() { // Reset the 'zero' positions to be the current encoder positions
+  public void resetEncoders() { // Zero the drivetrain encoders
 		leftDriveEncoder.reset();
     rightDriveEncoder.reset();
 	}
@@ -121,8 +123,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected();
-    SmartDashboard.putNumber("Left Drive Encoder", leftDriveEncoder.getRaw());
-    SmartDashboard.putNumber("Right Drive Encoder", rightDriveEncoder.getRaw());
+    CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected(); // Continously update the desired drive scale
+    SmartDashboard.putNumber("Left Drive Encoder", leftDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
+    SmartDashboard.putNumber("Right Drive Encoder", rightDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
   }
 }

@@ -1,3 +1,6 @@
+// Author: UMN Robotics Ri3d
+// Last Updated : January 2023
+
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
