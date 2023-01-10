@@ -34,6 +34,8 @@ public class DriveSubsystem extends SubsystemBase {
   private DifferentialDriveOdometry odometry;
   private DifferentialDriveKinematics kinematics;
   private DifferentialDriveWheelSpeeds wheelSpeeds;
+
+  private int direction = 1;
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB); // Instantiate a NavX Gyroscope
 
@@ -87,10 +89,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   /* Set power to the drivetrain motors */
   public void drive(double leftPercentPower, double rightPercentPower) {
-    m_leftFrontMotor.set(leftPercentPower);
-    m_leftRearMotor.set(leftPercentPower);
-    m_rightFrontMotor.set(rightPercentPower);
-    m_rightRearMotor.set(rightPercentPower);
+    m_leftFrontMotor.set(direction * leftPercentPower);
+    m_leftRearMotor.set(direction * leftPercentPower);
+    m_rightFrontMotor.set(direction * rightPercentPower);
+    m_rightRearMotor.set(direction * rightPercentPower);
   }
   public void stop() {
     drive(0, 0);
@@ -116,6 +118,8 @@ public class DriveSubsystem extends SubsystemBase {
   public double getAngle() {
     return navx.getAngle();
   }
+
+
 
   // Speed will be measured in meters/second
   public double getLeftSpeed() {
@@ -175,6 +179,14 @@ public class DriveSubsystem extends SubsystemBase {
     return rightDriveEncoder.get();
   }
 
+  public void setDirection(DIRECTION direction) {
+    this.direction = direction.direction;
+  }
+
+  public void toggleDirection() {
+    this.direction *= -1;
+  }
+
   @Override
   public void periodic() {
     odometry.update(
@@ -186,5 +198,17 @@ public class DriveSubsystem extends SubsystemBase {
     CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected(); // Continously update the desired drive scale
     SmartDashboard.putNumber("Left Drive Encoder", leftDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
     SmartDashboard.putNumber("Right Drive Encoder", rightDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
+  }
+
+  enum DIRECTION {
+    INTAKE_FRONT(1),
+    EXTENDER_FRONT(-1);
+
+    public int direction;
+
+    DIRECTION(int direction) {
+      this.direction = direction;
+    }
+
   }
 }

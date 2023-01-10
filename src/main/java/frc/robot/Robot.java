@@ -6,10 +6,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.GenericHID;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -19,6 +21,10 @@ import frc.robot.commands.autonomous.Drive1MeterAuto;
 import frc.robot.commands.autonomous.PlaceCubeAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 import frc.robot.commands.autonomous.SquareAutonomous;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveInFrontOfTag;
+import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.ExtenderControlCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -26,10 +32,6 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LEDSubsystem.LEDMode;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.commands.BalanceOnBeamCommand;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveInFrontOfTag;
-import frc.robot.commands.DriveToAprilTagCommand;
-import frc.robot.commands.ExtenderControlCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -81,6 +83,8 @@ public class Robot extends TimedRobot {
     // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
+
+    //CameraServer.startAutomaticCapture(1);
   }
 
   /**
@@ -98,14 +102,6 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.getEncoderPosition());
-    //if (m_visionSubsystem.getHasTarget()) {System.out.println("TARGET SKEW: " + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());}
-     //System.out.println(m_driveSubsystem.getEncoderRate());
-    // if (m_visionSubsystem.getHasTarget()) {
-    //  System.out.println("tagDistance" + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getTranslation().getX());
-    //  double reportedTagZAngle = Math.toDegrees(m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());
-    //  System.out.println("reported Tag z Angle" + reportedTagZAngle);
-    //  System.out.println("Tag Z Angle" + Math.copySign(180 - Math.abs(reportedTagZAngle), reportedTagZAngle));
-    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -158,20 +154,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-    // System.out.print("Has target? ");
-    // System.out.println(m_visionSubsystem.getHasTarget());
-    // System.out.print("Best target's angle from the robot: ");
-    // System.out.println(m_visionSubsystem.getBestTarget().getYaw());
-    // if (m_visionSubsystem.getHasTarget()) {
-    //   System.out.println(PhotonUtils.calculateDistanceToTargetMeters(
-    //     Constants.CAMERA_HEIGHT_METERS, 
-    //     Constants.TARGET_HEIGHT_METERS, 
-    //     Constants.CAMERA_PITCH_RADIANS, 
-    //     Units.degreesToRadians(m_visionSubsystem.getBestTarget().getPitch())
-    //   ));
-    // }
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {
@@ -189,6 +172,7 @@ public class Robot extends TimedRobot {
    * or {@link XboxController}), and then passing it to a {@link edu.wpi.first.wpilibj2.command.button.Trigger}.
    */
   private void configureButtonBindings() {
+    // Pneumatic Piston Controls //
     new Trigger(() -> controller.getRawButton(Constants.LEFT_BUMPER)).onTrue(new InstantCommand(() -> m_grabberSubsystem.toggle()));
     new Trigger(() -> controller.getRawButton(Constants.A_BUTTON)).onTrue(new InstantCommand(() -> m_extenderSubsystem.toggleExtenderRaiser()));
 
@@ -200,7 +184,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
 
     // Drivetrain Controls //
-    new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new DriveToAprilTagCommand(2.5, true));
+    new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new InstantCommand(() -> m_driveSubsystem.toggleDirection()));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
     new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveInFrontOfTag(0.3));
   }
