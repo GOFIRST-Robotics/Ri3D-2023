@@ -107,6 +107,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.currentSetpoint);
     //if (m_visionSubsystem.getHasTarget()) {System.out.println("TARGET SKEW: " + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());}
      //System.out.println(m_driveSubsystem.getEncoderRate());
+    // if (m_visionSubsystem.getHasTarget()) {
+    //  System.out.println("tagDistance" + m_visionSubsystem.getBestTarget().getBestCameraToTarget().getTranslation().getX());
+    //  double reportedTagZAngle = Math.toDegrees(m_visionSubsystem.getBestTarget().getBestCameraToTarget().getRotation().getZ());
+    //  System.out.println("reported Tag z Angle" + reportedTagZAngle);
+    //  System.out.println("Tag Z Angle" + Math.copySign(180 - Math.abs(reportedTagZAngle), reportedTagZAngle));
+    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -199,20 +205,20 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
     // Manual Control of the Extender //
-    new Trigger(() -> getRightTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(0.25)));
-    new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
+    // new Trigger(() -> getRightTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(0.25)));
+    // new Trigger(() -> getLeftTrigger()).onTrue(new InstantCommand(() -> m_extenderSubsystem.setPower(-0.25)));
 
     // Drivetrain Controls //
     // new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new DriveToAprilTagCommand(2.5, true));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
-    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveInFrontOfTag(0.5));
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveInFrontOfTag(0.3));
   }
 
-  public boolean getLeftTrigger() {
-    return controller.getRawAxis(Constants.LEFT_TRIGGER_AXIS) >= 0.95;
-  }
+  // public boolean getLeftTrigger() {
+  //   return controller.getRawAxis(Constants.LEFT_TRIGGER_AXIS) >= 0.95;
+  // }
 
-  public boolean getRightTrigger() {
-    return controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
-  }
+  // public boolean getRightTrigger() {
+  //   return controller.getRawAxis(Constants.RIGHT_TRIGGER_AXIS) >= 0.95;
+  // }
 }
