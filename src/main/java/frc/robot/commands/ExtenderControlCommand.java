@@ -46,7 +46,6 @@ public class ExtenderControlCommand extends CommandBase {
 
       System.out.println("GOAL" + goalPos);
       error = goalPos - m_ExtenderSubsystem.getEncoderPosition();
-      System.out.println("ERROR:" + error);
       if (Math.abs(error) > Constants.EXTENDER_TOLERANCE) {
         double power = Constants.EXTENDER_KP * error;
         if (Math.abs(power) > Constants.EXTENDER_POWER) {

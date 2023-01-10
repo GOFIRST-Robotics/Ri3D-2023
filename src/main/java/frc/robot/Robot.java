@@ -70,8 +70,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto Mode", autonChooser);
 
     // Add chooser options for toggling the Extender default command on/off //
-    toggleExtenderPID.setDefaultOption("ON", true);
-    toggleExtenderPID.addOption("OFF", false);
+    toggleExtenderPID.setDefaultOption("OFF", false);
+    toggleExtenderPID.addOption("ON", true);
 
     SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
 

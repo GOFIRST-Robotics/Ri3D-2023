@@ -77,8 +77,8 @@ public class DriveSubsystem extends SubsystemBase {
     wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
     // Drive Scale Options //
-    driveScaleChooser.setDefaultOption("100%", 1.0);
-    driveScaleChooser.addOption("75%", 0.75);
+    driveScaleChooser.addOption("100%", 1.0);
+    driveScaleChooser.setDefaultOption("75%", 0.75);
     driveScaleChooser.addOption("50%", 0.5);
     driveScaleChooser.addOption("25%", 0.25);
 
