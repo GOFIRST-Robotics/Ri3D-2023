@@ -6,8 +6,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.GenericHID;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -23,9 +21,7 @@ import frc.robot.commands.autonomous.PlaceCubeAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 import frc.robot.commands.autonomous.SquareAutonomous;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveInFrontOfTag;
 import frc.robot.commands.DriveToAprilTagCommand;
-import frc.robot.commands.ExtenderControlCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;

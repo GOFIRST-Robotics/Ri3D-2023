@@ -80,8 +80,6 @@ public final class Constants {
     public static final double EXTENDER_SETPOINT_3 = 150; // TODO: Find the correct value for this
     public static final double EXTENDER_SETPOINT_4 = 200; // TODO: Find the correct value for this
     public static final double EXTENDER_TOLERANCE = 20.0; // TODO: Find the correct value for this
-
-    // Position Constants //
     public static final int EXTENDER_TIMEOUT = 0; // timeout in ms; set to zero
 	public static final int EXTENDER_PIDIDX = 0; // used for cascading PID; set to zero
 	public static final int EXTENDER_ENCODER_COUNTS_PER_REV = 1440; // The number of encoder counts equal to one full revolution of the encoder 
