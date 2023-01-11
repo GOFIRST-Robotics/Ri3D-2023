@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-// This command takes the joystick inputs and demands that the drivetrain follow them
+// This command self=balances on the charging station using gyroscope pitch as feedback
 public class BalanceOnBeamCommand extends CommandBase {
 
   private DriveSubsystem m_DriveSubsystem;
@@ -20,7 +20,7 @@ public class BalanceOnBeamCommand extends CommandBase {
 
   /** Command to use Gyro data to resist the tip angle from the beam - to stabalize and balanace */
   public BalanceOnBeamCommand() {
-    m_DriveSubsystem = Robot.m_driveSubsystem;
+    this.m_DriveSubsystem = Robot.m_driveSubsystem;
     addRequirements(m_DriveSubsystem);
   }
 
@@ -31,13 +31,14 @@ public class BalanceOnBeamCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Uncomment below to simulate gyro axis with controller joystick
+    // Uncomment the line below this to simulate the gyroscope axis with a controller joystick
     // Double currentAngle = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
-    this.currentAngle = m_DriveSubsystem.getPitch() - 7;
-    error = Constants.BEAM_BALANCED_ANGLE_DEGREES - currentAngle;
+    this.currentAngle = m_DriveSubsystem.getPitch();
 
+    error = Constants.BEAM_BALANCED_GOAL_DEGREES - currentAngle;
     drivePower = -Math.min(Constants.BEAM_BALANACED_DRIVE_KP * error, 1);
 
+    // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
     if (drivePower < 0) {
       drivePower *= Constants.BACKWARDS_BALANCING_EXTRA_POWER_MULTIPLIER;
     }
@@ -64,6 +65,6 @@ public class BalanceOnBeamCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(error) < Constants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES;
+    return Math.abs(error) < Constants.BEAM_BALANCED_ANGLE_TRESHOLD_DEGREES; // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees)
   }
 }

@@ -8,6 +8,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.subsystems.ExtenderSubsystem;
 
+// FIXME: As of now, this command does NOT currently work how we want it to; use this code with caution
+
 // ExtenderMoveToSetpointCommand is a command that moves the extender to a setpoint 
 // This is the default command of the Extender subsystem
 public class ExtenderControlCommand extends CommandBase {
@@ -29,7 +31,8 @@ public class ExtenderControlCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Robot.toggleExtenderPID.getSelected()) { // Only set the extender default command if we want it
+    // Only run PID on the extender if we want to //
+    if (Robot.toggleExtenderPID.getSelected()) {
       System.out.println("SETPOINT" + m_ExtenderSubsystem.getCurrentSetPoint());
       switch (m_ExtenderSubsystem.getCurrentSetPoint()) {
         case 0: goalPos = Constants.EXTENDER_SETPOINT_INTAKE;
@@ -43,7 +46,6 @@ public class ExtenderControlCommand extends CommandBase {
         case 4: goalPos = Constants.EXTENDER_SETPOINT_4;
                 break;
       }
-
       System.out.println("GOAL" + goalPos);
       error = goalPos - m_ExtenderSubsystem.getEncoderPosition();
       if (Math.abs(error) > Constants.EXTENDER_TOLERANCE) {
@@ -58,8 +60,10 @@ public class ExtenderControlCommand extends CommandBase {
       } else {
         m_ExtenderSubsystem.stop();
       }
-    } else {
-      // Manual Control of the Extender //
+    } 
+    
+    // Manual Control of the Extender //
+    else {
       if (Robot.controller.getRawButton(Constants.RIGHT_TRIGGER_AXIS)) {
           m_ExtenderSubsystem.setPower(Constants.EXTENDER_POWER);
       } else if (Robot.controller.getRawButton(Constants.LEFT_TRIGGER_AXIS)) {
@@ -73,10 +77,10 @@ public class ExtenderControlCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ExtenderSubsystem.stop();
+    m_ExtenderSubsystem.stop(); // Stop the extender motors
   }
 
   public boolean isFinished() {
-    return false;
+    return false; // This command will never end (usually only ideal for always-running default commands)
   }
 }

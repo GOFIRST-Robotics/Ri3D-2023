@@ -21,7 +21,7 @@ public class DriveToAprilTagCommand extends CommandBase {
   double angleToTarget;
   int targetTagID;
   double desiredDistanceToTarget;
-  //double targetArea;
+  double targetArea;
   boolean usingArea;
   double translationalError;
 
@@ -61,7 +61,7 @@ public class DriveToAprilTagCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() { }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -130,13 +130,16 @@ public class DriveToAprilTagCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrainSubsystem.stop();
+    m_drivetrainSubsystem.stop(); // Stop the drivetrain motors
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return translationalError <= 0.2; // Uncomment this if you want the command to never end
-    //return distanceToTarget <= 0.5; // Uncomment this if you want to end the command when in range of the apriltag
+    if(usingArea) {
+      return desiredDistanceToTarget <= 0.5;
+    } else {
+      return translationalError <= 0.2;
+    }
   }
 }

@@ -13,17 +13,17 @@ import frc.robot.subsystems.DriveSubsystem;
  * Drives straoight using gyroscope feedback for a specified number of seconds. */
 public class TimedGyroDriveStraightCommand extends CommandBase {
 
-  private DriveSubsystem m_drivetrainSubsystem;
+  	private DriveSubsystem m_drivetrainSubsystem;
+	private Timer timer = new Timer();
 
-	double duration; // how long we want to move forward
-	Timer timer = new Timer();
-    double startAngle;
-    double driveRate;
+	double duration; // how long we want to drive
+    double startAngle; // our starting gyroscope heading
+    double driveRate; // how fast we want to drive
 
 	public TimedGyroDriveStraightCommand(double time, double driveRate) {
-	  duration = time;
+	  this.duration = time;
       this.driveRate = driveRate;
-      m_drivetrainSubsystem = Robot.m_driveSubsystem;
+      this.m_drivetrainSubsystem = Robot.m_driveSubsystem;
       addRequirements(m_drivetrainSubsystem);
 	}
 
@@ -31,7 +31,7 @@ public class TimedGyroDriveStraightCommand extends CommandBase {
 	public void initialize() {
 	  timer.reset();
   	  timer.start();
-      startAngle = m_drivetrainSubsystem.getAngle();
+      this.startAngle = m_drivetrainSubsystem.getAngle(); // Get our initial gyroscope heading; this will be the 'goal' of our PID loop
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

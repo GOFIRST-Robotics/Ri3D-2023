@@ -25,7 +25,6 @@ public class VisionSubsystem extends SubsystemBase {
         if (hasTarget) {
             this.result = result;
         }
-
     }
     public PhotonTrackedTarget getTargetWithID(int id) { // Returns the apriltag target with the specified ID (if it exists)
         List<PhotonTrackedTarget> targets = result.getTargets(); // Create a list of all currently tracked targets

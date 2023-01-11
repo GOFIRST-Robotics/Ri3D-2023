@@ -26,7 +26,9 @@ public class DriveInFrontOfTag extends CommandBase {
   private DRIVE_STATE driveState;
   private boolean done;
 
-  /** Creates a new DriveInFrontOfTag. */
+  // FIXME: This code has not been tested much and does NOT work how we want it to yet; use this code with caution
+
+  /** Uses fancy math to drive to an apriltag and actually face it head-on */
   public DriveInFrontOfTag(double targetDistanceInFrontOfTag) {
     m_driveSubsystem = Robot.m_driveSubsystem;
     m_visionSubsystem = Robot.m_visionSubsystem;
@@ -138,7 +140,6 @@ public class DriveInFrontOfTag extends CommandBase {
   public boolean isFinished() {
     return done;
   }
-
 
   enum DRIVE_STATE {
     ROTATING,

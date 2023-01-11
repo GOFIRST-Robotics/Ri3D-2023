@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    configureButtonBindings(); // Configure the button bindings
+    configureButtonBindings(); // Bind our commands to physical buttons on a controller
 
     // Add our Autonomous Routines to the chooser //
 		autonChooser.setDefaultOption("Default Auto", new AutonomousMode_Default());
@@ -75,13 +75,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Extender PID Control", toggleExtenderPID);
 
     m_driveSubsystem.setDefaultCommand(new DriveCommand());
-    //m_extenderSubsystem.setDefaultCommand(new ExtenderControlCommand());
+    //m_extenderSubsystem.setDefaultCommand(new ExtenderControlCommand()); // FIXME: Ideally this default command would work, but it doesn't as of now :(
 
     // Zero the gyro and reset encoders
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
-
-    //CameraServer.startAutomaticCapture(1);
   }
 
   /**
@@ -95,11 +93,11 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // and running subsystem periodic() methods. This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Extender Position", m_extenderSubsystem.getEncoderPosition());
-    SmartDashboard.putNumber("Gyro", m_driveSubsystem.getPitch() - 7);
+    SmartDashboard.putNumber("Gyroscope Pitch", m_driveSubsystem.getPitch());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -121,7 +119,6 @@ public class Robot extends TimedRobot {
     m_driveSubsystem.zeroGyro();
     m_driveSubsystem.resetEncoders();
     m_extenderSubsystem.resetEncoder();
-    
 
     // schedule the selected autonomous command
     if (m_autonomousCommand != null) {
@@ -147,7 +144,7 @@ public class Robot extends TimedRobot {
     m_driveSubsystem.zeroGyro();
     m_extenderSubsystem.resetEncoder();
     m_driveSubsystem.resetEncoders();
-    m_LEDSubsystem.setLEDMode(LEDMode.GREEN);
+    m_LEDSubsystem.setLEDMode(LEDMode.GREEN); // Green is the best color for tracking retroreflective tape
   }
 
   /** This function is called periodically during operator control. */
@@ -180,7 +177,7 @@ public class Robot extends TimedRobot {
     new POVButton(controller, 90).onTrue(new InstantCommand(() -> m_extenderSubsystem.incrementSetPoint()));
     new POVButton(controller, 0).onTrue(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4)));
     new POVButton(controller, 270).onTrue(new InstantCommand(() -> m_extenderSubsystem.decrementSetPoint()));
-
+    // Manual Extender Control //
     new Trigger(() -> controller.getRawButton(Constants.RIGHT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(Constants.EXTENDER_POWER), () -> m_extenderSubsystem.stop()));
     new Trigger(() -> controller.getRawButton(Constants.LEFT_TRIGGER_AXIS)).whileTrue(new StartEndCommand(() -> m_extenderSubsystem.setPower(-Constants.EXTENDER_POWER), () -> m_extenderSubsystem.stop()));
 

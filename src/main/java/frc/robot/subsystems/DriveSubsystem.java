@@ -7,8 +7,6 @@ import frc.robot.Constants;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -31,15 +29,15 @@ public class DriveSubsystem extends SubsystemBase {
   private Encoder leftDriveEncoder;
   private Encoder rightDriveEncoder;
 
+  // These objects help with fancy path following
   private DifferentialDriveOdometry odometry;
   private DifferentialDriveKinematics kinematics;
-  private DifferentialDriveWheelSpeeds wheelSpeeds;
 
-  private int direction = 1;
+  private int direction = 1; // This variable is here because we wanted to be able to flip which side of the robot is the 'front'
   
   private AHRS navx = new AHRS(SerialPort.Port.kUSB); // Instantiate a NavX Gyroscope
 
-  // Create a chooser for selecting the desired drive scale
+  // Create a chooser for selecting the desired drive speed scale
   SendableChooser<Double> driveScaleChooser = new SendableChooser<Double>();
   public double CURRENT_DRIVE_SCALE;
 
@@ -58,25 +56,16 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightRearMotor.setInverted(Constants.DRIVE_INVERT_RIGHT);
 
     // Instantiate the drivetrain encoders and set the distancePerPulse
-    leftDriveEncoder = new Encoder(2, 3);
-    rightDriveEncoder = new Encoder(0, 1, true);
+    leftDriveEncoder = new Encoder(Constants.LEFT_ENCODER_CHANNEL_A, Constants.LEFT_ENCODER_CHANNEL_B);
+    rightDriveEncoder = new Encoder(Constants.RIGHT_ENCODER_CHANNEL_A, Constants.RIGHT_ENCODER_CHANNEL_B, true);
     leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.LEFT_ENCODER_COUNTS_PER_REV);
     leftDriveEncoder.setDistancePerPulse(Constants.WHEEL_CIRCUMFERENCE / Constants.RIGHT_ENCODER_COUNTS_PER_REV);
 
     resetEncoders(); // Zero the encoders
 
-    odometry = new DifferentialDriveOdometry(
-      navx.getRotation2d(), 
-      leftDriveEncoder.getDistance(), 
-      rightDriveEncoder.getDistance()
-    );
+    // These objects help with fancy path following
+    odometry = new DifferentialDriveOdometry(navx.getRotation2d(), getLeftDistance(), getRightDistance());
     kinematics = new DifferentialDriveKinematics(Constants.TRACK_WIDTH);
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(
-      leftDriveEncoder.getRate(),
-      rightDriveEncoder.getRate(),
-      Math.toRadians(navx.getRate())
-    );
-    wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
 
     // Drive Scale Options //
     driveScaleChooser.addOption("100%", 1.0);
@@ -119,31 +108,15 @@ public class DriveSubsystem extends SubsystemBase {
     return navx.getAngle();
   }
 
-
-
   // Speed will be measured in meters/second
   public double getLeftSpeed() {
     return leftDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
-
   public double getRightSpeed() {
     return rightDriveEncoder.getRate() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
-
-  public double getLeftKinematicsSpeed() {
-    return wheelSpeeds.leftMetersPerSecond;
-  }
-
-  public double getRightKinematicsSpeed() {
-    return wheelSpeeds.rightMetersPerSecond;
-  }
-
-  public DifferentialDriveKinematics getKinematics() {
-    return kinematics;
-  }
-
   public double getAverageEncoderSpeed() {
-    return (getLeftSpeed() + getRightDistance()) / 2;
+    return (getLeftSpeed() + getRightSpeed()) / 2;
   }
 
   // Distance will be measured in meters
@@ -153,24 +126,16 @@ public class DriveSubsystem extends SubsystemBase {
   public double getRightDistance() {
     return rightDriveEncoder.getDistance() / 1000; // Multiply by 1000 to convert from millimeters to meters
   }
-
   public double getAverageEncoderDistance() {
     return (getLeftDistance() + getRightDistance()) / 2;
   }
 
-  public void resetOdometry() {
-    odometry.resetPosition(
-      navx.getRotation2d(), 
-      leftDriveEncoder.getDistance(), 
-      rightDriveEncoder.getDistance(),
-      new Pose2d()
-    );
-  }
-
-  public void resetEncoders() { // Zero the drivetrain encoders
+  // Zero the drivetrain encoders
+  public void resetEncoders() {
 		leftDriveEncoder.reset();
     rightDriveEncoder.reset();
 	}
+
   // These return values are measured in raw encoder counts
   public double getLeftRaw() {
     return leftDriveEncoder.get();
@@ -179,27 +144,38 @@ public class DriveSubsystem extends SubsystemBase {
     return rightDriveEncoder.get();
   }
 
+  public DifferentialDriveKinematics getKinematics() {
+    return kinematics;
+  }
+
+  public void updateOdometry() {
+    odometry.update(navx.getRotation2d(), getLeftDistance(), getRightDistance());
+  }
+
+  // Returns the current wheel speeds of the robot.
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getLeftSpeed(), getRightDistance());
+  }
+
+  // These methods allow us to flip which side is considered the "front" of the robot
   public void setDirection(DIRECTION direction) {
     this.direction = direction.direction;
   }
-
   public void toggleDirection() {
     this.direction *= -1;
   }
 
   @Override
   public void periodic() {
-    odometry.update(
-      navx.getRotation2d(), 
-      leftDriveEncoder.getDistance(), 
-      rightDriveEncoder.getDistance()
-    );
+    updateOdometry(); // Update our position on the field
 
     CURRENT_DRIVE_SCALE = driveScaleChooser.getSelected(); // Continously update the desired drive scale
+
     SmartDashboard.putNumber("Left Drive Encoder", leftDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
     SmartDashboard.putNumber("Right Drive Encoder", rightDriveEncoder.getRaw()); // Publish raw encoder data to Shuffleboard
   }
 
+  // Helps with flipping which side is considered the "front" of the robot
   enum DIRECTION {
     INTAKE_FRONT(1),
     EXTENDER_FRONT(-1);
@@ -209,6 +185,5 @@ public class DriveSubsystem extends SubsystemBase {
     DIRECTION(int direction) {
       this.direction = direction;
     }
-
   }
 }

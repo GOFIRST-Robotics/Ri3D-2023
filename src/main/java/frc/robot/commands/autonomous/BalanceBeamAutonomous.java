@@ -4,7 +4,7 @@
 package frc.robot.commands.autonomous;
 
 import frc.robot.commands.BalanceOnBeamCommand;
-import frc.robot.commands.TimedGyroDriveStraightCommand;
+import frc.robot.commands.DriveForDistanceCommand;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class BalanceBeamAutonomous extends SequentialCommandGroup {
   
   public BalanceBeamAutonomous () { // List commands here sequentially
-    addCommands(new TimedGyroDriveStraightCommand(1, .2));
+    addCommands(new DriveForDistanceCommand(1, .3)); // Drive onto the charging station
 
-    addCommands(new BalanceOnBeamCommand());
+    addCommands(new BalanceOnBeamCommand()); // Self-balance on the charging station using Gyroscope pitch as feedback
   }
 }
