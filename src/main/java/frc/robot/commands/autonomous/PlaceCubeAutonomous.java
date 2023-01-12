@@ -5,7 +5,7 @@ package frc.robot.commands.autonomous;
 
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
-import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.DriveToTrackedTargetCommand;
 import frc.robot.Robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -18,7 +18,7 @@ public class PlaceCubeAutonomous extends SequentialCommandGroup {
   private GrabberSubsystem m_grabberSubsystem = Robot.m_grabberSubsystem;
 
   public PlaceCubeAutonomous() { // List commands here sequentially
-    addCommands(new DriveToAprilTagCommand(0.5)); // find and drive to nearest aprilTag
+    addCommands(new DriveToTrackedTargetCommand(0.5)); // find and drive to nearest aprilTag
 
     addCommands(new InstantCommand(() -> m_extenderSubsystem.changeSetpoint(4))); // fully extend
 

@@ -11,7 +11,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class DriveInFrontOfTag extends CommandBase {
+public class DriveInFrontOfAprilTagCommand extends CommandBase {
 
   private DriveSubsystem m_driveSubsystem;
   private VisionSubsystem m_visionSubsystem;
@@ -28,27 +28,42 @@ public class DriveInFrontOfTag extends CommandBase {
 
   // FIXME: This code has not been tested much and does NOT work how we want it to yet; use this code with caution
 
-  /** Uses fancy math to drive to an apriltag and actually face it head-on */
-  public DriveInFrontOfTag(double targetDistanceInFrontOfTag) {
+  /** Uses fancy math with the extpected distance and z rotation of a visible
+   *  apriltag to determine a desired point right in front of the tag and drive
+   * there
+   * */
+  public DriveInFrontOfAprilTagCommand(double targetDistanceInFrontOfTag) {
     m_driveSubsystem = Robot.m_driveSubsystem;
     m_visionSubsystem = Robot.m_visionSubsystem;
     this.targetDistanceInFrontOfTag = targetDistanceInFrontOfTag;
     addRequirements(m_driveSubsystem, m_visionSubsystem);
+    
+    // Debug
     System.out.println("COMMAND INSTANTIATED");
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("COMMAND STARTING");
     driveState = DRIVE_STATE.ROTATING;
+    
+    // Debug
+    System.out.println("COMMAND STARTING");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Debug
     System.out.println("COMMAND LOOP");
+
+    // Will only run once after the vision subsystem has a target
     if (!foundTarget && m_visionSubsystem.getHasTarget()) {
+      // Big math section, which in short uses the 3d pose estimation and rotation data reported by photon vision about
+      // the apriltag in view, and takes the position of the robot being at the origin of a 2d graph facing along the y-axis
+      // and the april tag being the y interncept of a line that points along the direciton the tag faces. This finds the slope
+      // of that line, the coordinates of a point a specified distance from the y intercept along the path of the line using
+      // vector math, and determines the distance the robot needs to drive and rotation it has to turn to get there.
       Transform3d targetPose = m_visionSubsystem.getBestTarget().getBestCameraToTarget();
       tagDistance = targetPose.getTranslation().getX();
       double reportedTagZAngle = -Math.toDegrees(targetPose.getRotation().getZ());
@@ -57,6 +72,7 @@ public class DriveInFrontOfTag extends CommandBase {
       double equationSlope = -tagDistance / x2d; // Get the equaiton of the slope of the line through the april tag
       double targetX = targetDistanceInFrontOfTag * (1 / Math.sqrt(1 + equationSlope * equationSlope)); // get Y position by solving vector equation (1/sqrt is getting unit vector)
       double targetY = tagDistance + targetDistanceInFrontOfTag * (equationSlope / Math.sqrt(1 + equationSlope * equationSlope)); // get Y position
+      // Finding distance and rotation to drive in wouldn't be neccessary if we had trajectory command availible, but we didn't have that up and running due to sysid issues (the tool didn't work)
       distanceToDrive = Math.hypot(targetX, targetY); // Hypotenuse of target X and Y to find driving distance;
       double division = targetY / targetX;
       angleToDriveIn = 90 - Math.toDegrees(Math.atan(division));
@@ -64,6 +80,7 @@ public class DriveInFrontOfTag extends CommandBase {
       initialAngle = m_driveSubsystem.getAngle();
       foundTarget = true;
 
+      // Debug
       System.out.println("Tag Distance" + tagDistance);
       System.out.println("TagZAngle " + tagZAngle);
       System.out.println("x2d " + x2d);
@@ -79,7 +96,10 @@ public class DriveInFrontOfTag extends CommandBase {
    }
 
    if (foundTarget) {
+    // Debug
     System.out.println("FOUND TARGET");
+
+    // Quick state machine to get the robot to the desired points, bascially uses what as already written in other drive commands
     switch (driveState) {
       case ROTATING:
         System.out.println("COMMAND ROTATING");
@@ -96,6 +116,8 @@ public class DriveInFrontOfTag extends CommandBase {
         if (error < Constants.DRIVE_TURNING_THRESHOLD_DEGREES) {
           driveState = DRIVE_STATE.DRIVING;
         }
+
+        // Debug
         System.out.println(m_driveSubsystem.getAngle());
         System.out.println("error" + error);
         System.out.println("target" + angleToDriveIn);
@@ -116,6 +138,8 @@ public class DriveInFrontOfTag extends CommandBase {
         if (error < 0.1) {
           done = true;
         }
+
+        // Debug
         System.out.println("ERROR " + error);
         System.out.println("INITIAL DISTANCE: " + initialDistance);
         System.out.println("GOAL DISTANCE: " + (distanceToDrive + initialDistance));
@@ -131,8 +155,9 @@ public class DriveInFrontOfTag extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("COMMAND ENDED");
     m_driveSubsystem.stop();
+
+    System.out.println("COMMAND ENDED");
   }
 
   // Returns true when the command should end.

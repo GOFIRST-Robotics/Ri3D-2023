@@ -10,7 +10,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // This command is used to turn the robot to face an AprilTag, using the VisionSubsystem to detect the AprilTag
-public class TurnToAprilTagCommand extends CommandBase {
+public class TurnToTrackedTargetCommand extends CommandBase {
 
   DriveSubsystem m_DriveSubsystem; // drive system
   VisionSubsystem m_VisionSubsystem; // vision system
@@ -18,8 +18,10 @@ public class TurnToAprilTagCommand extends CommandBase {
   double kp; // scaling ratio for robot movement
   double error; // amount of error our robot detects that it tries to correct for, relative to the position of the AprilTag
 
-  /** Turns the robot using the gyro only for following an April Tag (tracked target from VisionSubsystem) */
-  public TurnToAprilTagCommand() {
+  /** Turns the robot using the gyro only for following a tracked target from photon vision in VisionSubsystem, can be used with 
+   * either apriltags or retroreflective tape
+   */
+  public TurnToTrackedTargetCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     m_DriveSubsystem = Robot.m_driveSubsystem; // define drive and vision system
     m_VisionSubsystem = Robot.m_visionSubsystem;
