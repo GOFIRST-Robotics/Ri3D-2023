@@ -13,7 +13,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 // This command rotates the robot to the best (nearest) field april tag
-public class DriveToAprilTagCommand extends CommandBase {
+public class DriveToTrackedTargetCommand extends CommandBase {
 
   private DriveSubsystem m_drivetrainSubsystem;
   private VisionSubsystem m_visionSubsystem;
@@ -25,8 +25,10 @@ public class DriveToAprilTagCommand extends CommandBase {
   boolean usingArea;
   double translationalError;
 
-  /** Rotates the robot and drives to the best (nearest) field april tag*/
-  public DriveToAprilTagCommand(double distanceToTarget) {
+  /** Rotates the robot and drives to the best (nearest) tracked target, can be used for either 
+   * april tags or retroreflective tape tracked by photonvision
+  */
+  public DriveToTrackedTargetCommand(double distanceToTarget) {
     m_drivetrainSubsystem = Robot.m_driveSubsystem;
     m_visionSubsystem = Robot.m_visionSubsystem;
     desiredDistanceToTarget = distanceToTarget;
@@ -34,7 +36,7 @@ public class DriveToAprilTagCommand extends CommandBase {
   }
 
   /** Rotates the robot and drives to a specific april tag*/
-  public DriveToAprilTagCommand(double distanceToTarget, int targetTagID) {
+  public DriveToTrackedTargetCommand(double distanceToTarget, int targetTagID) {
     this(distanceToTarget);
     this.targetTagID = targetTagID; 
   }
@@ -42,7 +44,7 @@ public class DriveToAprilTagCommand extends CommandBase {
   /** Rotates the robot and drives to the best (nearest) target, but instead of specifying distance
    * only specift target area.
   */
-  public DriveToAprilTagCommand(double targetArea, boolean usingArea) {
+  public DriveToTrackedTargetCommand(double targetArea, boolean usingArea) {
     this(targetArea);
     this.usingArea = usingArea;
   }
@@ -54,7 +56,7 @@ public class DriveToAprilTagCommand extends CommandBase {
    * @param targetTagID
    * @param usingArea
    */
-  public DriveToAprilTagCommand(double targetArea, int targetTagID, boolean usingArea) {
+  public DriveToTrackedTargetCommand(double targetArea, int targetTagID, boolean usingArea) {
     this(targetArea, targetTagID);
     this.usingArea = usingArea;
   }

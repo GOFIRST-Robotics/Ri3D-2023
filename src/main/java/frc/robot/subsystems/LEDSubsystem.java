@@ -20,6 +20,7 @@ public class LEDSubsystem extends SubsystemBase {
   public void setLEDMode(LEDMode ledMode) { // Set a specific LED mode (these modes are presets declared in the enumerator below)
     ledPWMController.set(ledMode.pwmSignal);
   }
+  
   public void setLEDPWM(double PWM) { // Set the raw PWM signal
     ledPWMController.set(PWM);
   }

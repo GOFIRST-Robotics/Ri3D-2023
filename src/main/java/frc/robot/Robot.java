@@ -21,7 +21,7 @@ import frc.robot.commands.autonomous.PlaceCubeAutonomous;
 import frc.robot.commands.autonomous.AutonomousMode_Default;
 import frc.robot.commands.autonomous.SquareAutonomous;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveToAprilTagCommand;
+import frc.robot.commands.DriveToTrackedTargetCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExtenderSubsystem;
 import frc.robot.subsystems.GrabberSubsystem;
@@ -184,6 +184,6 @@ public class Robot extends TimedRobot {
     // Drivetrain Controls //
     new Trigger(() -> controller.getRawButton(Constants.Y_BUTTON)).onTrue(new InstantCommand(() -> m_driveSubsystem.toggleDirection()));
     new Trigger(() -> controller.getRawButton(Constants.X_BUTTON)).whileTrue(new BalanceOnBeamCommand());
-    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveToAprilTagCommand(2, true));
+    new Trigger(() -> controller.getRawButton(Constants.B_BUTTON)).whileTrue(new DriveToTrackedTargetCommand(2, true));
   }
 }

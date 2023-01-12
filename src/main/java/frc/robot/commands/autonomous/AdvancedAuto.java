@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.DriveForDistanceCommand;
-import frc.robot.commands.DriveInFrontOfTag;
+import frc.robot.commands.DriveInFrontOfAprilTagCommand;
 import frc.robot.commands.ExtenderControlCommand;
 import frc.robot.commands.GyroTurnToAngleCommand;
 
@@ -19,7 +19,7 @@ public class AdvancedAuto extends SequentialCommandGroup {
    * Score the preloaded cube, then pick up another cube and score it, then drive onto the charging station and self-balance
    */
   public AdvancedAuto() {
-    addCommands(new DriveInFrontOfTag(0.5)); // Drive to tag
+    addCommands(new DriveInFrontOfAprilTagCommand(0.5)); // Drive to tag
     addCommands(new ExtenderControlCommand()); // Bring arm up
     addCommands(new InstantCommand(() -> Robot.m_grabberSubsystem.retract())); // Release the preloaded cube
     addCommands(new DriveForDistanceCommand(-0.4, 0.7)); // Backup to turn
@@ -33,7 +33,7 @@ public class AdvancedAuto extends SequentialCommandGroup {
     addCommands(new GyroTurnToAngleCommand(-90));
     addCommands(new DriveForDistanceCommand(0.2, 0.5));
     addCommands(new GyroTurnToAngleCommand(-90));
-    addCommands(new DriveInFrontOfTag(0.5));
+    addCommands(new DriveInFrontOfAprilTagCommand(0.5));
     addCommands(new ExtenderControlCommand());
     addCommands(new InstantCommand(() -> Robot.m_grabberSubsystem.retract())); // Release a cube
     addCommands(new DriveForDistanceCommand(-0.4, 0.7)); // Backup to turn
