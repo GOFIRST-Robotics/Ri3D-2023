@@ -11,8 +11,8 @@ Official code from UMN Robotics for the 2023 Ri3D/FRC season!
 [![Env](Gifs/RI3D.gif)](https://youtu.be/eQZTAWonZkg)
 
 How to get set up for FRC programming:
-1) Install the 2023 release of WPILib [here](https://github.com/wpilibsuite/allwpilib/releases)
-2) Install the 2023 NI FRC Game Tools [here](https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#473762)
+1) Install the latest release of WPILib [here](https://github.com/wpilibsuite/allwpilib/releases)
+2) Install the latest NI FRC Game Tools [here](https://www.ni.com/en-us/support/downloads/drivers/download.frc-game-tools.html#473762)
 3) Use this open-source repository as a template for your code if you'd like :)
 
 Our project is created using the "Timed Robot" template/style with our code being written in Java.
